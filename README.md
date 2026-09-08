@@ -1,123 +1,127 @@
-# Carbon Cycle Demo
+# Carbon Beyond the Bathtub
 
-**An interactive conceptual stock–flow view of carbon moving through the Earth system.**
+**Interactive System Dynamics demo of atmospheric CO₂ as a stock embedded in a much larger carbon system.**
 
 | | |
 |---|---|
-| **Project type** | Interactive systems demo · carbon cycle · Earth systems |
+| **Project type** | Interactive systems demo · carbon cycle · stock–flow learning game |
 | **Role** | Creator and model designer |
-| **Status** | Exploratory conceptual prototype |
-| **Model type** | Stock–flow communication model; not calibrated |
-| **Public disclosure** | Conceptual structure and published global context only |
-
----
+| **Status** | Public conceptual prototype |
+| **Model type** | Historical reference replay + simplified what-if stock–flow sandbox |
+| **Public disclosure** | Published scientific context only; no private data or hidden model parameters |
 
 ## Purpose
 
-This project explores how climate change and carbon can be understood as a **connected stock-and-flow system** rather than only as an atmospheric CO₂ concentration.
+The familiar carbon **bathtub analogy** treats atmospheric CO₂ as the water level, anthropogenic emissions as the tap, and removals as the drain. That framing is useful, but it can hide an important systems point: the atmosphere is only one stock inside a much larger network of carbon reservoirs, and fossil extraction transfers carbon from a very large, slow geological stock into the much faster atmosphere–land–ocean system.
 
-The demo organizes the Earth carbon system around major reservoirs and the processes that move carbon among them. It is designed to communicate structure: **where carbon is stored, how it moves, which transfers are rapid, and where human activity changes flows**.
+This demo therefore places a large upstream fossil-carbon resource tank next to the atmospheric bathtub. Users can move through time, watch atmospheric CO₂ rise, and see that a relatively small transfer from the geological resource frame can generate a large change in the atmospheric stock.
 
-## Current scientific context
+## The “about 2%” calculation
 
-The public demo now includes a small context layer based on the **Global Carbon Budget 2025**. These values are provided as published global context and are **not model calibration parameters**.
+The percentage is meaningful only when its denominator is stated.
 
-Selected 2025 Global Carbon Budget figures:
+### IPCC AR6 benchmark through 2019
 
-- projected fossil CO₂ emissions: **38.1 GtCO₂**
-- projected land-use-change CO₂ emissions: **4.1 GtCO₂**
-- projected total anthropogenic CO₂ emissions: **42.2 GtCO₂**
-- projected atmospheric CO₂ concentration: **425.7 ppm**
-- over the 2015–2024 decade, the **land sink absorbed about 21%** and the **ocean sink about 29%** of anthropogenic CO₂ emissions
+IPCC AR6 Working Group I Chapter 5 reports:
 
-Source: Global Carbon Project, *Global Carbon Budget 2025* — https://globalcarbonbudget.org/gcb-2025/
+- cumulative fossil-fuel and industry CO₂ emissions, 1750–2019: **445 ± 20 PgC**
+- fossil-fuel resources:
+  - coal: **11,490 PgC**
+  - oil: **6,780 PgC**
+  - natural gas: **365 PgC**
+  - total: **18,635 PgC**
 
-These numbers help illustrate why a stock–flow framing matters: roughly half of anthropogenic CO₂ has recently been taken up by land and ocean sinks, while the remainder contributes to atmospheric accumulation.
+So, for that specific comparison:
+
+**445 / 18,635 = 2.39%**
+
+This does **not** mean that humanity has used only 2% of “all carbon,” nor that the remaining 98% is economically recoverable or climate-safe to burn. The denominator is IPCC’s fossil-fuel **resource** estimate, which is different from proved reserves and from a remaining carbon budget compatible with a temperature target.
+
+### Updated Global Carbon Budget context
+
+The **Global Carbon Budget 2025** reports cumulative fossil CO₂ emissions of about **495 ± 25 GtC for 1850–2024** and projects about **10.4 GtC** of fossil CO₂ emissions for 2025. Compared with the older IPCC resource denominator, an updated illustrative fraction is therefore:
+
+**(495 + 10.4) / 18,635 ≈ 2.71%**
+
+The website displays both numbers so the historical calculation remains traceable while the user can see how the fraction changes through time.
+
+## Current atmospheric reference
+
+The demo currently uses **427.89 ppm** as the latest global atmospheric CO₂ trend reference, reported by NOAA Global Monitoring Laboratory for **September 7, 2026**.
+
+The Global Carbon Budget 2025 reports:
+
+- atmospheric CO₂ in 2024: **422.80 ± 0.1 ppm**
+- atmospheric carbon stock in 2024: **898 GtC**
+- cumulative anthropogenic CO₂ emissions, 1850–2024: **745 ± 65 GtC**
+- cumulative fossil CO₂ emissions, 1850–2024: **495 ± 25 GtC**
+- over 2015–2024, approximately **50%** of total anthropogenic CO₂ emissions accumulated in the atmosphere, while **29%** was absorbed by the ocean and **21%** by land
+
+## What the interactive game does
+
+### Historical mode
+
+The time slider moves from **1750 to 2026** and updates:
+
+- atmospheric CO₂ concentration
+- the bathtub water level
+- the upstream fossil-resource gauge
+- the cumulative fossil-carbon transfer represented in the resource comparison
+- the position on the CO₂ time-series graph
+
+Atmospheric CO₂ uses published historical/reference anchors. The fossil-resource gauge interpolates between published cumulative-emissions benchmarks; it is a communication device, not a reconstruction of every annual emissions value.
+
+### What-if mode
+
+The future sandbox runs from **2026 to 2100** and lets the user change:
+
+- fossil + land-use inflow
+- the share taken up by land and ocean
+- additional durable carbon dioxide removal (CDR)
+
+The simplified stock equation is conceptually:
+
+**change in atmospheric stock = anthropogenic inflow − natural uptake − durable removal**
+
+The demo converts the resulting net carbon flow to an illustrative ppm rate using approximately **2.12 GtC per ppm**.
+
+This is deliberately a learning model. It does not simulate carbon-cycle feedbacks, changing sink efficiency, ocean chemistry, temperature response, non-CO₂ forcing, or socioeconomic dynamics.
+
+## Core System Dynamics insight
+
+Reducing emissions does not automatically make atmospheric CO₂ decline.
+
+- If inflow > removals, atmospheric CO₂ rises.
+- If inflow ≈ removals, atmospheric CO₂ stabilizes.
+- If removals > inflow, atmospheric CO₂ declines.
+
+The important leverage point is the **transfer rate** from slow geological storage into the fast surface carbon cycle—not whether the upstream geological stock is close to being exhausted.
 
 ## Major conceptual stocks
 
-### Atmosphere
+- Atmosphere
+- Ocean
+- Terrestrial biomass
+- Soils
+- Geological / fossil carbon
 
-Carbon present in atmospheric gases, particularly CO₂, connected rapidly to land and ocean exchange and directly affected by fossil-fuel combustion and land-use change.
-
-### Ocean
-
-Surface and deep-ocean carbon linked through air–sea exchange, circulation, biological processes, sinking material, and sedimentation.
-
-### Terrestrial biomass
-
-Carbon stored in vegetation and living ecosystems, connected to the atmosphere by photosynthesis and respiration and to soils through litter and decay.
-
-### Soils
-
-Organic carbon accumulated in soils and decomposing matter, affected by decomposition, disturbance, erosion, and stabilization.
-
-### Geological / fossil carbon
-
-Long-lived carbon in fossil resources, rocks, and sediments. Human extraction and combustion create a very rapid transfer from a geologically slow reservoir to the atmosphere.
-
-## Major flows represented
-
-- photosynthesis
-- plant respiration
-- decomposition
-- air–sea CO₂ exchange
-- ocean circulation
-- biological pump
-- fossil-fuel extraction and combustion
-- land-use change
-- litter transfer to soils
-- erosion / aquatic transport
-- sedimentation and burial
-- weathering
-- geological release
-
-## Why System Dynamics
-
-The carbon cycle is fundamentally a stock–flow system. Emissions are **flows**; atmospheric CO₂ is an **accumulated stock outcome**. A reduction in emissions therefore changes the rate of accumulation, while actual atmospheric decline depends on the balance among emissions and removal flows.
-
-The same logic applies across reservoirs: ocean uptake, land uptake, biological cycling, and geological transfers operate on different timescales and respond differently to changing conditions.
-
-## What the interactive demo does
-
-Visitors can select a major reservoir and inspect:
-
-- its role in the system
-- major incoming and outgoing flows
-- rapid human-driven transfers
-- slower natural pathways
-- connections to other stocks
-
-The interface highlights fossil-fuel combustion and land-use change as human-driven transfers without pretending that the current visualization is a full Earth-system simulator.
-
-## Research direction
-
-Potential future development includes:
-
-- published reservoir-size estimates
-- consistent GtC / GtCO₂ unit conversion
-- historical anthropogenic emissions
-- land and ocean sink time series
-- methane oxidation and carbon-form transitions
-- temperature–sink feedbacks
-- uncertainty ranges
-- calibrated stock–flow simulation
-- scenario comparison
-
-Any future quantitative version should clearly separate observed data, literature estimates, calibrated parameters, and scenario assumptions.
+The original clickable reservoir explorer is preserved below the game so the demo still communicates the wider network of stocks and flows.
 
 ## Scientific sources
 
-- Global Carbon Project — Global Carbon Budget 2025: https://globalcarbonbudget.org/gcb-2025/
-- Global Carbon Budget Data Hub: https://globalcarbonbudget.org/datahub/
+- IPCC AR6 Working Group I, Chapter 5, especially Figure 5.12 and Table 5.1: https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-5/
+- Global Carbon Budget 2025, Friedlingstein et al. (2026), *Earth System Science Data*: https://essd.copernicus.org/articles/18/3211/2026/
+- Global Carbon Project data hub: https://globalcarbonbudget.org/datahub/the-latest-gcb-data-2025/
+- NOAA Global Monitoring Laboratory CO₂ trends: https://gml.noaa.gov/ccgg/trends/
+- NOAA global CO₂ trend: https://gml.noaa.gov/ccgg/trends/gl_trend.html
 
 ## Interpretation boundary
 
-This public version is **conceptual and educational**. It does not make quantitative climate forecasts, estimate future warming, or claim that the displayed system is a calibrated representation of the full Earth carbon cycle.
+This public version is conceptual and educational. It does not make quantitative climate forecasts, estimate future warming, or claim to reproduce the full Earth carbon cycle. The future sandbox uses transparent, simplified assumptions to teach stock–flow logic.
 
 ## Public/private boundary
 
-No credentials, unpublished research datasets, private notes, or hidden model parameters are embedded in this demo. Quantitative context is limited to explicitly published scientific figures and clearly labeled as external reference data rather than model calibration.
+No credentials, private datasets, unpublished notes, proprietary parameters, or hidden research materials are embedded in this demo.
 
 ## Author
 
