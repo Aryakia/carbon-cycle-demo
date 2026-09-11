@@ -3,628 +3,80 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Carbon Beyond the Bathtub — an interactive System Dynamics game by Arya Kia showing atmospheric CO₂ as a stock connected to a much larger fossil-carbon resource frame.">
-<meta name="theme-color" content="#07110f">
+<meta name="description" content="Carbon Beyond the Bathtub — an interactive System Dynamics learning game by Arya Kia showing atmospheric CO₂ as a stock embedded in a connected carbon system.">
+<meta name="theme-color" content="#06100d">
 <title>Carbon Beyond the Bathtub — Arya Kia</title>
 <style>
-:root{
-  --bg:#06100d;--panel:#0b1915;--panel2:#10231d;--panel3:#132a23;
-  --text:#eff9f4;--muted:#9eb5ac;--line:#24463a;--line2:#315c4d;
-  --green:#7fe0aa;--green2:#54c58a;--blue:#79c7ff;--blue2:#3d8dd2;
-  --orange:#f0a35d;--amber:#ffd18a;--red:#ff8d7e;
-  --shadow:0 24px 70px rgba(0,0,0,.34);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;color:var(--text);background:
-  radial-gradient(circle at 82% -10%,rgba(73,153,118,.24),transparent 32rem),
-  radial-gradient(circle at -5% 35%,rgba(49,112,154,.15),transparent 28rem),
-  var(--bg);
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  line-height:1.55;
-}
-a{color:var(--blue)}
-button,input{font:inherit}
-button{color:inherit}
-.wrap{width:min(1240px,calc(100% - 36px));margin:auto}
-.topbar{
-  position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(49,92,77,.62);
-  background:rgba(6,16,13,.82);backdrop-filter:blur(16px);
-}
-.topbar .wrap{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:850}
-.brand-mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(145deg,var(--green),var(--blue));box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
-.brand span small{display:block;color:var(--muted);font-size:.68rem;font-weight:600;letter-spacing:.04em}
-.nav{display:flex;gap:8px;align-items:center}
-.nav a{font-size:.84rem;color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:999px}
-.nav a:hover{background:var(--panel2);color:var(--text)}
-.hero{padding:72px 0 34px}
-.kicker,.label{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:850}
-.kicker{color:var(--green)}
-.label{color:var(--blue)}
-h1{font-size:clamp(3rem,7vw,6.2rem);line-height:.92;letter-spacing:-.045em;margin:.55rem 0 1.1rem;max-width:1080px}
-h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.05;letter-spacing:-.025em;margin:.35rem 0 .8rem}
-h3{margin:.2rem 0 .5rem}
-p{margin:.55rem 0}
-.hero p{color:var(--muted);max-width:920px;font-size:1.08rem}
-.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
-.btn{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:10px 15px;cursor:pointer;text-decoration:none;transition:.18s ease;display:inline-flex;align-items:center;gap:7px}
-.btn:hover{transform:translateY(-1px);border-color:var(--line2)}
-.btn.primary{background:var(--green);color:#06100d;border-color:var(--green);font-weight:850}
-.btn.ghost{background:transparent}
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:30px}
-.metric{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));border-radius:16px;padding:16px;box-shadow:0 12px 28px rgba(0,0,0,.13)}
-.metric b{display:block;color:var(--green);font-size:1.35rem;line-height:1.15}
-.metric span{display:block;color:var(--muted);font-size:.78rem;margin-top:6px}
-.section{padding:38px 0 72px}
-.game-shell{border:1px solid var(--line);background:rgba(11,25,21,.95);border-radius:26px;padding:22px;box-shadow:var(--shadow);overflow:hidden}
-.game-head{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.game-head p{color:var(--muted);max-width:760px;margin:.35rem 0 0}
-.mode-switch{display:flex;background:#071510;border:1px solid var(--line);padding:4px;border-radius:999px}
-.mode-switch button{border:0;background:transparent;border-radius:999px;padding:9px 13px;color:var(--muted);cursor:pointer}
-.mode-switch button.active{background:#183a2e;color:var(--text);box-shadow:inset 0 0 0 1px rgba(127,224,170,.16)}
-.timeline{margin-top:18px;border:1px solid var(--line);background:#081713;border-radius:18px;padding:14px}
-.timeline-top{display:flex;justify-content:space-between;gap:12px;align-items:center}
-.timeline-top strong{font-size:1.05rem}
-.timeline-top span{color:var(--muted);font-size:.8rem}
-.time-controls{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;margin-top:10px}
-.time-controls input{width:100%;accent-color:var(--green)}
-.year-chip{min-width:72px;text-align:center;border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:8px 10px;font-weight:850}
-.milestones{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
-.milestones button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:6px 9px;font-size:.72rem;cursor:pointer}
-.milestones button:hover{color:var(--text);border-color:var(--line2)}
-.game-grid{display:grid;grid-template-columns:.86fr 1.32fr .92fr;gap:16px;margin-top:16px;align-items:stretch}
-.card{border:1px solid var(--line);background:linear-gradient(180deg,#0e211b,#091612);border-radius:20px;padding:18px;position:relative;overflow:hidden}
-.card-title{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.card-title small{color:var(--muted);font-size:.72rem;text-align:right}
-.tank{height:328px;border:2px solid #49655b;border-top:7px solid #617a71;border-radius:22px 22px 13px 13px;position:relative;overflow:hidden;background:rgba(255,255,255,.025);margin-top:15px}
-.tank-liquid{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,#c88645,#7a4a28);transition:height .35s ease;min-height:5px}
-.tank-liquid:before{content:"";position:absolute;left:0;right:0;top:-7px;height:14px;border-radius:50%;background:rgba(255,255,255,.2)}
-.tank-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;pointer-events:none;text-shadow:0 2px 12px rgba(0,0,0,.6)}
-.tank-overlay b{display:block;font-size:1.35rem}
-.tank-overlay span{display:block;color:#e7efe9;font-size:.8rem;margin-top:5px}
-.transfer{margin-top:14px}
-.pipe{height:25px;border-radius:999px;background:#263f36;position:relative;overflow:visible}
-.pipe-flow{position:absolute;inset:5px 6px;border-radius:999px;background:linear-gradient(90deg,var(--orange),#ffd08f);transform-origin:left;transition:transform .25s ease}
-.valve{position:absolute;left:50%;top:50%;width:34px;height:34px;border:4px solid #a9bab4;border-radius:50%;transform:translate(-50%,-50%);background:#0b1714}
-.valve:before{content:"";position:absolute;left:50%;top:50%;width:42px;height:4px;background:#a9bab4;transform:translate(-50%,-50%) rotate(30deg)}
-.scale-note{color:var(--muted);font-size:.77rem;margin-top:12px}
-.bath-card{display:grid;grid-template-rows:auto auto 1fr auto;min-height:590px}
-.bathroom{min-height:330px;display:flex;align-items:end;justify-content:center;position:relative}
-.tub{width:min(95%,530px);height:270px;border:7px solid #bdd0c8;border-top-width:9px;border-radius:12px 12px 48px 48px;background:#071310;position:relative;overflow:hidden;box-shadow:inset 0 0 0 2px rgba(255,255,255,.04)}
-.water{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,#75c8ff,#377ec7);transition:height .34s ease;min-height:2px}
-.water:before{content:"";position:absolute;left:-4%;right:-4%;top:-10px;height:18px;border-radius:50%;background:rgba(255,255,255,.22)}
-.ppm{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;text-shadow:0 2px 13px rgba(0,0,0,.5)}
-.ppm b{font-size:clamp(2.7rem,6vw,4.8rem);line-height:.95;letter-spacing:-.05em}
-.ppm span{font-size:.8rem;color:#dfece7;margin-top:8px}
-.level-line{position:absolute;left:10px;right:10px;border-top:1px dashed rgba(255,255,255,.28);color:#d8e8e1;font-size:.66rem;padding-top:3px}
-.level-line.pre{bottom:3%}
-.level-line.target{bottom:72%}
-.faucet{position:absolute;top:2px;left:11%;width:108px;height:70px;border:10px solid #a4b8b0;border-left:0;border-bottom:0;border-radius:0 25px 0 0}
-.stream{position:absolute;top:68px;left:calc(11% + 89px);width:10px;height:122px;background:linear-gradient(var(--orange),rgba(240,163,93,.08));border-radius:10px;transform-origin:top;transition:transform .22s ease}
-.drain{position:absolute;bottom:4px;right:14%;width:9px;height:70px;background:linear-gradient(var(--blue),rgba(121,199,255,.05));border-radius:9px;transform-origin:top;transition:transform .22s ease}
-.graph{border:1px solid var(--line);background:#071410;border-radius:15px;padding:9px;margin-top:10px}
-.graph svg{display:block;width:100%;height:180px}
-.axis{fill:#87a49a;font-size:10px}
-.graph-line{fill:none;stroke:var(--blue);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-.graph-area{fill:url(#areaGrad)}
-.graph-dot{fill:#fff;stroke:var(--blue);stroke-width:3}
-.graph-target{stroke:var(--green);stroke-width:1.2;stroke-dasharray:5 5;opacity:.55}
-.legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:.72rem;margin:5px 2px 0}
-.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
-.controls{display:grid;gap:13px;margin-top:10px}
-.control{border-top:1px solid var(--line);padding-top:12px}
-.control:first-child{border-top:0;padding-top:0}
-.control-head{display:flex;justify-content:space-between;gap:10px}
-.control-head span{color:var(--muted)}
-.control input{width:100%;accent-color:var(--green)}
-.control input:disabled{opacity:.35}
-.mission{border:1px solid #405846;background:#101b14;border-radius:15px;padding:13px;margin-top:14px}
-.mission-top{display:flex;justify-content:space-between;gap:12px;align-items:center}
-.mission-status{border-radius:999px;padding:5px 8px;font-size:.7rem;font-weight:850;background:#2b2213;color:var(--amber)}
-.mission-status.good{background:#123323;color:var(--green)}
-.score-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
-.score-box{border:1px solid var(--line);background:#081612;border-radius:13px;padding:10px}
-.score-box b{display:block;font-size:1.15rem}
-.score-box span{color:var(--muted);font-size:.7rem}
-.message{border:1px solid var(--line);background:#0b1714;border-radius:13px;padding:11px;color:var(--muted);font-size:.79rem;margin-top:11px;min-height:72px}
-.insight{margin-top:16px;border-left:4px solid var(--green);background:#0a1914;border-radius:12px;padding:13px 15px;color:#d9e8e2}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.equation,.note-card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));border-radius:18px;padding:20px}
-.formula{font-size:clamp(1.35rem,3vw,2.15rem);font-weight:900;letter-spacing:-.03em;margin:10px 0}
-.formula strong{color:var(--green)}
-.warning{border:1px solid #5b4c2d;background:#1a170f;color:#dcd0b8;border-radius:16px;padding:16px;margin-top:15px}
-.stocks{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-.stock{appearance:none;text-align:left;border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),#091612);color:var(--text);border-radius:16px;padding:16px;min-height:140px;cursor:pointer;transition:.18s ease}
-.stock:hover,.stock.active{transform:translateY(-2px);border-color:var(--green);box-shadow:0 13px 30px rgba(0,0,0,.22)}
-.stock small{display:block;color:var(--green);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;font-weight:850}
-.stock strong{display:block;margin:.3rem 0}
-.stock span{color:var(--muted);font-size:.78rem}
-.explorer{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:16px}
-.map,.detail{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:20px}
-.node-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,104px);gap:10px}
-.node{border:1px solid var(--line);background:#091612;border-radius:13px;padding:12px;display:flex;flex-direction:column;justify-content:center;color:var(--muted)}
-.node b{color:var(--text)}
-.node.selected{border-color:var(--green);background:#11291f}
-.arrow{display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:1.4rem;font-weight:850}
-.flowlist{display:grid;gap:9px}
-.flow{border-left:3px solid var(--blue);background:#0b1814;border-radius:8px;padding:9px 11px;color:var(--muted)}
-.flow.hot{border-left-color:var(--orange)}
-.sources{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.source-link{display:block;border-top:1px solid var(--line);padding:11px 0;text-decoration:none;color:var(--muted)}
-.source-link:hover{color:var(--text)}
-.boundary{border:1px solid var(--line);background:rgba(16,35,29,.82);border-radius:20px;padding:23px}
-.footer{border-top:1px solid var(--line);padding:28px 0 44px;color:#7e988f;font-size:.86rem}
-.footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.hide{display:none!important}
-@media(max-width:1080px){
-  .game-grid{grid-template-columns:1fr 1.25fr}.controls-card{grid-column:1/-1}
-  .metrics{grid-template-columns:repeat(2,1fr)}.stocks{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:780px){
-  .nav{display:none}.hero{padding-top:52px}.wrap{width:min(100% - 24px,1240px)}
-  .game-grid,.grid2,.explorer,.sources{grid-template-columns:1fr}
-  .metrics,.stocks{grid-template-columns:1fr}.time-controls{grid-template-columns:1fr}
-  .year-chip{justify-self:start}.tank{height:245px}.bathroom{min-height:315px}
-  .node-grid{grid-template-columns:1fr;grid-template-rows:auto}.arrow{transform:rotate(90deg)}
-}
+:root{--bg:#06100d;--panel:#0b1915;--panel2:#10231d;--panel3:#142c24;--text:#eff9f4;--muted:#9eb5ac;--line:#24463a;--line2:#376353;--green:#7fe0aa;--green2:#53c58a;--blue:#79c7ff;--blue2:#3d8dd2;--orange:#f0a35d;--amber:#ffd18a;--red:#ff8d7e;--shadow:0 24px 70px rgba(0,0,0,.34)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);background:radial-gradient(circle at 82% -10%,rgba(73,153,118,.24),transparent 32rem),radial-gradient(circle at -5% 35%,rgba(49,112,154,.15),transparent 28rem),var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}a{color:var(--blue)}button,input{font:inherit}button{color:inherit}.wrap{width:min(1280px,calc(100% - 36px));margin:auto}.topbar{position:sticky;top:0;z-index:70;border-bottom:1px solid rgba(49,92,77,.62);background:rgba(6,16,13,.84);backdrop-filter:blur(18px)}.topbar .wrap{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:850}.brand-mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(145deg,var(--green),var(--blue));box-shadow:inset 0 0 0 1px rgba(255,255,255,.25),0 10px 28px rgba(60,180,130,.16)}.brand span small{display:block;color:var(--muted);font-size:.68rem;font-weight:600;letter-spacing:.04em}.nav{display:flex;gap:7px;align-items:center}.nav a,.presenter-toggle{font-size:.82rem;color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:999px;border:0;background:transparent;cursor:pointer}.nav a:hover,.presenter-toggle:hover{background:var(--panel2);color:var(--text)}.presenter-toggle{border:1px solid var(--line);color:var(--text)}.hero{padding:70px 0 32px}.kicker,.label{font-size:.73rem;letter-spacing:.14em;text-transform:uppercase;font-weight:850}.kicker{color:var(--green)}.label{color:var(--blue)}h1{font-size:clamp(3rem,7vw,6.25rem);line-height:.92;letter-spacing:-.047em;margin:.55rem 0 1.05rem;max-width:1080px}h2{font-size:clamp(1.75rem,4vw,2.9rem);line-height:1.05;letter-spacing:-.025em;margin:.35rem 0 .8rem}h3{margin:.2rem 0 .5rem}p{margin:.55rem 0}.hero p{color:var(--muted);max-width:930px;font-size:1.08rem}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:23px}.btn{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:10px 15px;cursor:pointer;text-decoration:none;transition:.18s ease;display:inline-flex;align-items:center;gap:7px}.btn:hover{transform:translateY(-1px);border-color:var(--line2)}.btn.primary{background:var(--green);color:#06100d;border-color:var(--green);font-weight:850}.btn.ghost{background:transparent}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:28px}.metric{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));border-radius:16px;padding:16px;box-shadow:0 12px 28px rgba(0,0,0,.13)}.metric b{display:block;color:var(--green);font-size:1.35rem;line-height:1.15}.metric span{display:block;color:var(--muted);font-size:.78rem;margin-top:6px}.section{padding:36px 0 70px}.game-shell{border:1px solid var(--line);background:rgba(11,25,21,.96);border-radius:27px;padding:22px;box-shadow:var(--shadow);overflow:hidden}.game-head{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap}.game-head p{color:var(--muted);max-width:790px;margin:.35rem 0 0}.mode-switch{display:flex;background:#071510;border:1px solid var(--line);padding:4px;border-radius:999px}.mode-switch button{border:0;background:transparent;border-radius:999px;padding:9px 13px;color:var(--muted);cursor:pointer}.mode-switch button.active{background:#183a2e;color:var(--text);box-shadow:inset 0 0 0 1px rgba(127,224,170,.16)}.timeline{margin-top:17px;border:1px solid var(--line);background:#081713;border-radius:18px;padding:14px}.timeline-top{display:flex;justify-content:space-between;gap:12px;align-items:center}.timeline-top strong{font-size:1.04rem}.timeline-top span{color:var(--muted);font-size:.8rem}.time-controls{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;margin-top:10px}.time-controls input{width:100%;accent-color:var(--green)}.year-chip{min-width:76px;text-align:center;border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:8px 10px;font-weight:850}.milestones{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.milestones button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:6px 9px;font-size:.71rem;cursor:pointer}.milestones button:hover{color:var(--text);border-color:var(--line2)}.lab-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px;padding:5px;border:1px solid var(--line);background:#071410;border-radius:15px}.lab-tab{border:0;background:transparent;color:var(--muted);border-radius:11px;padding:9px 12px;cursor:pointer;font-weight:750;font-size:.82rem}.lab-tab.active{background:var(--panel3);color:var(--text);box-shadow:inset 0 0 0 1px rgba(127,224,170,.16)}.tab-panel{display:none}.tab-panel.active{display:block}.game-grid{display:grid;grid-template-columns:.86fr 1.34fr .92fr;gap:16px;margin-top:16px;align-items:stretch}.card{border:1px solid var(--line);background:linear-gradient(180deg,#0e211b,#091612);border-radius:20px;padding:18px;position:relative;overflow:hidden}.card-title{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.card-title small{color:var(--muted);font-size:.72rem;text-align:right}.tank{height:328px;border:2px solid #49655b;border-top:7px solid #617a71;border-radius:22px 22px 13px 13px;position:relative;overflow:hidden;background:rgba(255,255,255,.025);margin-top:15px}.tank-liquid{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,#c88645,#7a4a28);transition:height .35s ease;min-height:5px}.tank-liquid:before{content:"";position:absolute;left:0;right:0;top:-7px;height:14px;border-radius:50%;background:rgba(255,255,255,.2)}.tank-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;pointer-events:none;text-shadow:0 2px 12px rgba(0,0,0,.6)}.tank-overlay b{display:block;font-size:1.35rem}.tank-overlay span{display:block;color:#e7efe9;font-size:.8rem;margin-top:5px}.transfer{margin-top:14px}.pipe{height:25px;border-radius:999px;background:#263f36;position:relative;overflow:visible}.pipe-flow{position:absolute;inset:5px 6px;border-radius:999px;background:linear-gradient(90deg,var(--orange),#ffd08f);transform-origin:left;transition:transform .25s ease}.valve{position:absolute;left:50%;top:50%;width:34px;height:34px;border:4px solid #a9bab4;border-radius:50%;transform:translate(-50%,-50%);background:#0b1714}.valve:before{content:"";position:absolute;left:50%;top:50%;width:42px;height:4px;background:#a9bab4;transform:translate(-50%,-50%) rotate(30deg)}.scale-note{color:var(--muted);font-size:.76rem;margin-top:10px}.bath-card{display:grid;grid-template-rows:auto auto auto 1fr auto;min-height:650px}.bathroom{min-height:325px;display:flex;align-items:end;justify-content:center;position:relative}.tub{width:min(95%,530px);height:270px;border:7px solid #bdd0c8;border-top-width:9px;border-radius:12px 12px 48px 48px;background:#071310;position:relative;overflow:hidden;box-shadow:inset 0 0 0 2px rgba(255,255,255,.04)}.water{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,#75c8ff,#377ec7);transition:height .34s ease;min-height:2px}.water:before{content:"";position:absolute;left:-4%;right:-4%;top:-10px;height:18px;border-radius:50%;background:rgba(255,255,255,.22)}.ppm{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;text-shadow:0 2px 13px rgba(0,0,0,.5)}.ppm b{font-size:clamp(2.7rem,6vw,4.8rem);line-height:.95;letter-spacing:-.05em}.ppm span{font-size:.79rem;color:#dfece7;margin-top:7px}.ppm .equiv{font-weight:800;color:white;font-size:.8rem}.level-line{position:absolute;left:10px;right:10px;border-top:1px dashed rgba(255,255,255,.28);color:#d8e8e1;font-size:.65rem;padding-top:3px}.level-line.pre{bottom:3%}.level-line.target{bottom:72%}.faucet{position:absolute;top:2px;left:11%;width:108px;height:70px;border:10px solid #a4b8b0;border-left:0;border-bottom:0;border-radius:0 25px 0 0}.stream{position:absolute;top:68px;left:calc(11% + 89px);width:10px;height:122px;background:linear-gradient(var(--orange),rgba(240,163,93,.08));border-radius:10px;transform-origin:top;transition:transform .22s ease}.drain{position:absolute;bottom:0;right:14%;width:9px;height:64px;background:linear-gradient(var(--blue),rgba(121,199,255,.08));border-radius:9px;transform-origin:top;transition:transform .22s ease}.sink-loop{margin:8px auto 2px;width:min(96%,560px);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}.sink-box,.base-box{border:1px solid var(--line);border-radius:14px;background:#0a1814;padding:10px 12px;min-height:74px;display:flex;flex-direction:column;justify-content:center}.sink-box{box-shadow:inset 3px 0 0 var(--blue)}.base-box{box-shadow:inset 3px 0 0 var(--green)}.sink-box small,.base-box small{color:var(--muted);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em}.sink-box strong,.base-box strong{font-size:.93rem;margin-top:2px}.return-arrow{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--green);font-weight:900}.return-arrow span{font-size:.6rem;color:var(--muted);font-weight:650;text-align:center;max-width:90px}.sink-disclaimer{text-align:center;color:var(--muted);font-size:.67rem;margin-top:5px}.graph{border:1px solid var(--line);background:#071410;border-radius:15px;padding:9px;margin-top:10px}.graph svg{display:block;width:100%;height:180px}.axis{fill:#87a49a;font-size:10px}.graph-line{fill:none;stroke:var(--blue);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.graph-area{fill:url(#areaGrad)}.graph-dot{fill:#fff;stroke:var(--blue);stroke-width:3}.graph-target{stroke:var(--green);stroke-width:1.2;stroke-dasharray:5 5;opacity:.55}.legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:.71rem;margin:5px 2px 0}.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.controls{display:grid;gap:13px;margin-top:10px}.control{border-top:1px solid var(--line);padding-top:12px}.control:first-child{border-top:0;padding-top:0}.control-head{display:flex;justify-content:space-between;gap:10px}.control-head span{color:var(--muted)}.control input{width:100%;accent-color:var(--green)}.control input:disabled{opacity:.35}.mission{border:1px solid #405846;background:#101b14;border-radius:15px;padding:13px;margin-top:14px}.mission-top{display:flex;justify-content:space-between;gap:12px;align-items:center}.mission-status{border-radius:999px;padding:5px 8px;font-size:.7rem;font-weight:850;background:#2b2213;color:var(--amber)}.mission-status.good{background:#123323;color:var(--green)}.score-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.score-box{border:1px solid var(--line);background:#081612;border-radius:13px;padding:10px}.score-box b{display:block;font-size:1.12rem}.score-box span{color:var(--muted);font-size:.68rem}.message{border:1px solid var(--line);background:#0b1714;border-radius:13px;padding:11px;color:var(--muted);font-size:.79rem;margin-top:11px;min-height:72px}.insight{margin-top:16px;border-left:4px solid var(--green);background:#0a1914;border-radius:12px;padding:13px 15px;color:#d9e8e2}.ledger-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:16px}.ledger-card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));border-radius:17px;padding:16px;min-height:134px}.ledger-card small{display:block;color:var(--muted);font-size:.69rem;text-transform:uppercase;letter-spacing:.08em}.ledger-card b{display:block;font-size:1.35rem;margin:.35rem 0 .2rem}.ledger-card span{display:block;color:var(--muted);font-size:.74rem}.ledger-card.orange b{color:var(--orange)}.ledger-card.blue b{color:var(--blue)}.ledger-card.green b{color:var(--green)}.ledger-table{width:100%;border-collapse:separate;border-spacing:0;margin-top:16px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#081612}.ledger-table th,.ledger-table td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);font-size:.8rem}.ledger-table th{color:var(--muted);font-size:.69rem;text-transform:uppercase;letter-spacing:.08em;background:#0c1d17}.ledger-table tr:last-child td{border-bottom:0}.ledger-note{margin-top:13px;color:var(--muted);font-size:.77rem}.stocks{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:16px}.stock{appearance:none;text-align:left;border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),#091612);color:var(--text);border-radius:16px;padding:16px;min-height:140px;cursor:pointer;transition:.18s ease}.stock:hover,.stock.active{transform:translateY(-2px);border-color:var(--green);box-shadow:0 13px 30px rgba(0,0,0,.22)}.stock small{display:block;color:var(--green);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;font-weight:850}.stock strong{display:block;margin:.3rem 0}.stock span{color:var(--muted);font-size:.78rem}.explorer{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:16px}.map,.detail{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:20px}.node-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,104px);gap:10px}.node{border:1px solid var(--line);background:#091612;border-radius:13px;padding:12px;display:flex;flex-direction:column;justify-content:center;color:var(--muted)}.node b{color:var(--text)}.node.selected{border-color:var(--green);background:#11291f}.arrow{display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:1.4rem;font-weight:850}.flowlist{display:grid;gap:9px}.flow{border-left:3px solid var(--blue);background:#0b1814;border-radius:8px;padding:9px 11px;color:var(--muted)}.flow.hot{border-left-color:var(--orange)}.methods-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.equation,.note-card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));border-radius:18px;padding:20px}.formula{font-size:clamp(1.35rem,3vw,2.05rem);font-weight:900;letter-spacing:-.03em;margin:10px 0}.formula strong{color:var(--green)}.warning{border:1px solid #5b4c2d;background:#1a170f;color:#dcd0b8;border-radius:16px;padding:16px;margin-top:15px}.source-link{display:block;border-top:1px solid var(--line);padding:10px 0;text-decoration:none;color:var(--muted)}.source-link:hover{color:var(--text)}.boundary{border:1px solid var(--line);background:rgba(16,35,29,.82);border-radius:20px;padding:23px}.footer{border-top:1px solid var(--line);padding:28px 0 44px;color:#7e988f;font-size:.86rem}.footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.presenter-only{display:none}body.presenter .hero,body.presenter .footer,body.presenter .presenter-hide{display:none}body.presenter .section{padding:18px 0}body.presenter .game-shell{min-height:calc(100vh - 100px)}body.presenter .game-head h2{font-size:2rem}body.presenter .presenter-only{display:inline-flex}body.presenter .wrap{width:min(1420px,calc(100% - 28px))}.hide{display:none!important}
+@media(max-width:1120px){.game-grid{grid-template-columns:1fr 1.25fr}.controls-card{grid-column:1/-1}.metrics{grid-template-columns:repeat(2,1fr)}.stocks{grid-template-columns:repeat(2,1fr)}.ledger-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:790px){.nav a{display:none}.presenter-toggle{display:inline-flex}.hero{padding-top:48px}.wrap{width:min(100% - 22px,1280px)}.game-grid,.explorer,.methods-grid{grid-template-columns:1fr}.metrics,.stocks,.ledger-grid{grid-template-columns:1fr}.time-controls{grid-template-columns:1fr}.year-chip{justify-self:start}.tank{height:245px}.bathroom{min-height:310px}.node-grid{grid-template-columns:1fr;grid-template-rows:auto}.arrow{transform:rotate(90deg)}.sink-loop{grid-template-columns:1fr}.return-arrow{transform:rotate(90deg)}.ledger-table{display:block;overflow-x:auto}.game-shell{padding:14px}}
 </style>
 </head>
 <body>
 <header class="topbar">
   <div class="wrap">
-    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span>Carbon Beyond the Bathtub<small>Interactive System Dynamics demo</small></span></a>
-    <nav class="nav" aria-label="Primary navigation">
-      <a href="#game">Game</a><a href="#calculation">2% calculation</a><a href="#system">Carbon system</a><a href="#sources">Sources</a>
-      <a href="https://github.com/Aryakia/carbon-cycle-demo" target="_blank" rel="noreferrer">GitHub ↗</a>
-    </nav>
+    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span>Carbon Beyond the Bathtub<small>Interactive System Dynamics laboratory</small></span></a>
+    <nav class="nav" aria-label="Primary navigation"><a href="#game">Lab</a><a href="https://github.com/Aryakia/carbon-cycle-demo" target="_blank" rel="noreferrer">GitHub ↗</a><button class="presenter-toggle" id="presenterBtn">Presenter mode</button></nav>
   </div>
 </header>
-
 <main id="top">
 <section class="hero">
   <div class="wrap">
     <div class="kicker">Interactive stock–flow game</div>
     <h1>Carbon is not just a bathtub.</h1>
-    <p>Move through time and watch atmospheric CO₂ fill the bathtub. Then look upstream: a much larger geological fossil-carbon stock feeds the system. The point is not that the upstream tank can be emptied—it is that a comparatively small transfer can produce a very large change in the atmosphere.</p>
-    <div class="hero-actions">
-      <a class="btn primary" href="#game">▶ Play the system</a>
-      <a class="btn" href="#calculation">See the “about 2%” calculation</a>
-      <a class="btn ghost" href="#sources">Scientific basis</a>
-    </div>
-    <div class="metrics">
-      <div class="metric"><b>427.62 ppm</b><span>NOAA global monthly mean CO₂, June 2026; page updated Sept. 5, 2026</span></div>
-      <div class="metric"><b>2.39%</b><span>IPCC AR6: 445 PgC cumulative fossil/industry emissions through 2019 ÷ 18,635 PgC fossil resources</span></div>
-      <div class="metric"><b>≈2.71%</b><span>Illustrative update using GCB 2025 cumulative fossil emissions context through 2025</span></div>
-      <div class="metric"><b>18,635 PgC</b><span>IPCC AR6 fossil-fuel resource frame: coal + oil + natural gas</span></div>
-    </div>
+    <p>Move through time and watch atmospheric CO₂ fill the bathtub. Then look upstream and downstream: fossil carbon enters from a very large geological stock, while land and ocean remove part of the flow into active reservoirs. A slow geological return path closes the conceptual loop without pretending that natural sinks rapidly rebuild fossil stocks.</p>
+    <div class="hero-actions"><a class="btn primary" href="#game">▶ Open the laboratory</a><button class="btn ghost" id="heroPresenter">Presentation view</button></div>
+    <div class="metrics"><div class="metric"><b>427.62 ppm</b><span>NOAA global monthly mean CO₂ reference used for June 2026</span></div><div class="metric"><b>≈907 GtC</b><span>atmospheric carbon equivalent at 427.62 ppm using ≈2.12 GtC per ppm</span></div><div class="metric"><b>2.39%</b><span>IPCC AR6 resource-frame comparison through 2019</span></div><div class="metric"><b>18,635 GtC</b><span>IPCC AR6 fossil-fuel resource frame; 1 PgC = 1 GtC</span></div></div>
   </div>
 </section>
-
 <section class="section" id="game">
-<div class="wrap">
-<div class="game-shell">
-  <div class="game-head">
-    <div>
-      <div class="label">Interactive laboratory</div>
-      <h2>The tank, the valve, and the bathtub</h2>
-      <p>Use the time lever to replay the historical accumulation. Then enter <strong>Policy Lab</strong> and change the future inflow, sink share, and durable carbon removal. The resource tank and atmospheric bathtub use different scales on purpose.</p>
-    </div>
-    <div class="mode-switch" aria-label="Game mode">
-      <button id="historicalMode" class="active">Historical replay</button>
-      <button id="scenarioMode">Policy Lab</button>
-    </div>
-  </div>
+<div class="wrap"><div class="game-shell">
+  <div class="game-head"><div><div class="label">Interactive laboratory</div><h2>The tank, the valve, the bathtub, and the sink loop</h2><p>Replay history or enter <strong>Policy Lab</strong>. The orange path is anthropogenic inflow, blue is land–ocean uptake, and green is the very slow long-term geological return. The model keeps these timescales visibly distinct.</p></div><div class="mode-switch" aria-label="Game mode"><button id="historicalMode" class="active">Historical replay</button><button id="scenarioMode">Policy Lab</button></div></div>
+  <div class="timeline"><div class="timeline-top"><strong id="timelineTitle">Replay 1750 → 2026</strong><span id="timelineHint">Drag, click a milestone, or press Play.</span></div><div class="time-controls"><button class="btn" id="playBtn">▶ Play</button><input id="timeSlider" type="range" min="1750" max="2026" value="2026" step="1" aria-label="Year"><div class="year-chip" id="yearValue">2026</div></div><div class="milestones" id="milestones"><button data-year="1750">1750 · pre-industrial</button><button data-year="1958">1958 · Keeling Curve era</button><button data-year="1990">1990</button><button data-year="2019">2019 · AR6 benchmark</button><button data-year="2026">2026 · current era</button></div></div>
+  <div class="lab-tabs" role="tablist" aria-label="Laboratory views"><button class="lab-tab active" data-tab="simulation">Simulation</button><button class="lab-tab" data-tab="ledger">Carbon ledger</button><button class="lab-tab" data-tab="system">System map</button><button class="lab-tab" data-tab="methods">Methods & sources</button></div>
 
-  <div class="timeline">
-    <div class="timeline-top"><strong id="timelineTitle">Replay 1750 → 2026</strong><span id="timelineHint">Drag, click a milestone, or press Play.</span></div>
-    <div class="time-controls">
-      <button class="btn" id="playBtn" aria-label="Play historical timeline">▶ Play</button>
-      <input id="timeSlider" type="range" min="1750" max="2026" value="2026" step="1" aria-label="Year">
-      <div class="year-chip" id="yearValue">2026</div>
-    </div>
-    <div class="milestones" id="milestones">
-      <button data-year="1750">1750 · pre-industrial</button>
-      <button data-year="1958">1958 · Keeling Curve era</button>
-      <button data-year="1990">1990</button>
-      <button data-year="2019">2019 · AR6 benchmark</button>
-      <button data-year="2026">2026 · current era</button>
+  <div class="tab-panel active" id="panel-simulation">
+    <div class="game-grid">
+      <section class="card"><div class="card-title"><div><div class="kicker">Upstream stock</div><h3>Geological / fossil resource frame</h3></div><small id="resourceDate">published benchmark interpolation</small></div><div class="tank"><div class="tank-liquid" id="tankLiquid"></div><div class="tank-overlay"><div><b id="remainingResource">18,130 GtC</b><span>resource-frame carbon remaining</span><span id="releasedResource">≈505 GtC transferred cumulatively</span></div></div></div><div class="transfer"><div class="pipe"><div class="pipe-flow" id="pipeFlow"></div><div class="valve"></div></div></div><p class="scale-note">Resource estimates are not proved reserves and not a climate-safe carbon budget. The tank is a scale comparison.</p></section>
+
+      <section class="card bath-card"><div class="card-title"><div><div class="kicker">Atmospheric stock</div><h3>The bathtub</h3></div><small id="ppmStatus">historical/reference context</small></div><div class="bathroom"><div class="faucet"></div><div class="stream" id="faucetStream"></div><div class="tub"><div class="water" id="water"></div><div class="level-line pre">≈278 ppm · pre-industrial</div><div class="level-line target">450 ppm reference line</div><div class="ppm"><b id="ppmValue">427.62</b><span>ppm atmospheric CO₂</span><span class="equiv" id="atmosphereEquivalent">≈907 GtC in atmosphere</span></div></div><div class="drain" id="drainStream"></div></div>
+        <div class="sink-loop"><div class="sink-box"><small>Drain · active sink pathway</small><strong id="sinkFlowNow">Land + ocean uptake</strong><span class="scale-note" id="sinkFlowDetail">historical annual flow not reconstructed</span></div><div class="return-arrow"><span>very slow burial / geological return</span>↩</div><div class="base-box"><small>Long-term destination</small><strong>Geological storage</strong><span class="scale-note">visualized, not simulated</span></div></div><div class="sink-disclaimer">Natural sinks move carbon into land and ocean reservoirs first. Only a small, slow fraction returns to geological storage on much longer timescales.</div>
+        <div class="graph"><svg viewBox="0 0 700 180" role="img" aria-label="Interactive atmospheric CO2 path"><defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#79c7ff" stop-opacity=".32"/><stop offset="100%" stop-color="#79c7ff" stop-opacity="0"/></linearGradient></defs><line x1="42" y1="154" x2="682" y2="154" stroke="#24463a"/><line x1="42" y1="14" x2="42" y2="154" stroke="#24463a"/><line id="targetLine" class="graph-target" x1="42" x2="682" y1="70" y2="70"/><text x="7" y="20" class="axis">ppm</text><text x="622" y="174" class="axis">time →</text><path id="graphArea" class="graph-area"></path><path id="graphLine" class="graph-line"></path><circle id="graphDot" class="graph-dot" r="5"></circle></svg><div class="legend"><span><i style="background:#f0a35d"></i>anthropogenic inflow</span><span><i style="background:#79c7ff"></i>land + ocean uptake</span><span><i style="background:#7fe0aa"></i>slow geological return</span></div></div><div class="insight" id="insight"><strong>System insight:</strong> when inflow exceeds total removal, the atmospheric stock rises—even if the upstream geological stock is barely depleted.</div></section>
+
+      <section class="card controls-card"><div class="kicker">Leverage points</div><h3>Control the flows</h3><div class="controls"><div class="control"><div class="control-head"><strong>2100 anthropogenic inflow</strong><span id="emissionOut">100%</span></div><input id="emissionSlider" type="range" min="0" max="140" value="100" step="5" disabled><div class="scale-note">Linearly moves from today's inflow to this 2100 level.</div></div><div class="control"><div class="control-head"><strong>Land + ocean uptake share</strong><span id="sinkOut">50%</span></div><input id="sinkSlider" type="range" min="20" max="75" value="50" step="1" disabled></div><div class="control"><div class="control-head"><strong>Additional durable CDR</strong><span id="cdrOut">0.0 GtC/yr</span></div><input id="cdrSlider" type="range" min="0" max="10" value="0" step="0.5" disabled></div></div><div class="mission"><div class="mission-top"><strong>Mission · 2100</strong><span id="missionStatus" class="mission-status">Policy Lab locked</span></div><p class="scale-note">Try to keep the simplified 2100 atmospheric level at or below 450 ppm.</p><div class="score-grid"><div class="score-box"><b id="futurePpm">—</b><span>2100 ppm</span></div><div class="score-box"><b id="gameScore">—</b><span>mission score / 100</span></div><div class="score-box"><b id="netFlow">historical</b><span>net atmospheric rate</span></div><div class="score-box"><b id="resourceShare">2.71%</b><span>resource-frame transferred</span></div></div></div><div class="message" id="gameMessage">Historical replay: move through time and watch the atmospheric level rise while the upstream resource frame remains visually almost full.</div><button class="btn" id="resetBtn" style="margin-top:11px">Reset controls</button></section>
     </div>
   </div>
 
-  <div class="game-grid">
-    <section class="card">
-      <div class="card-title">
-        <div><div class="kicker">Upstream stock</div><h3>Fossil-carbon resource frame</h3></div>
-        <small id="resourceDate">published benchmark interpolation</small>
-      </div>
-      <div class="tank" aria-label="Illustrative fossil-carbon resource tank">
-        <div class="tank-liquid" id="tankLiquid"></div>
-        <div class="tank-overlay"><div><b id="remainingResource">18,130 PgC</b><span>shown remaining in the resource comparison</span><span id="releasedResource">≈505 PgC transferred cumulatively</span></div></div>
-      </div>
-      <div class="transfer">
-        <div class="pipe" aria-hidden="true"><div class="pipe-flow" id="pipeFlow"></div><div class="valve"></div></div>
-      </div>
-      <p class="scale-note">“Resources” are not the same as proved reserves, economic supply, or a climate-safe carbon budget. This tank is a geological/technical comparison frame.</p>
-    </section>
+  <div class="tab-panel" id="panel-ledger"><div class="ledger-grid"><div class="ledger-card green"><small>Geological frame remaining</small><b id="ledgerRemaining">18,130 GtC</b><span>resource comparison, not recoverable reserve</span></div><div class="ledger-card orange"><small>Cumulative fossil transfer</small><b id="ledgerTransferred">≈505 GtC</b><span>illustrative cumulative transfer frame</span></div><div class="ledger-card blue"><small>Atmospheric carbon</small><b id="ledgerAtmosphere">≈907 GtC</b><span id="ledgerAtmosphereSub">427.62 ppm × 2.12 GtC/ppm</span></div><div class="ledger-card blue"><small>Atmospheric increase since 1750</small><b id="ledgerExcess">≈317 GtC</b><span>above the 278 ppm reference level</span></div><div class="ledger-card"><small>Active sink flow</small><b id="ledgerSink">Reference</b><span id="ledgerSinkSub">annual historical uptake is not reconstructed</span></div></div><table class="ledger-table"><thead><tr><th>Stage</th><th>What the game displays</th><th>Carbon equivalent</th><th>Interpretation</th></tr></thead><tbody><tr><td>Geological / fossil stock</td><td id="tableGeo">18,130 GtC remaining</td><td id="tableTransfer">≈505 GtC transferred</td><td>Large upstream resource frame</td></tr><tr><td>Atmosphere</td><td id="tablePpm">427.62 ppm</td><td id="tableAtm">≈907 GtC total atmospheric carbon</td><td>Bathtub stock</td></tr><tr><td>Atmospheric increase</td><td>Relative to 278 ppm</td><td id="tableExcess">≈317 GtC</td><td>Change in the atmospheric stock</td></tr><tr><td>Land + ocean sinks</td><td id="tableSinkFlow">not annualized in historical replay</td><td id="tableSinkEq">—</td><td>Drain into active reservoirs, not directly back to fossil stock</td></tr><tr><td>Long-term geological return</td><td>Burial / sedimentation pathway</td><td>not quantified</td><td>Very slow conceptual return; outside this model</td></tr></tbody></table><p class="ledger-note"><strong>Units:</strong> 1 PgC = 1 GtC. The game uses ≈2.12 GtC per ppm to translate atmospheric CO₂ concentration into an approximate atmospheric carbon mass. The ledger intentionally leaves unmodeled quantities blank rather than inventing precision.</p></div>
 
-    <section class="card bath-card">
-      <div class="card-title">
-        <div><div class="kicker">Atmospheric stock</div><h3>The bathtub</h3></div>
-        <small id="ppmStatus">historical/reference context</small>
-      </div>
-      <div class="bathroom">
-        <div class="faucet" aria-hidden="true"></div><div class="stream" id="faucetStream" aria-hidden="true"></div>
-        <div class="tub" aria-label="Atmospheric CO2 bathtub">
-          <div class="water" id="water"></div>
-          <div class="level-line pre">≈278 ppm · pre-industrial</div>
-          <div class="level-line target">450 ppm reference line</div>
-          <div class="ppm" aria-live="polite"><b id="ppmValue">427.62</b><span>ppm atmospheric CO₂</span></div>
-        </div>
-        <div class="drain" id="drainStream" aria-hidden="true"></div>
-      </div>
-      <div class="graph">
-        <svg viewBox="0 0 700 180" role="img" aria-label="Interactive atmospheric CO2 path">
-          <defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#79c7ff" stop-opacity=".32"/><stop offset="100%" stop-color="#79c7ff" stop-opacity="0"/></linearGradient></defs>
-          <line x1="42" y1="154" x2="682" y2="154" stroke="#24463a"/><line x1="42" y1="14" x2="42" y2="154" stroke="#24463a"/>
-          <line id="targetLine" class="graph-target" x1="42" x2="682" y1="70" y2="70"/>
-          <text x="7" y="20" class="axis">ppm</text><text x="622" y="174" class="axis">time →</text>
-          <path id="graphArea" class="graph-area"></path><path id="graphLine" class="graph-line"></path><circle id="graphDot" class="graph-dot" r="5"></circle>
-        </svg>
-        <div class="legend"><span><i style="background:#79c7ff"></i>CO₂ path</span><span><i style="background:#7fe0aa"></i>450 ppm reference</span></div>
-      </div>
-      <div class="insight" id="insight"><strong>System insight:</strong> when inflow exceeds total removal, the atmospheric stock rises—even if the upstream geological stock is barely depleted.</div>
-    </section>
+  <div class="tab-panel" id="panel-system"><div class="stocks"><button class="stock active" data-stock="atmosphere"><small>Stock</small><strong>Atmosphere</strong><span>Visible bathtub stock.</span></button><button class="stock" data-stock="ocean"><small>Stock</small><strong>Ocean</strong><span>Large active sink and reservoir.</span></button><button class="stock" data-stock="biosphere"><small>Stock</small><strong>Terrestrial biomass</strong><span>Photosynthesis, respiration, disturbance.</span></button><button class="stock" data-stock="soil"><small>Stock</small><strong>Soils</strong><span>Organic matter storage and decomposition.</span></button><button class="stock" data-stock="geologic"><small>Stock</small><strong>Geological / fossil</strong><span>Very large, slow upstream stock.</span></button></div><div class="explorer"><div class="map"><div class="node-grid"><div class="node" data-node="biosphere"><b>Terrestrial biomass</b><span>photosynthesis ↔ respiration</span></div><div class="arrow">⇄</div><div class="node selected" data-node="atmosphere"><b>Atmosphere</b><span>the bathtub stock</span></div><div class="arrow">↕</div><div class="node" data-node="soil"><b>Soils</b><span>litter, decay, storage</span></div><div class="arrow">⇄</div><div class="node" data-node="geologic"><b>Geological / fossil</b><span>extraction ↑ · burial ↓</span></div><div class="arrow">⇄</div><div class="node" data-node="ocean"><b>Ocean</b><span>air–sea exchange, circulation</span></div></div></div><aside class="detail"><div class="kicker">Selected reservoir</div><h2 id="stockTitle">Atmosphere</h2><p id="stockDesc" style="color:var(--muted)"></p><div class="flowlist" id="flows"></div></aside></div></div>
 
-    <section class="card controls-card">
-      <div class="kicker">Leverage points</div><h3>Control the flows</h3>
-      <div class="controls">
-        <div class="control">
-          <div class="control-head"><strong>2100 anthropogenic inflow</strong><span id="emissionOut">100%</span></div>
-          <input id="emissionSlider" type="range" min="0" max="140" value="100" step="5" disabled aria-label="2100 inflow relative to 2026">
-          <div class="scale-note">Policy Lab linearly moves from today's inflow to this 2100 level.</div>
-        </div>
-        <div class="control">
-          <div class="control-head"><strong>Land + ocean uptake share</strong><span id="sinkOut">50%</span></div>
-          <input id="sinkSlider" type="range" min="20" max="75" value="50" step="1" disabled aria-label="Natural sink share">
-        </div>
-        <div class="control">
-          <div class="control-head"><strong>Additional durable CDR</strong><span id="cdrOut">0.0 GtC/yr</span></div>
-          <input id="cdrSlider" type="range" min="0" max="10" value="0" step="0.5" disabled aria-label="Durable carbon dioxide removal">
-        </div>
-      </div>
+  <div class="tab-panel" id="panel-methods"><div class="methods-grid"><div class="equation"><div class="kicker">Stock equation</div><div class="formula">Δ Atmosphere = <strong>inflow − uptake − CDR</strong></div><p style="color:var(--muted)">Policy Lab integrates this simplified annual balance and converts net GtC to ppm using ≈2.12 GtC per ppm. It is a teaching model, not an Earth-system forecast.</p><div class="warning"><strong>Sink-loop boundary:</strong> the blue drain enters land and ocean reservoirs. The green return arrow represents much slower burial and long-term geological storage and is deliberately not numerically simulated.</div></div><div class="note-card"><div class="kicker">Scientific basis</div><h3>Published context, explicit assumptions</h3><a class="source-link" href="https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-5/" target="_blank" rel="noreferrer">IPCC AR6 WGI Chapter 5 ↗</a><a class="source-link" href="https://www.ipcc.ch/report/ar6/wg1/figures/chapter-5/figure-5-12/" target="_blank" rel="noreferrer">IPCC AR6 Figure 5.12 · carbon reservoirs/resources ↗</a><a class="source-link" href="https://globalcarbonbudget.org/gcb-2025/" target="_blank" rel="noreferrer">Global Carbon Budget 2025 ↗</a><a class="source-link" href="https://gml.noaa.gov/ccgg/trends/global.html" target="_blank" rel="noreferrer">NOAA Global Monitoring Laboratory ↗</a></div></div><div class="methods-grid"><div class="equation"><div class="kicker">Resource-frame calculation</div><div class="formula">445 ÷ 18,635 = <strong>2.39%</strong></div><p style="color:var(--muted)">IPCC AR6 cumulative fossil-fuel and industry emissions through 2019 divided by its fossil-fuel resource frame.</p></div><div class="equation"><div class="kicker">Illustrative update</div><div class="formula">(495 + 10.4) ÷ 18,635 ≈ <strong>2.71%</strong></div><p style="color:var(--muted)">Global Carbon Budget 2025 context compared with the older IPCC resource denominator. This is not a remaining climate budget.</p></div></div></div>
 
-      <div class="mission">
-        <div class="mission-top"><strong>Mission · 2100</strong><span id="missionStatus" class="mission-status">Policy Lab locked</span></div>
-        <p class="scale-note">Try to keep the simplified 2100 atmospheric level at or below 450 ppm.</p>
-        <div class="score-grid">
-          <div class="score-box"><b id="futurePpm">—</b><span>2100 ppm</span></div>
-          <div class="score-box"><b id="gameScore">—</b><span>mission score / 100</span></div>
-          <div class="score-box"><b id="netFlow">historical</b><span>current net atmospheric rate</span></div>
-          <div class="score-box"><b id="resourceShare">2.71%</b><span>resource-frame transferred</span></div>
-        </div>
-      </div>
-
-      <div class="message" id="gameMessage">Historical replay: move through time and watch the atmospheric level rise while the upstream resource tank remains visually almost full.</div>
-      <button class="btn" id="resetBtn" style="margin-top:11px">Reset controls</button>
-    </section>
-  </div>
-</div>
-</div>
-</section>
-
-<section class="section" id="calculation">
-<div class="wrap">
-  <div class="label">The “about 2%” calculation</div>
-  <h2>The number is useful only when the denominator is explicit.</h2>
-  <div class="grid2">
-    <div class="equation">
-      <div class="kicker">IPCC AR6 benchmark · through 2019</div>
-      <div class="formula">445 ÷ 18,635 = <strong>2.39%</strong></div>
-      <p>IPCC AR6 Working Group I reports cumulative fossil-fuel and industry CO₂ emissions of <strong>445 ± 20 PgC</strong> over 1750–2019 and fossil-fuel resources of <strong>11,490 PgC coal + 6,780 PgC oil + 365 PgC natural gas = 18,635 PgC</strong>.</p>
-    </div>
-    <div class="equation">
-      <div class="kicker">Updated illustrative context · through 2025</div>
-      <div class="formula">(495 + 10.4) ÷ 18,635 ≈ <strong>2.71%</strong></div>
-      <p>The Global Carbon Budget 2025 gives about <strong>495 ± 25 GtC</strong> cumulative fossil CO₂ emissions for 1850–2024 and about <strong>10.4 GtC</strong> projected fossil CO₂ emissions in 2025. Comparing that with the older IPCC resource denominator yields roughly 2.7%.</p>
-    </div>
-  </div>
-  <div class="warning"><strong>Interpretation boundary:</strong> this does not mean humanity has used only 2% of “all carbon,” and it does not imply that the remaining 97–98% is economically recoverable or climate-safe to burn. The comparison illustrates the scale of the upstream geological stock relative to historical transfer.</div>
-</div>
-</section>
-
-<section class="section" id="system">
-<div class="wrap">
-  <div class="label">Connected carbon system</div>
-  <h2>The atmosphere is one stock in a network.</h2>
-  <div class="stocks">
-    <button class="stock active" data-stock="atmosphere"><small>Stock</small><strong>Atmosphere</strong><span>CO₂ concentration is the bathtub level seen in the game.</span></button>
-    <button class="stock" data-stock="ocean"><small>Stock</small><strong>Ocean</strong><span>Large reservoir with rapid surface exchange and slow deep-ocean processes.</span></button>
-    <button class="stock" data-stock="biosphere"><small>Stock</small><strong>Terrestrial biomass</strong><span>Photosynthesis, respiration, disturbance, and land-use change.</span></button>
-    <button class="stock" data-stock="soil"><small>Stock</small><strong>Soils</strong><span>Organic matter storage, decomposition, stabilization, and erosion.</span></button>
-    <button class="stock" data-stock="geologic"><small>Stock</small><strong>Geological / fossil</strong><span>Very large slow stock; extraction creates a rapid human transfer.</span></button>
-  </div>
-  <div class="explorer">
-    <div class="map">
-      <div class="node-grid">
-        <div class="node" data-node="biosphere"><b>Terrestrial biomass</b><span>photosynthesis ↔ respiration</span></div><div class="arrow">⇄</div><div class="node selected" data-node="atmosphere"><b>Atmosphere</b><span>the bathtub stock</span></div>
-        <div class="arrow">↕</div><div class="node" data-node="soil"><b>Soils</b><span>litter, decay, storage</span></div><div class="arrow">⇄</div>
-        <div class="node" data-node="geologic"><b>Geological / fossil</b><span>extraction, burial, weathering</span></div><div class="arrow">→</div><div class="node" data-node="ocean"><b>Ocean</b><span>air–sea exchange, circulation</span></div>
-      </div>
-    </div>
-    <aside class="detail">
-      <div class="kicker">Selected reservoir</div><h2 id="stockTitle">Atmosphere</h2><p id="stockDesc" style="color:var(--muted)"></p><div class="flowlist" id="flows"></div>
-    </aside>
-  </div>
-</div>
-</section>
-
-<section class="section" id="sources">
-<div class="wrap sources">
-  <div>
-    <div class="label">Scientific basis</div><h2>Published data, visible assumptions.</h2>
-    <p style="color:var(--muted)">The historical time lever uses published/reference anchors. The future Policy Lab is intentionally simplified and transparent: it is for learning stock–flow logic, not forecasting the Earth system.</p>
-    <a class="source-link" href="https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-5/" target="_blank" rel="noreferrer">IPCC AR6 WGI Chapter 5 · global carbon budget and reservoir/resource context ↗</a>
-    <a class="source-link" href="https://www.ipcc.ch/report/ar6/wg1/figures/chapter-5/figure-5-12/" target="_blank" rel="noreferrer">IPCC AR6 Figure 5.12 · carbon reservoirs and fossil resources ↗</a>
-    <a class="source-link" href="https://globalcarbonbudget.org/gcb-2025/" target="_blank" rel="noreferrer">Global Carbon Budget 2025 ↗</a>
-    <a class="source-link" href="https://gml.noaa.gov/ccgg/trends/global.html" target="_blank" rel="noreferrer">NOAA Global Monitoring Laboratory · global CO₂ trends ↗</a>
-  </div>
-  <div>
-    <div class="label">Model boundary</div><h2>A teaching game, not a climate forecast.</h2>
-    <p style="color:var(--muted)">The Policy Lab does not model carbon-cycle feedbacks, changing sink efficiency, ocean chemistry, temperature response, non-CO₂ forcing, or socioeconomic dynamics. Its purpose is to show the logic of stocks, inflows, outflows, and scale.</p>
-    <div class="note-card"><strong>Core lesson</strong><p style="color:var(--muted)">Reducing emissions does not automatically make atmospheric CO₂ decline. The bathtub falls only when total removals exceed total inflow.</p></div>
-  </div>
-</div>
-</section>
-
-<section class="section">
-<div class="wrap boundary">
-  <div class="label">System Dynamics takeaway</div>
-  <h2>The binding constraint is not whether the upstream tank can be emptied. It is how fast carbon is transferred into the active atmosphere–land–ocean system.</h2>
-  <p style="color:var(--muted)">A geologically modest transfer can produce a major atmospheric change because the atmosphere is a comparatively small stock. That is why flow control matters long before the upstream geological resource frame is close to exhaustion.</p>
-</div>
+  <div class="boundary presenter-hide" style="margin-top:16px"><div class="label">System Dynamics takeaway</div><h2>The leverage point is the transfer rate, not exhaustion of the upstream stock.</h2><p style="color:var(--muted)">The atmosphere is a comparatively small stock. A geologically modest transfer can therefore create a large concentration change, while natural sinks redistribute part of that carbon into land and ocean reservoirs rather than instantly returning it to fossil storage.</p></div>
+</div></div>
 </section>
 </main>
-
-<footer class="footer"><div class="wrap"><span>© Arya Kia · System Dynamics · energy systems · carbon-cycle research</span><span>Public educational prototype · no private data</span></div></footer>
-
+<footer class="footer"><div class="wrap"><span>© Arya Kia · System Dynamics · energy systems · carbon-cycle research</span><span>Public educational prototype · transparent assumptions</span></div></footer>
 <script>
-const RESOURCE=18635;
-const AR6_2019=445;
-const GCB_2024=495;
-const GCB_2025_FLOW=10.4;
-const LATEST_RESOURCE_TRANSFER=GCB_2024+GCB_2025_FLOW;
-const GTC_PER_PPM=2.12;
-const BASE_TOTAL_INFLOW=11.5;
-const BASE_FOSSIL_INFLOW=10.4;
-const START_PPM=427.62;
-
-const co2Anchors=[
-  [1750,278.0],[1800,280.8],[1850,287.7],[1900,295.8],[1958,315.3],
-  [1970,325.7],[1980,338.8],[1990,354.4],[2000,369.6],[2010,389.9],
-  [2020,414.2],[2024,422.8],[2025,425.9],[2026,START_PPM]
-];
-const fossilCumAnchors=[
-  [1750,0],[1850,0],[1900,12],[1950,58],[2019,AR6_2019],
-  [2024,GCB_2024],[2025,LATEST_RESOURCE_TRANSFER],[2026,LATEST_RESOURCE_TRANSFER]
-];
-
-const $=id=>document.getElementById(id);
-const el={
-  time:$('timeSlider'),year:$('yearValue'),ppm:$('ppmValue'),water:$('water'),
-  tank:$('tankLiquid'),remaining:$('remainingResource'),released:$('releasedResource'),
-  pipe:$('pipeFlow'),faucet:$('faucetStream'),drain:$('drainStream'),
-  emission:$('emissionSlider'),sink:$('sinkSlider'),cdr:$('cdrSlider'),
-  emissionOut:$('emissionOut'),sinkOut:$('sinkOut'),cdrOut:$('cdrOut'),
-  netFlow:$('netFlow'),share:$('resourceShare'),message:$('gameMessage'),
-  hist:$('historicalMode'),scenario:$('scenarioMode'),play:$('playBtn'),reset:$('resetBtn'),
-  line:$('graphLine'),area:$('graphArea'),dot:$('graphDot'),target:$('targetLine'),
-  ppmStatus:$('ppmStatus'),resourceDate:$('resourceDate'),insight:$('insight'),
-  futurePpm:$('futurePpm'),score:$('gameScore'),mission:$('missionStatus'),
-  timelineTitle:$('timelineTitle'),timelineHint:$('timelineHint'),milestones:$('milestones')
-};
+const RESOURCE=18635,AR6_2019=445,GCB_2024=495,GCB_2025_FLOW=10.4,LATEST_RESOURCE_TRANSFER=GCB_2024+GCB_2025_FLOW,GTC_PER_PPM=2.12,BASE_TOTAL_INFLOW=11.5,BASE_FOSSIL_INFLOW=10.4,START_PPM=427.62,PREINDUSTRIAL_PPM=278;
+const co2Anchors=[[1750,278.0],[1800,280.8],[1850,287.7],[1900,295.8],[1958,315.3],[1970,325.7],[1980,338.8],[1990,354.4],[2000,369.6],[2010,389.9],[2020,414.2],[2024,422.8],[2025,425.9],[2026,START_PPM]];
+const fossilCumAnchors=[[1750,0],[1850,0],[1900,12],[1950,58],[2019,AR6_2019],[2024,GCB_2024],[2025,LATEST_RESOURCE_TRANSFER],[2026,LATEST_RESOURCE_TRANSFER]];
+const $=id=>document.getElementById(id);const el={time:$('timeSlider'),year:$('yearValue'),ppm:$('ppmValue'),atmEq:$('atmosphereEquivalent'),water:$('water'),tank:$('tankLiquid'),remaining:$('remainingResource'),released:$('releasedResource'),pipe:$('pipeFlow'),faucet:$('faucetStream'),drain:$('drainStream'),sinkFlowNow:$('sinkFlowNow'),sinkFlowDetail:$('sinkFlowDetail'),emission:$('emissionSlider'),sink:$('sinkSlider'),cdr:$('cdrSlider'),emissionOut:$('emissionOut'),sinkOut:$('sinkOut'),cdrOut:$('cdrOut'),netFlow:$('netFlow'),share:$('resourceShare'),message:$('gameMessage'),hist:$('historicalMode'),scenario:$('scenarioMode'),play:$('playBtn'),reset:$('resetBtn'),line:$('graphLine'),area:$('graphArea'),dot:$('graphDot'),target:$('targetLine'),ppmStatus:$('ppmStatus'),resourceDate:$('resourceDate'),insight:$('insight'),futurePpm:$('futurePpm'),score:$('gameScore'),mission:$('missionStatus'),timelineTitle:$('timelineTitle'),timelineHint:$('timelineHint'),milestones:$('milestones'),ledgerRemaining:$('ledgerRemaining'),ledgerTransferred:$('ledgerTransferred'),ledgerAtmosphere:$('ledgerAtmosphere'),ledgerAtmosphereSub:$('ledgerAtmosphereSub'),ledgerExcess:$('ledgerExcess'),ledgerSink:$('ledgerSink'),ledgerSinkSub:$('ledgerSinkSub'),tableGeo:$('tableGeo'),tableTransfer:$('tableTransfer'),tablePpm:$('tablePpm'),tableAtm:$('tableAtm'),tableExcess:$('tableExcess'),tableSinkFlow:$('tableSinkFlow'),tableSinkEq:$('tableSinkEq')};
 let mode='historical',timer=null;
-
-function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-function interp(anchors,year){
-  if(year<=anchors[0][0])return anchors[0][1];
-  for(let i=1;i<anchors.length;i++){
-    if(year<=anchors[i][0]){
-      const [x0,y0]=anchors[i-1],[x1,y1]=anchors[i];
-      const t=(year-x0)/(x1-x0);
-      return y0+(y1-y0)*t;
-    }
-  }
-  return anchors[anchors.length-1][1];
-}
-function historicalCO2(y){return interp(co2Anchors,y)}
-function historicalFossil(y){return interp(fossilCumAnchors,y)}
-function trajectoryFactor(year,endFraction){
-  const t=clamp((year-2026)/(2100-2026),0,1);
-  return 1+(endFraction-1)*t;
-}
-function futureState(year){
-  let ppm=START_PPM,cum=LATEST_RESOURCE_TRANSFER,lastNet=0;
-  const endFraction=+el.emission.value/100;
-  const sinkShare=+el.sink.value/100;
-  const cdr=+el.cdr.value;
-  for(let y=2027;y<=year;y++){
-    const factor=trajectoryFactor(y,endFraction);
-    const totalIn=BASE_TOTAL_INFLOW*factor;
-    const fossilIn=BASE_FOSSIL_INFLOW*factor;
-    const sink=totalIn*sinkShare;
-    lastNet=totalIn-sink-cdr;
-    ppm+=lastNet/GTC_PER_PPM;
-    cum+=Math.max(0,fossilIn);
-  }
-  return{ppm,cum,net:lastNet};
-}
-function currentValues(){
-  const y=+el.time.value;
-  if(mode==='historical')return{year:y,ppm:historicalCO2(y),cum:historicalFossil(y),net:null};
-  const f=futureState(y);return{year:y,...f};
-}
-function missionScore(ppm){
-  if(ppm<=420)return 100;
-  if(ppm<=450)return Math.round(85+(450-ppm)/30*15);
-  if(ppm<=500)return Math.round(60+(500-ppm)/50*25);
-  if(ppm<=600)return Math.round(25+(600-ppm)/100*35);
-  return Math.max(0,Math.round(25-(ppm-600)/8));
-}
-function setVisuals(){
-  const v=currentValues();
-  const waterPct=clamp((v.ppm-270)/(520-270)*100,3,100);
-  const usedPct=clamp(v.cum/RESOURCE*100,0,100);
-  el.year.textContent=v.year;
-  el.ppm.textContent=v.ppm.toFixed(2);
-  el.water.style.height=waterPct+'%';
-  el.tank.style.height=(100-usedPct)+'%';
-  el.remaining.textContent=Math.max(0,Math.round(RESOURCE-v.cum)).toLocaleString()+' PgC';
-  el.released.textContent='≈'+Math.round(v.cum).toLocaleString()+' PgC transferred cumulatively';
-  el.share.textContent=usedPct.toFixed(2)+'%';
-
-  const flowScale=mode==='historical'
-    ? clamp((v.ppm-278)/(START_PPM-278),.03,1)
-    : +el.emission.value/100;
-  el.pipe.style.transform='scaleX('+clamp(flowScale,.03,1.3)+')';
-  el.faucet.style.transform='scaleY('+clamp(flowScale,.05,1.45)+')';
-  const sinkScale=mode==='historical'?.55:+el.sink.value/65;
-  el.drain.style.transform='scaleY('+clamp(sinkScale,.2,1.25)+')';
-
-  updateControls(v);
-  drawGraph();
-}
-function updateControls(v){
-  if(mode==='historical'){
-    el.netFlow.textContent='historical';
-    el.futurePpm.textContent='—';
-    el.score.textContent='—';
-    el.mission.textContent='Policy Lab locked';
-    el.mission.classList.remove('good');
-    el.ppmStatus.textContent=(v.year>=1958?'observational/reference era':'reconstructed/reference era');
-    el.resourceDate.textContent='published benchmark interpolation';
-    el.message.textContent='Historical replay: move through time and watch the atmospheric level rise while the upstream resource tank remains visually almost full.';
-    el.insight.innerHTML='<strong>System insight:</strong> the atmosphere is a small stock compared with the upstream geological frame, so a relatively small transfer can cause a large concentration change.';
-    return;
-  }
-  const f2100=futureState(2100);
-  const score=missionScore(f2100.ppm);
-  el.emissionOut.textContent=el.emission.value+'%';
-  el.sinkOut.textContent=el.sink.value+'%';
-  el.cdrOut.textContent=(+el.cdr.value).toFixed(1)+' GtC/yr';
-  el.netFlow.textContent=(v.net>=0?'+':'')+v.net.toFixed(2)+' GtC/yr';
-  el.futurePpm.textContent=f2100.ppm.toFixed(0);
-  el.score.textContent=score;
-  const passed=f2100.ppm<=450;
-  el.mission.textContent=passed?'Target met':'Above target';
-  el.mission.classList.toggle('good',passed);
-  el.ppmStatus.textContent='illustrative Policy Lab';
-  el.resourceDate.textContent='resource frame + your fossil-flow path';
-  if(v.net>0.2){
-    el.message.textContent='The bathtub is still rising at this point in your scenario because inflow exceeds land/ocean uptake plus durable removal.';
-    el.insight.innerHTML='<strong>System insight:</strong> slower growth is not stabilization. The atmospheric stock rises whenever net inflow is positive.';
-  }else if(v.net>=-0.2){
-    el.message.textContent='Near balance: inflow is approximately matched by uptake and durable removal, so the atmospheric stock is roughly stabilized in this simplified model.';
-    el.insight.innerHTML='<strong>System insight:</strong> stabilization is a flow-balance condition. The upstream geological stock does not need to be empty.';
-  }else{
-    el.message.textContent='The bathtub is falling: combined uptake and durable removal exceed anthropogenic inflow in this simplified scenario.';
-    el.insight.innerHTML='<strong>System insight:</strong> atmospheric decline requires net negative flow into the atmospheric stock.';
-  }
-}
-function series(){
-  const pts=[];
-  if(mode==='historical'){
-    for(let y=1750;y<=2026;y+=4)pts.push([y,historicalCO2(y)]);
-    if(pts.at(-1)[0]!==2026)pts.push([2026,historicalCO2(2026)]);
-  }else{
-    for(let y=2026;y<=2100;y++)pts.push([y,futureState(y).ppm]);
-  }
-  return pts;
-}
-function drawGraph(){
-  const pts=series(),minX=pts[0][0],maxX=pts.at(-1)[0];
-  const allY=pts.map(p=>p[1]);
-  const minY=Math.min(270,...allY)-5,maxY=Math.max(460,...allY)+8;
-  const sx=x=>42+(x-minX)/(maxX-minX)*640;
-  const sy=y=>154-(y-minY)/(maxY-minY)*136;
-  const d=pts.map((p,i)=>(i?'L':'M')+sx(p[0]).toFixed(1)+','+sy(p[1]).toFixed(1)).join(' ');
-  el.line.setAttribute('d',d);
-  el.area.setAttribute('d',d+' L '+sx(maxX)+',154 L 42,154 Z');
-  const v=currentValues();
-  el.dot.setAttribute('cx',sx(clamp(v.year,minX,maxX)));
-  el.dot.setAttribute('cy',sy(v.ppm));
-  const targetY=sy(450);
-  el.target.setAttribute('y1',targetY);el.target.setAttribute('y2',targetY);
-}
-function stopPlay(){if(timer){clearInterval(timer);timer=null}el.play.textContent='▶ Play'}
-function play(){
-  if(timer){stopPlay();return}
-  if(+el.time.value>=+el.time.max)el.time.value=+el.time.min;
-  el.play.textContent='❚❚ Pause';
-  timer=setInterval(()=>{
-    const step=mode==='historical'?1:1;
-    const next=+el.time.value+step;
-    if(next>+el.time.max){stopPlay();return}
-    el.time.value=next;setVisuals();
-  },mode==='historical'?28:90);
-}
-function setMode(next){
-  mode=next;
-  const future=mode==='scenario';
-  el.hist.classList.toggle('active',!future);
-  el.scenario.classList.toggle('active',future);
-  [el.emission,el.sink,el.cdr].forEach(x=>x.disabled=!future);
-  if(future){
-    el.time.min=2026;el.time.max=2100;el.time.value=2050;
-    el.timelineTitle.textContent='Explore 2026 → 2100';
-    el.timelineHint.textContent='Adjust the leverage points, then move through your pathway.';
-    el.milestones.innerHTML='<button data-year="2026">2026 · start</button><button data-year="2030">2030</button><button data-year="2050">2050</button><button data-year="2075">2075</button><button data-year="2100">2100 · mission</button>';
-  }else{
-    el.time.min=1750;el.time.max=2026;el.time.value=2026;
-    el.timelineTitle.textContent='Replay 1750 → 2026';
-    el.timelineHint.textContent='Drag, click a milestone, or press Play.';
-    el.milestones.innerHTML='<button data-year="1750">1750 · pre-industrial</button><button data-year="1958">1958 · Keeling Curve era</button><button data-year="1990">1990</button><button data-year="2019">2019 · AR6 benchmark</button><button data-year="2026">2026 · current era</button>';
-  }
-  bindMilestones();
-  stopPlay();setVisuals();
-}
-function bindMilestones(){
-  el.milestones.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{
-    el.time.value=btn.dataset.year;setVisuals();
-  }));
-}
-el.time.addEventListener('input',setVisuals);
-[el.emission,el.sink,el.cdr].forEach(x=>x.addEventListener('input',setVisuals));
-el.hist.addEventListener('click',()=>setMode('historical'));
-el.scenario.addEventListener('click',()=>setMode('scenario'));
-el.play.addEventListener('click',play);
-el.reset.addEventListener('click',()=>{
-  el.emission.value=100;el.sink.value=50;el.cdr.value=0;
-  setMode(mode);
-});
-bindMilestones();
-
-const stockData={
-  atmosphere:{title:'Atmosphere',desc:'A comparatively small carbon reservoir that directly determines atmospheric CO₂ concentration and exchanges rapidly with land and ocean.',flows:[['Fossil-fuel combustion','Geological/fossil → atmosphere','hot'],['Land-use change','Land stocks → atmosphere','hot'],['Photosynthesis','Atmosphere → terrestrial biomass'],['Air–sea exchange','Atmosphere ⇄ ocean']]},
-  ocean:{title:'Ocean',desc:'A very large carbon reservoir with rapid surface exchange and much slower deep-ocean circulation and storage.',flows:[['Air–sea exchange','Atmosphere ⇄ surface ocean'],['Circulation','Surface ⇄ deep ocean'],['Biological pump','Surface carbon → deeper ocean'],['Sedimentation','Ocean → geological storage']]},
-  biosphere:{title:'Terrestrial Biomass',desc:'Vegetation removes carbon through photosynthesis and returns it through respiration, disturbance, decomposition, and land-use change.',flows:[['Photosynthesis','Atmosphere → biomass'],['Respiration','Biomass → atmosphere'],['Litter transfer','Biomass → soils'],['Land-use change','Biomass → atmosphere / products','hot']]},
-  soil:{title:'Soils',desc:'Soils accumulate organic carbon from vegetation and lose carbon through decomposition, disturbance, erosion, and changing land conditions.',flows:[['Litter input','Biomass → soils'],['Decomposition','Soils → atmosphere'],['Erosion / transport','Soils → aquatic systems'],['Stabilization','Organic matter → persistent soil carbon']]},
-  geologic:{title:'Geological / Fossil',desc:'A huge slow stock. Extraction and combustion create a rapid transfer into the active surface carbon cycle on human timescales.',flows:[['Extraction & combustion','Geological/fossil → atmosphere','hot'],['Sedimentation & burial','Ocean / land → geological'],['Weathering','Rock interactions → dissolved carbon pathways'],['Geological release','Deep reservoirs → surface system']]}
-};
-const stockButtons=[...document.querySelectorAll('.stock')];
-const nodes=[...document.querySelectorAll('[data-node]')];
-const stockTitle=$('stockTitle'),stockDesc=$('stockDesc'),flows=$('flows');
-function renderStock(key){
-  const d=stockData[key];
-  stockButtons.forEach(b=>b.classList.toggle('active',b.dataset.stock===key));
-  nodes.forEach(n=>n.classList.toggle('selected',n.dataset.node===key));
-  stockTitle.textContent=d.title;stockDesc.textContent=d.desc;
-  flows.innerHTML=d.flows.map(f=>`<div class="flow ${f[2]||''}"><strong>${f[0]}</strong><br>${f[1]}</div>`).join('');
-}
-stockButtons.forEach(b=>b.addEventListener('click',()=>renderStock(b.dataset.stock)));
-renderStock('atmosphere');
-setMode('historical');
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}function interp(anchors,year){if(year<=anchors[0][0])return anchors[0][1];for(let i=1;i<anchors.length;i++){if(year<=anchors[i][0]){const[x0,y0]=anchors[i-1],[x1,y1]=anchors[i],t=(year-x0)/(x1-x0);return y0+(y1-y0)*t}}return anchors.at(-1)[1]}function historicalCO2(y){return interp(co2Anchors,y)}function historicalFossil(y){return interp(fossilCumAnchors,y)}function trajectoryFactor(year,endFraction){const t=clamp((year-2026)/(2100-2026),0,1);return 1+(endFraction-1)*t}
+function futureState(year){let ppm=START_PPM,cum=LATEST_RESOURCE_TRANSFER,lastNet=0,lastTotal=BASE_TOTAL_INFLOW,lastSink=BASE_TOTAL_INFLOW*(+el.sink.value/100),lastFossil=BASE_FOSSIL_INFLOW;const endFraction=+el.emission.value/100,sinkShare=+el.sink.value/100,cdr=+el.cdr.value;for(let y=2027;y<=year;y++){const factor=trajectoryFactor(y,endFraction),totalIn=BASE_TOTAL_INFLOW*factor,fossilIn=BASE_FOSSIL_INFLOW*factor,sink=totalIn*sinkShare;lastNet=totalIn-sink-cdr;ppm+=lastNet/GTC_PER_PPM;cum+=Math.max(0,fossilIn);lastTotal=totalIn;lastSink=sink;lastFossil=fossilIn}return{ppm,cum,net:lastNet,totalIn:lastTotal,sinkFlow:lastSink,cdr,fossilIn:lastFossil}}
+function currentValues(){const y=+el.time.value;if(mode==='historical')return{year:y,ppm:historicalCO2(y),cum:historicalFossil(y),net:null,sinkFlow:null};return{year:y,...futureState(y)}}function missionScore(ppm){if(ppm<=420)return 100;if(ppm<=450)return Math.round(85+(450-ppm)/30*15);if(ppm<=500)return Math.round(60+(500-ppm)/50*25);if(ppm<=600)return Math.round(25+(600-ppm)/100*35);return Math.max(0,Math.round(25-(ppm-600)/8))}function fmt(v,d=0){return Number(v).toLocaleString(undefined,{maximumFractionDigits:d,minimumFractionDigits:d})}
+function updateLedger(v){const remaining=Math.max(0,RESOURCE-v.cum),atm=v.ppm*GTC_PER_PPM,excess=Math.max(0,(v.ppm-PREINDUSTRIAL_PPM)*GTC_PER_PPM);el.ledgerRemaining.textContent=fmt(remaining)+' GtC';el.ledgerTransferred.textContent='≈'+fmt(v.cum)+' GtC';el.ledgerAtmosphere.textContent='≈'+fmt(atm)+' GtC';el.ledgerAtmosphereSub.textContent=v.ppm.toFixed(2)+' ppm × 2.12 GtC/ppm';el.ledgerExcess.textContent='≈'+fmt(excess)+' GtC';el.tableGeo.textContent=fmt(remaining)+' GtC remaining';el.tableTransfer.textContent='≈'+fmt(v.cum)+' GtC transferred';el.tablePpm.textContent=v.ppm.toFixed(2)+' ppm';el.tableAtm.textContent='≈'+fmt(atm)+' GtC total atmospheric carbon';el.tableExcess.textContent='≈'+fmt(excess)+' GtC';if(mode==='scenario'){el.ledgerSink.textContent=v.sinkFlow.toFixed(2)+' GtC/yr';el.ledgerSinkSub.textContent='land + ocean uptake at this point';el.tableSinkFlow.textContent=v.sinkFlow.toFixed(2)+' GtC/yr uptake';el.tableSinkEq.textContent='+'+(+el.cdr.value).toFixed(1)+' GtC/yr durable CDR';}else{el.ledgerSink.textContent='Reference';el.ledgerSinkSub.textContent='annual historical uptake is not reconstructed';el.tableSinkFlow.textContent='not annualized in historical replay';el.tableSinkEq.textContent='—';}}
+function setVisuals(){const v=currentValues(),waterPct=clamp((v.ppm-270)/(520-270)*100,3,100),usedPct=clamp(v.cum/RESOURCE*100,0,100),atm=v.ppm*GTC_PER_PPM;el.year.textContent=v.year;el.ppm.textContent=v.ppm.toFixed(2);el.atmEq.textContent='≈'+fmt(atm)+' GtC in atmosphere';el.water.style.height=waterPct+'%';el.tank.style.height=(100-usedPct)+'%';el.remaining.textContent=fmt(Math.max(0,RESOURCE-v.cum))+' GtC';el.released.textContent='≈'+fmt(v.cum)+' GtC transferred cumulatively';el.share.textContent=usedPct.toFixed(2)+'%';const flowScale=mode==='historical'?clamp((v.ppm-278)/(START_PPM-278),.03,1):+el.emission.value/100;el.pipe.style.transform='scaleX('+clamp(flowScale,.03,1.3)+')';el.faucet.style.transform='scaleY('+clamp(flowScale,.05,1.45)+')';const sinkScale=mode==='historical'?.55:+el.sink.value/65;el.drain.style.transform='scaleY('+clamp(sinkScale,.2,1.25)+')';if(mode==='scenario'){el.sinkFlowNow.textContent=v.sinkFlow.toFixed(2)+' GtC/yr to land + ocean';el.sinkFlowDetail.textContent='plus '+(+el.cdr.value).toFixed(1)+' GtC/yr durable CDR';}else{el.sinkFlowNow.textContent='Land + ocean uptake';el.sinkFlowDetail.textContent='historical annual flow not reconstructed';}updateControls(v);updateLedger(v);drawGraph()}
+function updateControls(v){if(mode==='historical'){el.netFlow.textContent='historical';el.futurePpm.textContent='—';el.score.textContent='—';el.mission.textContent='Policy Lab locked';el.mission.classList.remove('good');el.ppmStatus.textContent=(v.year>=1958?'observational/reference era':'reconstructed/reference era');el.resourceDate.textContent='published benchmark interpolation';el.message.textContent='Historical replay: watch the atmosphere fill while the upstream resource frame remains visually almost full.';el.insight.innerHTML='<strong>System insight:</strong> the blue drain sends carbon into active land and ocean reservoirs. The green return path to geological storage is much slower and is not treated as an immediate recycling loop.';return}const f2100=futureState(2100),score=missionScore(f2100.ppm);el.emissionOut.textContent=el.emission.value+'%';el.sinkOut.textContent=el.sink.value+'%';el.cdrOut.textContent=(+el.cdr.value).toFixed(1)+' GtC/yr';el.netFlow.textContent=(v.net>=0?'+':'')+v.net.toFixed(2)+' GtC/yr';el.futurePpm.textContent=f2100.ppm.toFixed(0);el.score.textContent=score;const passed=f2100.ppm<=450;el.mission.textContent=passed?'Target met':'Above target';el.mission.classList.toggle('good',passed);el.ppmStatus.textContent='illustrative Policy Lab';el.resourceDate.textContent='resource frame + your fossil-flow path';if(v.net>0.2){el.message.textContent='The bathtub is still rising because inflow exceeds land/ocean uptake plus durable removal.';el.insight.innerHTML='<strong>System insight:</strong> slower growth is not stabilization. The stock rises whenever net inflow is positive.'}else if(v.net>=-0.2){el.message.textContent='Near balance: inflow is approximately matched by uptake and durable removal.';el.insight.innerHTML='<strong>System insight:</strong> stabilization is a flow-balance condition. The upstream geological stock does not need to be empty.'}else{el.message.textContent='The bathtub is falling: combined uptake and durable removal exceed anthropogenic inflow.';el.insight.innerHTML='<strong>System insight:</strong> atmospheric decline requires net negative flow into the atmospheric stock.'}}
+function series(){const pts=[];if(mode==='historical'){for(let y=1750;y<=2026;y+=4)pts.push([y,historicalCO2(y)]);if(pts.at(-1)[0]!==2026)pts.push([2026,historicalCO2(2026)])}else{for(let y=2026;y<=2100;y++)pts.push([y,futureState(y).ppm])}return pts}function drawGraph(){const pts=series(),minX=pts[0][0],maxX=pts.at(-1)[0],allY=pts.map(p=>p[1]),minY=Math.min(270,...allY)-5,maxY=Math.max(460,...allY)+8,sx=x=>42+(x-minX)/(maxX-minX)*640,sy=y=>154-(y-minY)/(maxY-minY)*136,d=pts.map((p,i)=>(i?'L':'M')+sx(p[0]).toFixed(1)+','+sy(p[1]).toFixed(1)).join(' ');el.line.setAttribute('d',d);el.area.setAttribute('d',d+' L '+sx(maxX)+',154 L 42,154 Z');const v=currentValues();el.dot.setAttribute('cx',sx(clamp(v.year,minX,maxX)));el.dot.setAttribute('cy',sy(v.ppm));const targetY=sy(450);el.target.setAttribute('y1',targetY);el.target.setAttribute('y2',targetY)}function stopPlay(){if(timer){clearInterval(timer);timer=null}el.play.textContent='▶ Play'}function play(){if(timer){stopPlay();return}if(+el.time.value>=+el.time.max)el.time.value=+el.time.min;el.play.textContent='❚❚ Pause';timer=setInterval(()=>{const next=+el.time.value+1;if(next>+el.time.max){stopPlay();return}el.time.value=next;setVisuals()},mode==='historical'?28:90)}
+function setMode(next){mode=next;const future=mode==='scenario';el.hist.classList.toggle('active',!future);el.scenario.classList.toggle('active',future);[el.emission,el.sink,el.cdr].forEach(x=>x.disabled=!future);if(future){el.time.min=2026;el.time.max=2100;el.time.value=2050;el.timelineTitle.textContent='Explore 2026 → 2100';el.timelineHint.textContent='Adjust leverage points, then move through your pathway.';el.milestones.innerHTML='<button data-year="2026">2026 · start</button><button data-year="2030">2030</button><button data-year="2050">2050</button><button data-year="2075">2075</button><button data-year="2100">2100 · mission</button>'}else{el.time.min=1750;el.time.max=2026;el.time.value=2026;el.timelineTitle.textContent='Replay 1750 → 2026';el.timelineHint.textContent='Drag, click a milestone, or press Play.';el.milestones.innerHTML='<button data-year="1750">1750 · pre-industrial</button><button data-year="1958">1958 · Keeling Curve era</button><button data-year="1990">1990</button><button data-year="2019">2019 · AR6 benchmark</button><button data-year="2026">2026 · current era</button>'}bindMilestones();stopPlay();setVisuals()}function bindMilestones(){el.milestones.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{el.time.value=btn.dataset.year;setVisuals()}))}
+el.time.addEventListener('input',setVisuals);[el.emission,el.sink,el.cdr].forEach(x=>x.addEventListener('input',setVisuals));el.hist.addEventListener('click',()=>setMode('historical'));el.scenario.addEventListener('click',()=>setMode('scenario'));el.play.addEventListener('click',play);el.reset.addEventListener('click',()=>{el.emission.value=100;el.sink.value=50;el.cdr.value=0;setMode(mode)});bindMilestones();
+const stockData={atmosphere:{title:'Atmosphere',desc:'A comparatively small carbon reservoir that directly determines atmospheric CO₂ concentration and exchanges rapidly with land and ocean.',flows:[['Fossil-fuel combustion','Geological/fossil → atmosphere','hot'],['Land-use change','Land stocks → atmosphere','hot'],['Photosynthesis','Atmosphere → terrestrial biomass'],['Air–sea exchange','Atmosphere ⇄ ocean']]},ocean:{title:'Ocean',desc:'A very large carbon reservoir with rapid surface exchange and much slower deep-ocean circulation and storage.',flows:[['Air–sea exchange','Atmosphere ⇄ surface ocean'],['Circulation','Surface ⇄ deep ocean'],['Biological pump','Surface carbon → deeper ocean'],['Sedimentation','Ocean → geological storage']]},biosphere:{title:'Terrestrial Biomass',desc:'Vegetation removes carbon through photosynthesis and returns it through respiration, disturbance, decomposition, and land-use change.',flows:[['Photosynthesis','Atmosphere → biomass'],['Respiration','Biomass → atmosphere'],['Litter transfer','Biomass → soils'],['Land-use change','Biomass → atmosphere / products','hot']]},soil:{title:'Soils',desc:'Soils accumulate organic carbon from vegetation and lose carbon through decomposition, disturbance, erosion, and changing land conditions.',flows:[['Litter input','Biomass → soils'],['Decomposition','Soils → atmosphere'],['Erosion / transport','Soils → aquatic systems'],['Stabilization','Organic matter → persistent soil carbon']]},geologic:{title:'Geological / Fossil',desc:'A huge slow stock. Extraction and combustion create a rapid human transfer into the active surface system, while burial and sedimentation return carbon only on much longer timescales.',flows:[['Extraction & combustion','Geological/fossil → atmosphere','hot'],['Sedimentation & burial','Ocean / land → geological'],['Weathering','Rock interactions → dissolved carbon pathways'],['Geological release','Deep reservoirs → surface system']]}};
+const stockButtons=[...document.querySelectorAll('.stock')],nodes=[...document.querySelectorAll('[data-node]')],stockTitle=$('stockTitle'),stockDesc=$('stockDesc'),flows=$('flows');function renderStock(key){const d=stockData[key];stockButtons.forEach(b=>b.classList.toggle('active',b.dataset.stock===key));nodes.forEach(n=>n.classList.toggle('selected',n.dataset.node===key));stockTitle.textContent=d.title;stockDesc.textContent=d.desc;flows.innerHTML=d.flows.map(f=>`<div class="flow ${f[2]||''}"><strong>${f[0]}</strong><br>${f[1]}</div>`).join('')}stockButtons.forEach(b=>b.addEventListener('click',()=>renderStock(b.dataset.stock)));
+const tabs=[...document.querySelectorAll('.lab-tab')];tabs.forEach(btn=>btn.addEventListener('click',()=>{tabs.forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));$('panel-'+btn.dataset.tab).classList.add('active')}));function togglePresenter(){document.body.classList.toggle('presenter');$('presenterBtn').textContent=document.body.classList.contains('presenter')?'Exit presenter':'Presenter mode';window.scrollTo({top:0,behavior:'smooth'})}$('presenterBtn').addEventListener('click',togglePresenter);$('heroPresenter').addEventListener('click',togglePresenter);renderStock('atmosphere');setMode('historical');
 </script>
 </body>
 </html>
