@@ -9,7 +9,7 @@
 | **Project type** | Interactive systems demo · carbon cycle · stock–flow learning game |
 | **Role** | Creator and model designer |
 | **Status** | Public conceptual prototype |
-| **Model type** | Historical reference replay + simplified what-if stock–flow sandbox |
+| **Model type** | Historical reference replay + simplified 2026–2100 policy sandbox |
 | **Deployment** | Static HTML · GitHub Pages |
 | **Public disclosure** | Published scientific context only; no private data or hidden model parameters |
 
@@ -20,18 +20,41 @@ The main interaction is deliberately game-like rather than a static chart:
 - drag a **time slider from 1750 to 2026** and watch the atmospheric bathtub level change with CO₂ concentration;
 - press **Play** to animate the historical accumulation;
 - compare the atmospheric stock with a much larger upstream fossil-carbon resource frame;
-- switch to **What-if** mode for 2026–2100;
+- switch to **Policy Lab** for 2026–2100;
 - change anthropogenic inflow, land/ocean uptake, and durable carbon removal;
 - see whether the bathtub rises, stabilizes, or falls;
-- inspect the connected atmosphere, ocean, biomass, soil, and geological stocks.
+- follow the **sink outlet** from atmosphere into active land/ocean reservoirs, with a separately labeled very slow geological-return pathway;
+- switch among **Simulation, Carbon ledger, System map, and Methods & sources** tabs;
+- use **Presenter mode** to focus the interface for a live demonstration.
 
-The visual design intentionally puts the upstream geological stock and atmospheric bathtub side by side while keeping their different scales explicit.
+The visual design intentionally distinguishes three different pathways and timescales:
+
+- **orange** — anthropogenic inflow from geological/fossil carbon into the active surface system;
+- **blue** — uptake into land and ocean sinks;
+- **green** — much slower burial / long-term geological return.
+
+This avoids implying that carbon removed from the atmosphere immediately rebuilds fossil stocks.
+
+## Carbon ledger
+
+The game now shows carbon equivalents alongside the visual stocks. For the selected year it reports:
+
+- geological resource-frame carbon remaining;
+- cumulative fossil-carbon transfer represented by the resource comparison;
+- atmospheric CO₂ concentration in ppm;
+- approximate atmospheric carbon mass using **≈2.12 GtC per ppm**;
+- atmospheric carbon increase above the 278 ppm pre-industrial reference;
+- land/ocean sink flow in Policy Lab when that flow is explicitly simulated.
+
+The interface deliberately leaves historical annual sink flow unquantified because the historical replay does not reconstruct a complete annual land/ocean carbon budget. This is preferable to creating false precision.
+
+**Unit note:** 1 PgC = 1 GtC, so the numerical values are the same when expressed as petagrams or gigatonnes of carbon.
 
 ## Purpose
 
 The familiar carbon **bathtub analogy** treats atmospheric CO₂ as the water level, anthropogenic emissions as the tap, and removals as the drain. That framing is useful, but it can hide an important systems point: the atmosphere is only one stock inside a much larger network of carbon reservoirs, and fossil extraction transfers carbon from a very large, slow geological stock into the much faster atmosphere–land–ocean system.
 
-This demo therefore places a large upstream fossil-carbon resource tank next to the atmospheric bathtub. Users can move through time, watch atmospheric CO₂ rise, and see that a relatively small transfer from the geological resource frame can generate a large change in the atmospheric stock.
+This demo therefore places a large upstream fossil-carbon resource tank next to the atmospheric bathtub and then makes the downstream sink pathway visible. Users can move through time, watch atmospheric CO₂ rise, and see that a relatively small transfer from the geological resource frame can generate a large change in the atmospheric stock.
 
 ## The “about 2%” calculation
 
@@ -62,35 +85,26 @@ The **Global Carbon Budget 2025** reports cumulative fossil CO₂ emissions of a
 
 The website displays both numbers so the historical calculation remains traceable while the user can see how the fraction changes through time.
 
-## Current atmospheric reference
-
-The demo uses a current-era NOAA atmospheric CO₂ reference and published historical/reference anchors for the time slider. The purpose is to communicate stock accumulation and scale; it is not a replacement for the full NOAA observational dataset.
-
-The Global Carbon Budget 2025 reports:
-
-- atmospheric CO₂ in 2024: **422.80 ± 0.1 ppm**
-- atmospheric carbon stock in 2024: **898 GtC**
-- cumulative anthropogenic CO₂ emissions, 1850–2024: **745 ± 65 GtC**
-- cumulative fossil CO₂ emissions, 1850–2024: **495 ± 25 GtC**
-- over 2015–2024, approximately **50%** of total anthropogenic CO₂ emissions accumulated in the atmosphere, while **29%** was absorbed by the ocean and **21%** by land
-
-## Historical mode
+## Historical replay
 
 The time slider moves from **1750 to 2026** and updates:
 
 - atmospheric CO₂ concentration;
 - bathtub water level;
+- approximate atmospheric carbon equivalent;
 - upstream fossil-resource gauge;
 - cumulative fossil-carbon transfer represented in the resource comparison;
 - position on the CO₂ time-series graph.
 
 Atmospheric CO₂ uses published historical/reference anchors. The fossil-resource gauge interpolates between published cumulative-emissions benchmarks; it is a communication device, not a reconstruction of every annual emissions value.
 
-## What-if mode
+Historical annual land/ocean sink flow is intentionally not reconstructed in this mode.
+
+## Policy Lab
 
 The future sandbox runs from **2026 to 2100** and lets the user change:
 
-- fossil + land-use inflow;
+- anthropogenic inflow;
 - the share taken up by land and ocean;
 - additional durable carbon dioxide removal (CDR).
 
@@ -101,6 +115,16 @@ The simplified stock equation is conceptually:
 The demo converts the resulting net carbon flow to an illustrative ppm rate using approximately **2.12 GtC per ppm**.
 
 This is deliberately a learning model. It does not simulate carbon-cycle feedbacks, changing sink efficiency, ocean chemistry, temperature response, non-CO₂ forcing, or socioeconomic dynamics.
+
+## Sink-loop interpretation
+
+The drain from the atmospheric bathtub does **not** return directly to the fossil resource tank.
+
+The visual pathway is:
+
+**Atmosphere → land/ocean active reservoirs → very slow burial / sedimentation → geological storage**
+
+The long-term return is shown conceptually but is not numerically simulated. This keeps the stock–flow diagram closed enough to communicate the wider carbon cycle without conflating fast biological/ocean uptake with geological sequestration timescales.
 
 ## Core System Dynamics insight
 
@@ -121,9 +145,9 @@ The important leverage point is the **transfer rate** from slow geological stora
 
 ## GitHub Pages deployment
 
-The site is deployed directly from `main` with `.github/workflows/pages.yml`. The workflow packages only the static site and publishes it through GitHub Pages.
+The site is deployed directly from `main` with `.github/workflows/pages.yml`. The workflow publishes `game.html` as the Pages homepage.
 
-For a new repository, GitHub Pages must be enabled once under **Settings → Pages → Build and deployment → Source → GitHub Actions**. After that, every push to `main` republishes the preview automatically.
+GitHub Pages is configured under **Settings → Pages → Build and deployment → Source → GitHub Actions**. Every push to `main` republishes the preview automatically.
 
 ## Interpretation boundary
 
