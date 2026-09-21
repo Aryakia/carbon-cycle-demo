@@ -11,10 +11,10 @@ flowchart LR
   G[Slow geological fossil-carbon resource frame] -->|Anthropogenic transfer| A[Atmospheric CO2 stock]
   A -->|Land and ocean uptake| S[Active land/ocean reservoirs]
   S -. very slow conceptual burial; not numerically simulated .-> G
-  R[Durable carbon removal in simplified policy sandbox] -->|Removes from atmosphere| A
+  A -->|Durable removal in simplified policy sandbox| R[Removed or durably stored carbon]
 ```
 
-**Reading the last arrow:** Durable removal is a *subtraction from* the atmospheric stock, not an inflow; the arrow is a conceptual control link. For a numerical statement use the README's equation: **change in atmospheric carbon = anthropogenic inflow − natural uptake − durable removal**. The historical replay uses published concentration/reference anchors and interpolated fossil-transfer context; it does **not** reconstruct all historical annual sink fluxes. The 2026–2100 sandbox uses user-controlled simplified assumptions.
+**Reading the final arrow:** Durable removal is a *subtraction from* the atmospheric stock, not an inflow. For a numerical statement use the README's equation: **change in atmospheric carbon = anthropogenic inflow − natural uptake − durable removal**. The historical replay uses published concentration/reference anchors and interpolated fossil-transfer context; it does **not** reconstruct all historical annual sink fluxes. The 2026–2100 sandbox uses user-controlled simplified assumptions. The endpoint `R` is an explanatory placeholder, not a separately simulated stock.
 
 ## Inspectable public artifacts
 
