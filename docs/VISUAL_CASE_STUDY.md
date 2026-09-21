@@ -10,7 +10,7 @@ This is a **conceptual educational simulation**, not a complete Earth-system mod
 flowchart LR
   G[Slow geological fossil-carbon resource frame] -->|Anthropogenic transfer| A[Atmospheric CO2 stock]
   A -->|Land and ocean uptake| S[Active land/ocean reservoirs]
-  S -. very slow conceptual burial; not numerically simulated .-> G
+  S -.->|Very slow conceptual burial not simulated| G
   A -->|Durable removal in simplified policy sandbox| R[Removed or durably stored carbon]
 ```
 
