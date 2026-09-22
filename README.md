@@ -4,6 +4,8 @@
 
 **GitHub Pages preview:** https://aryakia.github.io/carbon-cycle-demo/
 
+[Five-minute demonstration and visual model guide](docs/VISUAL_CASE_STUDY.md)
+
 | | |
 |---|---|
 | **Project type** | Interactive systems demo · carbon cycle · stock–flow learning game |
