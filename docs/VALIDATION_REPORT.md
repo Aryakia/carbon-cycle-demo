@@ -45,10 +45,10 @@ Comparing the default 0.25-year step with 0.125 and 0.0625-year runs:
 | Scenario | Maximum relative 2100-ppm difference | Maximum relative cumulative-fossil-transfer difference |
 | --- | ---: | ---: |
 | Structural reference | 0.000% | 0.000% |
-| Carbon price | 0.018% | 0.068% |
-| Price + clean investment | 0.072% | 0.466% |
-| Accelerated retirement | 0.067% | 0.505% |
-| Coordinated package | 0.064% | 0.634% |
+| Carbon price | 0.016% | 0.068% |
+| Price + clean investment | 0.063% | 0.466% |
+| Accelerated retirement | 0.058% | 0.505% |
+| Coordinated package | 0.053% | 0.634% |
 
 These are numerical-convergence diagnostics, not empirical validation results.
 
@@ -84,7 +84,7 @@ The coordinated-policy scenario is screened one parameter at a time over explici
 - fossil production-capacity lifetime;
 - fossil-demand-capital lifetime;
 - policy implementation delay;
-- pedagogical natural-sink fraction;
+- reduced carbon-cycle lifetime scale around the historically fitted alpha = 0.555;
 - resource-development cost index;
 - non-combustion fossil-carbon share.
 
@@ -151,4 +151,46 @@ The reference initialization now reproduces the Global Carbon Budget 2025 fossil
 
 These are structure/initialization checks, not a forecast.
 
-The Structural reference produces about **645 ppm** in 2100 under the current pedagogical natural-sink closure. This value must not be interpreted as a climate projection: the advanced model still uses a simplified sink fraction rather than a mechanistic or calibrated carbon-cycle response model.
+After Stage 8, the Structural reference produces about **577 ppm** in 2100 under the historically calibrated reduced-form carbon-cycle closure. This remains a structural reference rather than a forecast because the fossil-flow path is deliberately held near its current value and the upstream behavioral system is not historically calibrated.
+
+
+## Stage 8 reduced carbon-cycle validation
+
+The advanced research model replaces the fixed natural-sink fraction with a four-timescale atmospheric CO₂ response.
+
+### Published structure
+
+The response fractions and nominal time scales are taken from the Joos et al. (2013) multi-model impulse response used by IPCC AR5:
+
+| Pool | Fraction | Nominal time scale |
+| --- | ---: | ---: |
+| persistent | 0.2173 | effectively persistent |
+| slow | 0.2240 | 394.4 yr |
+| medium | 0.2824 | 36.54 yr |
+| fast | 0.2763 | 4.304 yr |
+
+A single lifetime multiplier, `alpha = 0.555`, scales the three finite time constants. This follows the reduced-form concept used by FaIR, although this project does **not** implement FaIR's full state-dependent alpha feedback equation.
+
+### Historical fit
+
+The lifetime scale and a non-negative 1959 legacy box state were fitted to the Global Carbon Budget 2025 atmospheric-stock trajectory for 1959–2024 while constraining the 2024 endpoint to 422.8 ppm.
+
+Current diagnostics:
+
+- 1959–2024 atmospheric-stock RMSE: **1.186 ppm**;
+- maximum absolute historical stock error: **2.976 ppm**;
+- modeled 2024 endpoint: **422.800 ppm**;
+- independent one-year 2025 prediction before assimilation: **425.160 ppm**;
+- preliminary GCB 2025 concentration: **425.6 ppm**;
+- 2025 assimilation residual: **0.932 GtC (0.44 ppm)**, assigned to the fastest response box.
+
+At the assimilated 2025 state the reduced model diagnoses about **6.90 GtC/yr** of net natural uptake. GCB preliminary estimates imply roughly 6.3 GtC/yr from the separate land and ocean estimates and about 7.1 GtC/yr from total emissions minus atmospheric growth, so the reduced response is of the correct current order of magnitude.
+
+### Boundary
+
+The module is a calibrated atmospheric-response emulator. It should not be interpreted as:
+
+- a unique decomposition of land versus ocean uptake;
+- a mechanistic representation of terrestrial or ocean biogeochemistry;
+- a temperature-coupled carbon-cycle feedback model;
+- a substitute for FaIR, MAGICC, an Earth-system model, or a calibrated IAM.
