@@ -296,3 +296,18 @@ Validation results:
 The advanced model diagnoses combined net natural uptake from carbon conservation. It does not claim a unique land/ocean split and is not a full FaIR or Earth-system implementation.
 
 See `docs/STAGE8_DYNAMIC_CARBON_CYCLE.md` and `docs/VALIDATION_REPORT.md`.
+
+
+## Reproducible scenarios and exports
+
+The advanced laboratory and comparative-experiment interface now support reproducible sharing:
+
+- **Copy scenario link** serializes all user-facing advanced-lab control values into the URL query string.
+- Opening that link reconstructs the same control state before the simulation is rendered.
+- **Export CSV** provides time-series results in research-friendly tabular form.
+- **Export JSON** from the advanced lab includes the parameter vector, 2100 summary and exported time series.
+- Comparative experiments can be linked directly with `?experiment=<id>`.
+- A shared experiment legend controls scenario visibility across every chart and the results table.
+- Experiment trajectories use both color and line style so comparisons do not rely on color alone.
+
+The serialization and CSV functions live in `ui/scenario-io.js` and have automated round-trip/escaping tests.
