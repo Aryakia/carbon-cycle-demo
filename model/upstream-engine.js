@@ -10,7 +10,7 @@ export const DEFAULT_PARAMETERS = Object.freeze({
   carbonPriceUsdPerTCO2: 0,
   fossilSubsidyUsdPerTCO2: 0,
   fossilInvestmentIncentive: 1,
-  cleanInvestmentIndexPerYr: 0.035,
+  cleanInvestmentIndexPerYr: 0.0124804992199688,
   acceleratedRetirementPerYr: 0,
   expectedFutureDemandIndex: 1,
   institutionalResistance: 0.55,
@@ -24,7 +24,6 @@ export const DEFAULT_PARAMETERS = Object.freeze({
   baseFossilDemandGtCPerYr: 10.4,
   capacityLifetimeYears: 25,
   fossilDemandCapitalLifetimeYears: 20,
-  cleanCapitalLifetimeYears: 25,
   fuelInventoryResidenceYears: 0.25,
   productCarbonLifetimeYears: 30,
   nonCombustionShare: 0.08,
@@ -33,7 +32,6 @@ export const DEFAULT_PARAMETERS = Object.freeze({
   pedagogicalNaturalSinkFraction: 0.46,
 
   capacityInvestmentRatePerYr: 0.035,
-  demandCapitalInvestmentRatePerYr: 0.025,
   capabilityLearningRatePerYr: 0.035,
   capabilityDecayRatePerYr: 0.015,
   institutionalFormationRatePerYr: 0.025,
@@ -65,8 +63,8 @@ export const DEFAULT_STATE = Object.freeze({
   cleanCapital: 0.32,
   capability: 0.9,
   institutionalSupport: 0.7,
-  fuelInventoryGtC: 2.4,
-  productsGtC: 8,
+  fuelInventoryGtC: 2.548,
+  productsGtC: 24.4608,
   atmosphereGtC: SCIENCE.gcb2025ProjectedAtmosphericPpm * SCIENCE.ppmToGtC,
   durableStorageGtC: 0,
   cumulativeExtractionGtC: 0,
@@ -80,6 +78,15 @@ function safeExpit(x) {
   if (x > 30) return 1;
   if (x < -30) return 0;
   return 1 / (1 + Math.exp(-x));
+}
+
+function cleanShareSignal(cleanCapital, cleanLearningRate, effectiveCarbonPrice = 0) {
+  const cleanLearningBonus =
+    1 + cleanLearningRate * Math.log1p(Math.max(0, cleanCapital) * 10);
+  const cleanCompetitiveness =
+    Math.max(0, cleanCapital) * cleanLearningBonus +
+    effectiveCarbonPrice / 220;
+  return clamp(safeExpit(3.2 * (cleanCompetitiveness - 0.72)), 0, 0.97);
 }
 
 export function createInitialState(overrides = {}) {
@@ -101,17 +108,38 @@ export function calculateSignals(state, p = DEFAULT_PARAMETERS) {
     ramp *
     (1 - 0.65 * clamp(p.institutionalResistance, 0, 1));
 
-  const cleanLearningBonus =
-    1 + p.cleanLearningRate * Math.log1p(Math.max(0, state.cleanCapital) * 10);
-  const cleanCompetitiveness =
-    state.cleanCapital * cleanLearningBonus +
-    effectiveCarbonPrice / 220;
+  const cleanShare = cleanShareSignal(
+    state.cleanCapital,
+    p.cleanLearningRate,
+    effectiveCarbonPrice,
+  );
 
-  const cleanShare = clamp(safeExpit(3.2 * (cleanCompetitiveness - 0.72)), 0, 0.97);
+  // The 10.4 GtC/yr fossil-flow benchmark already describes current fossil
+  // emissions. Therefore the current clean-technology signal must be
+  // normalized out of the reference condition rather than applied a second
+  // time to the benchmark.
+  const referenceCleanShare = cleanShareSignal(
+    DEFAULT_STATE.cleanCapital,
+    DEFAULT_PARAMETERS.cleanLearningRate,
+    0,
+  );
+  const relativeFossilServiceShare = clamp(
+    (1 - cleanShare) / Math.max(1e-9, 1 - referenceCleanShare),
+    0,
+    1.5,
+  );
+
+  // Actual fossil demand follows the installed fossil-dependent capital stock.
+  // Clean competitiveness changes the DESIRED stock; turnover creates inertia.
   const fossilDemandSignal =
     Math.max(0, p.expectedFutureDemandIndex) *
-    Math.max(0, state.fossilDemandCapital) *
-    (1 - cleanShare);
+    Math.max(0, state.fossilDemandCapital);
+
+  const desiredFossilDemandCapital = clamp(
+    Math.max(0, p.expectedFutureDemandIndex) * relativeFossilServiceShare,
+    0,
+    1.75,
+  );
 
   const effectiveSubsidyUsdPerTCO2 = p.fossilSubsidyUsdPerTCO2 * ramp;
   const effectiveFossilInvestmentIncentive =
@@ -136,6 +164,9 @@ export function calculateSignals(state, p = DEFAULT_PARAMETERS) {
     ramp,
     effectiveCarbonPrice,
     cleanShare,
+    referenceCleanShare,
+    relativeFossilServiceShare,
+    desiredFossilDemandCapital,
     fossilDemandSignal,
     profitabilityIndex,
     effectiveSubsidyUsdPerTCO2,
@@ -164,14 +195,13 @@ export function stepUpstream(state, parameters = {}, dtOverride = null) {
     (1 / p.capacityLifetimeYears + policyRetirementBoost);
 
   const demandCapitalInvestment =
-    p.demandCapitalInvestmentRatePerYr *
-    Math.max(0, p.expectedFutureDemandIndex) *
-    Math.max(0, s.institutionalSupport) *
-    (1 - sig.cleanShare);
+    sig.desiredFossilDemandCapital /
+    Math.max(0.1, p.fossilDemandCapitalLifetimeYears);
 
   const demandCapitalRetirement =
-    s.fossilDemandCapital *
-    (1 / p.fossilDemandCapitalLifetimeYears + policyRetirementBoost);
+    s.fossilDemandCapital /
+      Math.max(0.1, p.fossilDemandCapitalLifetimeYears) +
+    s.fossilDemandCapital * policyRetirementBoost;
 
   const cleanInvestment =
     Math.max(0, sig.effectiveCleanInvestmentIndexPerYr) *
@@ -366,7 +396,7 @@ export function simulate(parameters = {}, options = {}) {
 }
 
 export const SCENARIOS = Object.freeze({
-  bau: {},
+  structuralReference: {},
   carbonPrice: {
     carbonPriceUsdPerTCO2: 120,
   },
