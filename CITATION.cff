@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "Carbon Beyond the Bathtub"
+type: software
+authors:
+  - family-names: Kia
+    given-names: Arya
+version: 0.3.0
+date-released: 2026-11-07
+url: "https://aryakia.github.io/carbon-cycle-demo/"
+repository-code: "https://github.com/Aryakia/carbon-cycle-demo"
+abstract: >-
+  An interactive System Dynamics educational and research-prototype platform
+  for atmospheric carbon accumulation, fossil-carbon lock-in, upstream
+  investment dynamics, comparative policy experiments, and a historically
+  calibrated reduced-form atmospheric CO2 response.
+keywords:
+  - system dynamics
+  - carbon cycle
+  - carbon lock-in
+  - climate policy
+  - energy systems
+  - educational simulation
