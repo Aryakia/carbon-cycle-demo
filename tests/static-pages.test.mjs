@@ -4,7 +4,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const pages = ["game.html", "upstream.html", "paleoclimate.html", "experiments.html"];
+const pages = ["game.html", "upstream.html", "paleoclimate.html", "experiments.html", "feedbacks.html", "assessment.html"];
 
 for (const page of pages) {
   const path = resolve(root, page);
