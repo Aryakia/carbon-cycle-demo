@@ -147,6 +147,7 @@ export function calculateSignals(state, p = DEFAULT_PARAMETERS) {
 export function stepUpstream(state, parameters = {}, dtOverride = null) {
   const p = { ...DEFAULT_PARAMETERS, ...parameters };
   const dt = dtOverride ?? p.dtYears;
+  validateTimeStep(dt);
   const s = { ...state };
   const sig = calculateSignals(s, p);
 
@@ -345,6 +346,7 @@ export function stepUpstream(state, parameters = {}, dtOverride = null) {
 export function simulate(parameters = {}, options = {}) {
   const p = { ...DEFAULT_PARAMETERS, ...parameters };
   const dt = options.dtYears ?? p.dtYears;
+  validateTimeStep(dt);
   const endYear = options.endYear ?? p.endYear;
   let state = createInitialState(options.initialState);
   const rows = [];
