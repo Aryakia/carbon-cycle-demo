@@ -3,8 +3,15 @@ import {
   runOneAtATimeSensitivity,
   runTimeStepStability,
 } from "../model/validation.js";
+import { simulate } from "../model/upstream-engine.js";
 
-assert.throws(\n  () => simulate({}, { dtYears: 0.5 }),\n  /supported maximum/,\n  "coarse half-year steps should be rejected rather than silently used",\n);\n\nconst sensitivity = runOneAtATimeSensitivity();
+assert.throws(
+  () => simulate({}, { dtYears: 0.5 }),
+  /supported maximum/,
+  "coarse half-year steps should be rejected rather than silently used",
+);
+
+const sensitivity = runOneAtATimeSensitivity();
 assert.equal(sensitivity.dimensions.length, 8);
 
 for (const d of sensitivity.dimensions) {
