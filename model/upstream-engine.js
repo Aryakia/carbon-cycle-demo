@@ -1,5 +1,11 @@
 import { SCIENCE } from "./scientific-benchmarks.js";
-import { stepAtmosphere, gtCToPpm, assertFiniteNonnegative } from "./conservation.js";
+import { gtCToPpm, assertFiniteNonnegative } from "./conservation.js";
+import {
+  INITIAL_2025_BOXES_GTC,
+  diagnoseNaturalSinkGtCPerYr,
+  stepReducedCarbonCycle,
+  totalAtmosphericGtCFromBoxes,
+} from "./carbon-cycle-reduced.js";
 
 export const DEFAULT_PARAMETERS = Object.freeze({
   startYear: 2025,
@@ -29,7 +35,7 @@ export const DEFAULT_PARAMETERS = Object.freeze({
   nonCombustionShare: 0.08,
   processEmissionShare: 0.02,
   landUseEmissionsGtCPerYr: 1.1,
-  pedagogicalNaturalSinkFraction: 0.46,
+  carbonCycleLifetimeScaleAlpha: 0.555,
 
   capacityInvestmentRatePerYr: 0.035,
   capabilityLearningRatePerYr: 0.035,
@@ -65,7 +71,8 @@ export const DEFAULT_STATE = Object.freeze({
   institutionalSupport: 0.7,
   fuelInventoryGtC: 2.548,
   productsGtC: 24.4608,
-  atmosphereGtC: SCIENCE.gcb2025ProjectedAtmosphericPpm * SCIENCE.ppmToGtC,
+  carbonCycleBoxesGtC: Object.freeze([...INITIAL_2025_BOXES_GTC]),
+  atmosphereGtC: totalAtmosphericGtCFromBoxes(INITIAL_2025_BOXES_GTC),
   durableStorageGtC: 0,
   cumulativeExtractionGtC: 0,
   cumulativeFossilToAtmosphereGtC: 0,
@@ -90,7 +97,14 @@ function cleanShareSignal(cleanCapital, cleanLearningRate, effectiveCarbonPrice 
 }
 
 export function createInitialState(overrides = {}) {
-  return { ...DEFAULT_STATE, ...overrides };
+  return {
+    ...DEFAULT_STATE,
+    carbonCycleBoxesGtC: [...DEFAULT_STATE.carbonCycleBoxesGtC],
+    ...overrides,
+    ...(overrides.carbonCycleBoxesGtC
+      ? { carbonCycleBoxesGtC: [...overrides.carbonCycleBoxesGtC] }
+      : {}),
+  };
 }
 
 export function policyRamp(state, p) {
@@ -274,22 +288,31 @@ export function stepUpstream(state, parameters = {}, dtOverride = null) {
 
   const totalAnthropogenicGtCPerYr =
     fossilToAtmosphereGtCPerYr + Math.max(0, p.landUseEmissionsGtCPerYr);
-  const totalNaturalSinkGtCPerYr =
-    totalAnthropogenicGtCPerYr *
-    clamp(p.pedagogicalNaturalSinkFraction, 0, 0.95);
+  const carbonCycleInputGtCPerYr =
+    totalAnthropogenicGtCPerYr - Math.max(0, p.durableRemovalGtCPerYr);
 
-  const landSinkGtCPerYr = totalNaturalSinkGtCPerYr * 0.45;
-  const oceanSinkGtCPerYr = totalNaturalSinkGtCPerYr * 0.55;
-
-  const atm = stepAtmosphere({
-    atmosphereGtC: s.atmosphereGtC,
-    fossilIndustrialGtCPerYr: fossilToAtmosphereGtCPerYr,
-    landUseGtCPerYr: Math.max(0, p.landUseEmissionsGtCPerYr),
-    landSinkGtCPerYr,
-    oceanSinkGtCPerYr,
-    durableRemovalGtCPerYr: Math.max(0, p.durableRemovalGtCPerYr),
+  const nextCarbonCycleBoxesGtC = stepReducedCarbonCycle(
+    s.carbonCycleBoxesGtC,
+    carbonCycleInputGtCPerYr,
+    dt,
+    p.carbonCycleLifetimeScaleAlpha,
+  );
+  const nextAtmosphereGtC =
+    totalAtmosphericGtCFromBoxes(nextCarbonCycleBoxesGtC);
+  const naturalSinkGtCPerYr = diagnoseNaturalSinkGtCPerYr({
+    previousBoxesGtC: s.carbonCycleBoxesGtC,
+    nextBoxesGtC: nextCarbonCycleBoxesGtC,
+    netAnthropogenicCO2GtCPerYr: carbonCycleInputGtCPerYr,
     dtYears: dt,
   });
+  const netAtmosphericGtCPerYr =
+    (nextAtmosphereGtC - s.atmosphereGtC) / dt;
+  const atmosphericBalanceResidualGtC =
+    nextAtmosphereGtC -
+    (
+      s.atmosphereGtC +
+      (carbonCycleInputGtCPerYr - naturalSinkGtCPerYr) * dt
+    );
 
   const next = {
     year: s.year + dt,
@@ -314,7 +337,8 @@ export function stepUpstream(state, parameters = {}, dtOverride = null) {
       0,
       s.productsGtC + (productFormationGtCPerYr - productDecayGtCPerYr) * dt,
     ),
-    atmosphereGtC: Math.max(0, atm.nextAtmosphereGtC),
+    carbonCycleBoxesGtC: nextCarbonCycleBoxesGtC,
+    atmosphereGtC: Math.max(0, nextAtmosphereGtC),
     durableStorageGtC:
       s.durableStorageGtC + Math.max(0, p.durableRemovalGtCPerYr) * dt,
     cumulativeExtractionGtC: s.cumulativeExtractionGtC + extractionGtCPerYr * dt,
@@ -360,14 +384,14 @@ export function stepUpstream(state, parameters = {}, dtOverride = null) {
       productDecayGtCPerYr,
       fossilToAtmosphereGtCPerYr,
       totalAnthropogenicGtCPerYr,
-      landSinkGtCPerYr,
-      oceanSinkGtCPerYr,
+      carbonCycleInputGtCPerYr,
+      naturalSinkGtCPerYr,
       durableRemovalGtCPerYr: Math.max(0, p.durableRemovalGtCPerYr),
-      netAtmosphericGtCPerYr: atm.netGtCPerYr,
+      netAtmosphericGtCPerYr,
     },
     signals: sig,
     diagnostics: {
-      atmosphericBalanceResidualGtC: atm.residualGtC,
+      atmosphericBalanceResidualGtC,
       fossilTransferResidualGtC,
     },
   };

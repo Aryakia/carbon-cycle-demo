@@ -277,3 +277,22 @@ This change corrects two problems in the previous prototype:
 2. fossil-dependent demand capital and clean capital were not replacement-compatible, embedding a strong autonomous transition in the no-policy case.
 
 The Structural reference is **not a forecast** and is not forced to reproduce the IEA Current Policies Scenario. See `docs/STAGE7_REFERENCE_MODE.md`.
+
+
+## Dynamic carbon-cycle closure
+
+The **beginner bathtub remains intentionally simple**, but the advanced research engine no longer assumes that land/ocean uptake is a fixed fraction of current emissions.
+
+Its atmospheric response now uses four CO₂ response pools based on the Joos et al. (2013) / IPCC AR5 impulse-response coefficients. A single lifetime multiplier (`alpha = 0.555`) and a non-negative 1959 legacy state are calibrated to the Global Carbon Budget 2025 atmospheric-stock history.
+
+Validation results:
+
+- 1959–2024 concentration RMSE ≈ **1.19 ppm**;
+- maximum absolute historical error ≈ **2.98 ppm**;
+- 2024 endpoint = **422.8 ppm** by calibration constraint;
+- independent 2025 one-year prediction = **425.16 ppm**, versus the preliminary GCB value of **425.6 ppm**;
+- a small 0.44 ppm observation-assimilation residual initializes the 2025 state.
+
+The advanced model diagnoses combined net natural uptake from carbon conservation. It does not claim a unique land/ocean split and is not a full FaIR or Earth-system implementation.
+
+See `docs/STAGE8_DYNAMIC_CARBON_CYCLE.md` and `docs/VALIDATION_REPORT.md`.

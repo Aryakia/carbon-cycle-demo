@@ -69,6 +69,19 @@ Stage 7 removed the misleading “business as usual” label and corrected the r
 The next empirical priority is now clearer:
 
 1. construct a historical reference mode for approximately 2000–2025;
-2. replace the fixed natural-sink fraction in research mode with a defensible reduced-complexity carbon-cycle response;
+2. **completed in Stage 8:** replace the fixed research-mode sink fraction with a historically calibrated reduced-complexity carbon-cycle response;
 3. calibrate only an identifiable subset of behavioral parameters;
 4. validate against held-out historical behavior before interpreting policy effect sizes quantitatively.
+
+
+### Dynamic carbon-cycle closure completed
+
+Stage 8 replaced the advanced model's fixed natural-sink fraction with a four-timescale reduced-form carbon-cycle emulator calibrated to the 1959–2024 Global Carbon Budget atmospheric-stock history.
+
+The remaining scientific priorities are now:
+
+1. construct a historical upstream behavior mode for approximately 2000–2025;
+2. calibrate only an identifiable subset of upstream behavioral parameters;
+3. test those parameters on a held-out historical period;
+4. move from one-at-a-time sensitivity screening to global sensitivity / uncertainty analysis;
+5. consider a fully state-dependent FaIR-style lifetime scaling only if the added complexity materially improves historical and policy-response validity.

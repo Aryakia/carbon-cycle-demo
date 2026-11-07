@@ -95,9 +95,9 @@ export const PARAMETER_METADATA = Object.freeze({
     label: "Net land-use CO₂ emissions", unit: "GtC/yr", classification: "simplified forcing assumption",
     status: "held constant in prototype", source: "Order-of-magnitude current-era closure; requires explicit historical/scenario data for research use", default: DEFAULT_PARAMETERS.landUseEmissionsGtCPerYr, active: true,
   },
-  pedagogicalNaturalSinkFraction: {
-    label: "Pedagogical net natural sink fraction", unit: "fraction of anthropogenic inflow", classification: "pedagogical closure",
-    status: "not a mechanistic sink model", source: "Chosen to represent current-era uptake approximately; sensitivity-tested", default: DEFAULT_PARAMETERS.pedagogicalNaturalSinkFraction, active: true,
+  carbonCycleLifetimeScaleAlpha: {
+    label: "Carbon-cycle lifetime scale alpha", unit: "dimensionless", classification: "historically calibrated reduced-form parameter",
+    status: "calibrated to 1959-2024 atmospheric stock trajectory; not a confidence interval", source: "Joos/IPCC four-box response with FaIR-style lifetime scaling; fitted alpha=0.555 against Global Carbon Budget 2025 atmospheric history", default: DEFAULT_PARAMETERS.carbonCycleLifetimeScaleAlpha, active: true,
   },
 
   capacityInvestmentRatePerYr: {
