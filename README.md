@@ -6,6 +6,10 @@
 
 **Advanced upstream laboratory:** https://aryakia.github.io/carbon-cycle-demo/upstream.html\n\n**Deep-time CO₂ perspective:** https://aryakia.github.io/carbon-cycle-demo/paleoclimate.html\n\n**Comparative policy experiments:** https://aryakia.github.io/carbon-cycle-demo/experiments.html
 
+**Interactive causal architecture:** https://aryakia.github.io/carbon-cycle-demo/feedbacks.html
+
+**Voluntary learning self-assessment:** https://aryakia.github.io/carbon-cycle-demo/assessment.html
+
 > Research-mode status: the upstream model is a transparent behavioral-hypothesis sandbox. Its carbon accounting is tested, but its behavioral coefficients are not calibrated or validated.
 
 [Five-minute demonstration and visual model guide](docs/VISUAL_CASE_STUDY.md)
@@ -212,3 +216,21 @@ The `experiments.html` module uses named, reproducible cases from `model/experim
 The upstream engine now includes an explicit policy start year. Policy-controlled carbon pricing, fossil subsidy, fossil investment incentives, clean investment, and accelerated retirement enter through the implementation ramp instead of appearing instantaneously.
 
 The current experiment tests verify only **internal model consequences**. In particular, under the current equations, earlier coordinated action, lower institutional resistance, and a less fossil-dependent starting system produce lower cumulative fossil-to-atmosphere transfer than their paired alternatives. These are not calibrated empirical effect sizes.
+
+
+## Causal architecture and learning assessment
+
+The `feedbacks.html` page provides an interactive causal-loop view of R1 infrastructure lock-in, R2 accumulated capability, R3 institutional dependence, B1 climate-policy response, and B2 clean substitution. Users can isolate a feedback or trace where a policy lever enters the causal structure.
+
+The `assessment.html` page provides a six-question voluntary pre/post self-assessment covering stock-flow accumulation, policy delays, resource interpretation, path dependence, extraction versus emission, and natural sinks.
+
+The assessment is deliberately **local-only**:
+
+- no identifying information is requested;
+- responses are not transmitted;
+- no persistent browser storage is used;
+- pre-check answers live only in page memory;
+- corrections are revealed only after the post-check;
+- results are labeled educational feedback, not validated research findings.
+
+A future participant study would require a separate protocol, validated instruments, consent/privacy safeguards, and any applicable institutional ethics review before response collection is enabled.
