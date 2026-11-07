@@ -12,7 +12,8 @@ assert.throws(
 );
 
 const sensitivity = runOneAtATimeSensitivity();
-assert.equal(sensitivity.dimensions.length, 8);\nconsole.log("OAT sensitivity envelope:", JSON.stringify(sensitivity.envelope));
+assert.equal(sensitivity.dimensions.length, 8);
+console.log("OAT sensitivity envelope:", JSON.stringify(sensitivity.envelope));
 
 for (const d of sensitivity.dimensions) {
   for (const outcome of [d.lowOutcome, d.highOutcome]) {
