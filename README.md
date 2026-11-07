@@ -4,6 +4,10 @@
 
 **GitHub Pages preview:** https://aryakia.github.io/carbon-cycle-demo/
 
+**Advanced upstream laboratory:** https://aryakia.github.io/carbon-cycle-demo/upstream.html
+
+> Research-mode status: the upstream model is a transparent behavioral-hypothesis sandbox. Its carbon accounting is tested, but its behavioral coefficients are not calibrated or validated.
+
 [Five-minute demonstration and visual model guide](docs/VISUAL_CASE_STUDY.md)
 
 | | |
@@ -163,3 +167,18 @@ No credentials, private datasets, unpublished notes, proprietary parameters, or 
 
 **Arya Kia**  
 System Dynamics · energy systems · carbon-cycle research
+
+## Scientific model architecture
+
+The project now separates scientific logic from the public visualization:
+
+- `model/scientific-benchmarks.js` — dated benchmark constants and source links.
+- `model/conservation.js` — ppm/GtC/GtCO₂ conversions and the atmospheric control-volume balance.
+- `model/upstream-engine.js` — endogenous investment, capacity, extraction, inventory, combustion, product-carbon, clean substitution, capability, and institutional-support hypotheses.
+- `tests/model.test.mjs` — deterministic accounting, nonnegativity, reproducibility, scenario-direction, and time-step checks.
+- `upstream.html` — the advanced “Why Is the Faucet Still Open?” laboratory.
+- `docs/SCIENTIFIC_METHODS.md` — evidence hierarchy, sources, and carbon-accounting boundaries.
+- `docs/UPSTREAM_MODEL_SPEC.md` — equations, feedback hypotheses, and parameter-status documentation.
+- `docs/STAGE1_AUDIT.md` — repository and scientific audit.
+
+The public bathtub game remains the beginner/presenter experience. The advanced lab is intentionally separate so research hypotheses do not get confused with established carbon-cycle science.
