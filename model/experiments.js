@@ -11,7 +11,7 @@ export const EXPERIMENTS = Object.freeze({
     title: "Policy packages",
     question: "How do single and coordinated interventions differ under the same initial system?",
     cases: [
-      { id: "bau", label: "Business as usual", parameters: { ...SCENARIOS.bau } },
+      { id: "reference", label: "Structural reference", parameters: { ...SCENARIOS.structuralReference } },
       { id: "price", label: "Carbon price", parameters: { ...SCENARIOS.carbonPrice } },
       { id: "priceClean", label: "Price + clean investment", parameters: { ...SCENARIOS.pricePlusClean } },
       { id: "retirement", label: "Accelerated retirement", parameters: { ...SCENARIOS.acceleratedRetirement } },

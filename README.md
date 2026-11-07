@@ -4,7 +4,11 @@
 
 **GitHub Pages preview:** https://aryakia.github.io/carbon-cycle-demo/
 
-**Advanced upstream laboratory:** https://aryakia.github.io/carbon-cycle-demo/upstream.html\n\n**Deep-time CO₂ perspective:** https://aryakia.github.io/carbon-cycle-demo/paleoclimate.html\n\n**Comparative policy experiments:** https://aryakia.github.io/carbon-cycle-demo/experiments.html
+**Advanced upstream laboratory:** https://aryakia.github.io/carbon-cycle-demo/upstream.html
+
+**Deep-time CO₂ perspective:** https://aryakia.github.io/carbon-cycle-demo/paleoclimate.html
+
+**Comparative policy experiments:** https://aryakia.github.io/carbon-cycle-demo/experiments.html
 
 **Interactive causal architecture:** https://aryakia.github.io/carbon-cycle-demo/feedbacks.html
 
@@ -12,7 +16,7 @@
 
 **Validation & methods dashboard:** https://aryakia.github.io/carbon-cycle-demo/validation.html
 
-> Research-mode status: the upstream model is a transparent behavioral-hypothesis sandbox. Its carbon accounting is tested, but its behavioral coefficients are not calibrated or validated.
+> Research-mode status: the upstream model is a transparent behavioral-hypothesis sandbox. Its carbon accounting and structural-reference initialization are tested, but its behavioral coefficients are not historically calibrated or out-of-sample validated.
 
 [Five-minute demonstration and visual model guide](docs/VISUAL_CASE_STUDY.md)
 
@@ -259,3 +263,17 @@ Implemented verification includes:
 The maximum supported integration step is 0.25 year. The default quarterly run is checked against finer 0.125 and 0.0625-year resolutions.
 
 The upstream behavioral model remains **uncalibrated and not out-of-sample validated**. See `docs/VALIDATION_REPORT.md`, `docs/MODEL_COMPARISON.md`, and `docs/RESEARCH_ROADMAP.md`.
+
+
+## Structural reference mode
+
+The advanced model no longer labels its no-additional-intervention case “business as usual.”
+
+The default is now a **Structural reference**: a neutral initialization test in which the 2025 Global Carbon Budget fossil-flow benchmark (10.4 GtC/yr), the current clean-capital state, and normal replacement conditions are designed to approximately reproduce themselves unless an explicit driver changes them.
+
+This change corrects two problems in the previous prototype:
+
+1. the 10.4 GtC/yr fossil benchmark was being multiplied by a clean-share term even though it already represented fossil emissions; and
+2. fossil-dependent demand capital and clean capital were not replacement-compatible, embedding a strong autonomous transition in the no-policy case.
+
+The Structural reference is **not a forecast** and is not forced to reproduce the IEA Current Policies Scenario. See `docs/STAGE7_REFERENCE_MODE.md`.

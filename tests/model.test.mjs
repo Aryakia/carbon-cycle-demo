@@ -81,7 +81,7 @@ for (const scenario of Object.values(SCENARIOS)) {
 
 // Directional scenario consistency: stronger coordinated policy should not
 // produce higher 2100 fossil emissions than the default under this model.
-const bau = simulate(SCENARIOS.bau).at(-1);
+const bau = simulate(SCENARIOS.structuralReference).at(-1);
 const coordinated = simulate(SCENARIOS.coordinated).at(-1);
 assert.ok(
   coordinated.fossilToAtmosphereGtCPerYr < bau.fossilToAtmosphereGtCPerYr,

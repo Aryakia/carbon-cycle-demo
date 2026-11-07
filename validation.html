@@ -43,7 +43,16 @@
 <section class="section" id="parameters"><div class="wrap"><div class="shell">
   <div class="kicker">Parameter registry</div><h2>Every default parameter has an explicit status.</h2><p style="color:var(--muted)">“Uncalibrated” is a feature of the documentation, not a hidden caveat. It tells you which quantities still need empirical work before scientific effect-size claims are defensible.</p>
   <div class="table-wrap"><table class="table"><thead><tr><th>Parameter</th><th>Default</th><th>Unit</th><th>Classification</th><th>Status</th><th>Source / rationale</th><th>Active?</th></tr></thead><tbody id="parameterBody"></tbody></table></div>
-  <div class="note"><strong>Audit finding:</strong> <code>cleanCapitalLifetimeYears</code> is currently retained as a configuration/documentation placeholder but is not used by the equations; clean-capital turnover is controlled by <code>cleanDepreciationRatePerYr</code>. This is documented rather than silently treated as active.</div>
+  <div class="note"><strong>Stage 7 reference correction:</strong> the uncalibrated “business as usual” label has been retired. The default advanced-model case is now a neutral <em>Structural reference</em> initialized so current fossil flow and normal replacement conditions reproduce themselves unless an explicit driver changes them. This is an initialization test, not a forecast.</div>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
+  <div class="kicker">External reference guardrails</div><h2>Reference data are used to test scale—not to disguise calibration.</h2>
+  <div class="compare">
+    <div class="compare-card current"><h3>Global Carbon Budget 2025</h3><p>The 2025 fossil-CO₂ benchmark is about <strong>10.4 GtC/yr (38.1 GtCO₂/yr)</strong>. The Structural reference is initialized to reproduce this current fossil-flow scale.</p><a href="https://essd.copernicus.org/articles/18/3211/2026/" target="_blank" rel="noreferrer">Global Carbon Budget 2025 ↗</a></div>
+    <div class="compare-card"><h3>IEA Current Policies Scenario</h3><p>IEA WEO 2025 keeps global energy-related CO₂ near <strong>40 GtCO₂/yr through 2050</strong>. This is used only as an external order-of-magnitude guardrail because its accounting boundary differs from the Global Carbon Budget fossil-CO₂ boundary.</p><a href="https://www.iea.org/reports/world-energy-outlook-2025/current-policies-scenario" target="_blank" rel="noreferrer">IEA Current Policies Scenario ↗</a></div>
+    <div class="compare-card"><h3>Interpretation rule</h3><p>The IEA explicitly states that CPS is not a forecast, prediction, or “business-as-usual” scenario. This project therefore uses the term <strong>Structural reference</strong> and does not fit its default trajectory to CPS.</p></div>
+  </div>
 </div></div></section>
 
 <section class="section"><div class="wrap"><div class="shell">
@@ -55,7 +64,7 @@
     <div class="rung"><strong>Reproducibility</strong><p>Identical parameter sets reproduce identical trajectories; named experiments are deterministic.</p><span class="tag pass">implemented</span></div>
     <div class="rung"><strong>Sensitivity screening</strong><p>One-at-a-time ranges test key uncertain assumptions and verify nonnegative stocks/residual closure.</p><span class="tag pass">implemented</span></div>
     <div class="rung"><strong>Structural / face validation</strong><p>Feedbacks are motivated by carbon-lock-in and capital-turnover literature, but expert review of the exact equations is still needed.</p><span class="tag partial">partial</span></div>
-    <div class="rung"><strong>Historical calibration</strong><p>The behavioral upstream model has not been fit to historical investment, capacity, extraction, price, or policy data.</p><span class="tag open">not completed</span></div>
+    <div class="rung"><strong>Reference-mode initialization</strong><p>The advanced model now reproduces the current 2025 fossil-flow benchmark at initialization and prevents an implicit autonomous transition in the neutral structural reference.</p><span class="tag pass">implemented</span></div><div class="rung"><strong>Historical calibration</strong><p>The behavioral upstream model has not yet been fit to a historical time series of investment, capacity, extraction, price, or policy data.</p><span class="tag open">next stage</span></div>
     <div class="rung"><strong>Out-of-sample validation</strong><p>No held-out empirical validation of the behavioral model has been performed.</p><span class="tag open">not completed</span></div>
   </div>
 </div></div></section>

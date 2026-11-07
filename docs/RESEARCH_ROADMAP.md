@@ -60,3 +60,15 @@ The repository can accurately be described as:
 **a scientifically sourced educational platform with a numerically verified, uncalibrated upstream system-dynamics hypothesis model.**
 
 It should not yet be described as a calibrated, validated, predictive, or novel policy model.
+
+
+### Reference-mode correction completed
+
+Stage 7 removed the misleading “business as usual” label and corrected the reference initialization so the advanced model begins at the current fossil-flow benchmark without applying the clean-share signal twice.
+
+The next empirical priority is now clearer:
+
+1. construct a historical reference mode for approximately 2000–2025;
+2. replace the fixed natural-sink fraction in research mode with a defensible reduced-complexity carbon-cycle response;
+3. calibrate only an identifiable subset of behavioral parameters;
+4. validate against held-out historical behavior before interpreting policy effect sizes quantitatively.
