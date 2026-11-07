@@ -118,7 +118,7 @@ export function runOneAtATimeSensitivity() {
 }
 
 export function runTimeStepStability() {
-  const steps = [0.5, 0.25, 0.125];
+  const steps = [0.25, 0.125, 0.0625];
   const scenarios = Object.entries(SCENARIOS).map(([name, parameters]) => {
     const outcomes = steps.map(dtYears => ({
       dtYears,
