@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Why Is the Faucet Still Open? — an advanced upstream fossil-carbon dynamics laboratory for Carbon Beyond the Bathtub.">
+<meta name="theme-color" content="#07110f">
+<title>Why Is the Faucet Still Open? — Carbon Beyond the Bathtub</title>
+<style>
+:root{
+  --bg:#06100d;--panel:#0b1915;--panel2:#10231d;--panel3:#142c24;
+  --text:#eff9f4;--muted:#9eb5ac;--line:#24463a;--line2:#376353;
+  --green:#7fe0aa;--blue:#79c7ff;--orange:#f0a35d;--amber:#ffd18a;--red:#ff8d7e;
+  --shadow:0 22px 60px rgba(0,0,0,.3)
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 85% -10%,rgba(73,153,118,.22),transparent 33rem),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+a{color:var(--blue)}button,input{font:inherit}button{color:inherit}.wrap{width:min(1320px,calc(100% - 34px));margin:auto}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(6,16,13,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.topbar .wrap{height:62px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brand{text-decoration:none;color:var(--text);font-weight:850}.brand small{display:block;color:var(--muted);font-size:.68rem;font-weight:600}.nav{display:flex;gap:8px;align-items:center}.nav a{color:var(--muted);text-decoration:none;font-size:.8rem;padding:7px 10px;border-radius:999px}.nav a:hover{background:var(--panel2);color:var(--text)}
+.hero{padding:62px 0 30px}.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:850;color:var(--green)}h1{font-size:clamp(2.8rem,6vw,5.7rem);line-height:.94;letter-spacing:-.045em;margin:.5rem 0 1rem;max-width:1050px}h2{font-size:clamp(1.65rem,3.7vw,2.65rem);line-height:1.08;margin:.35rem 0 .8rem}h3{margin:.2rem 0 .5rem}.lead{color:var(--muted);font-size:1.06rem;max-width:1000px}.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.badge{border:1px solid var(--line);border-radius:999px;padding:6px 9px;font-size:.7rem;color:var(--muted)}.badge.obs{border-color:#315d79;color:#a9d9ff}.badge.assumption{border-color:#665229;color:#ffe0a1}.badge.hypothesis{border-color:#5e3a52;color:#ffc1e0}
+.section{padding:28px 0 64px}.shell{border:1px solid var(--line);border-radius:24px;background:rgba(11,25,21,.96);box-shadow:var(--shadow);padding:20px}
+.toolbar{display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap}.toolbar p{color:var(--muted);max-width:850px;margin:.3rem 0 0}.presets{display:flex;gap:7px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:8px 11px;cursor:pointer;font-size:.78rem}.btn:hover{border-color:var(--line2)}.btn.active{background:var(--green);color:#06100d;border-color:var(--green);font-weight:850}
+.lab{display:grid;grid-template-columns:360px 1fr;gap:16px;margin-top:16px}.controls,.results{border:1px solid var(--line);border-radius:18px;background:#081612;padding:16px}.controls{align-self:start;position:sticky;top:78px;max-height:calc(100vh - 96px);overflow:auto}.control{padding:11px 0;border-top:1px solid var(--line)}.control:first-child{border-top:0}.control-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.control-head strong{font-size:.86rem}.control-head span{color:var(--green);font-weight:800;font-size:.78rem}.control p{color:var(--muted);font-size:.69rem;margin:.25rem 0}.control input{width:100%;accent-color:var(--green)}.control .kind{display:inline-block;margin-top:4px;border-radius:999px;padding:3px 6px;border:1px solid var(--line);font-size:.61rem;color:var(--muted)}
+.metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.metric{border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,var(--panel2),var(--panel));padding:12px;min-height:98px}.metric small{display:block;color:var(--muted);font-size:.63rem;text-transform:uppercase;letter-spacing:.08em}.metric b{display:block;font-size:1.3rem;margin:.25rem 0}.metric span{font-size:.66rem;color:var(--muted)}.metric.orange b{color:var(--orange)}.metric.blue b{color:var(--blue)}.metric.green b{color:var(--green)}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.chart{border:1px solid var(--line);border-radius:15px;background:#071410;padding:12px}.chart h3{font-size:.9rem}.chart p{font-size:.68rem;color:var(--muted);margin:.1rem 0 .6rem}.chart svg{width:100%;height:220px;display:block}.axis{fill:#829f95;font-size:10px}.gridline{stroke:#1c372f;stroke-width:1}.line1{fill:none;stroke:var(--blue);stroke-width:3}.line2{fill:none;stroke:var(--orange);stroke-width:3}.target{stroke:var(--green);stroke-width:1.2;stroke-dasharray:5 5}
+.pathway{margin-top:12px;border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:14px}.pathway-title{display:flex;justify-content:space-between;gap:10px;align-items:center}.pathway-title span{font-size:.68rem;color:var(--muted)}.trace{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;align-items:stretch;margin-top:10px}.node{border:1px solid var(--line);border-radius:11px;background:#091612;padding:9px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:.7rem;min-height:62px}.node.hot{border-color:var(--green);box-shadow:inset 0 0 0 1px rgba(127,224,170,.13)}.arrow{display:none}
+.feedbacks{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:12px}.loop{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--panel)}.loop small{color:var(--muted);font-size:.64rem}.loop strong{display:block;font-size:.8rem;margin:.2rem 0}.bar{height:7px;background:#07110f;border-radius:999px;overflow:hidden;margin-top:8px}.fill{height:100%;background:var(--green);width:20%;transition:width .25s ease}.loop.reinforcing .fill{background:var(--orange)}.loop p{color:var(--muted);font-size:.66rem;margin:.35rem 0 0}
+.diagnostics{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}.diag{border:1px solid var(--line);border-radius:13px;padding:11px;background:#091612}.diag small{color:var(--muted);font-size:.64rem}.diag b{display:block;margin-top:3px}.good{color:var(--green)}.warn{color:var(--amber)}
+.assumptions{margin-top:14px;border-left:4px solid var(--amber);background:#17150e;border-radius:12px;padding:12px 14px;color:#ddcfb5;font-size:.76rem}
+.docs{display:grid;grid-template-columns:1fr 1fr;gap:14px}.doc{border:1px solid var(--line);border-radius:17px;background:var(--panel);padding:18px}.doc p,.doc li{color:var(--muted);font-size:.83rem}.doc a{display:block;margin-top:7px}.footer{border-top:1px solid var(--line);padding:28px 0 44px;color:#7c978e;font-size:.8rem}
+@media(max-width:1180px){.metrics{grid-template-columns:repeat(3,1fr)}.feedbacks{grid-template-columns:repeat(3,1fr)}.trace{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:900px){.lab{grid-template-columns:1fr}.controls{position:static;max-height:none}.chart-grid,.docs{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.feedbacks{grid-template-columns:1fr 1fr}.nav{display:none}}
+@media(max-width:580px){.wrap{width:min(100% - 22px,1320px)}.metrics,.feedbacks,.trace{grid-template-columns:1fr}.hero{padding-top:45px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="./">Carbon Beyond the Bathtub<small>Advanced upstream dynamics laboratory</small></a>
+  <nav class="nav"><a href="./">Beginner game</a><a href="#lab">Lab</a><a href="#feedbacks">Feedbacks</a><a href="#methods">Methods</a><a href="https://github.com/Aryakia/carbon-cycle-demo" target="_blank" rel="noreferrer">GitHub ↗</a></nav>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Research-mode prototype · not calibrated</div>
+  <h1>Why is the fossil-carbon faucet still open?</h1>
+  <p class="lead">This laboratory makes the mechanisms between policy and emissions visible. Instead of letting a carbon-price slider directly change atmospheric CO₂, it passes through expected profitability, capital investment and retirement, production capacity, extraction, fuel inventory, combustion, substitution, and institutional persistence.</p>
+  <div class="badges">
+    <span class="badge obs">Observed / assessed: carbon benchmarks</span>
+    <span class="badge">Accounting identity: mass balance</span>
+    <span class="badge assumption">Simplifying assumptions: behavioral coefficients</span>
+    <span class="badge hypothesis">Research hypotheses: lock-in feedbacks</span>
+  </div>
+</div></section>
+
+<section class="section" id="lab"><div class="wrap"><div class="shell">
+  <div class="toolbar">
+    <div><div class="eyebrow">Upstream Dynamics Model v0.1</div><h2>Trace interventions before they reach the atmosphere.</h2><p>Choose a reproducible scenario or change one assumption at a time. The equations are deliberately transparent and the coefficients are placeholders for sensitivity analysis, not empirical estimates.</p></div>
+    <div class="presets" id="presets">
+      <button class="btn active" data-preset="bau">Business as usual</button>
+      <button class="btn" data-preset="carbonPrice">Carbon price</button>
+      <button class="btn" data-preset="pricePlusClean">Price + clean investment</button>
+      <button class="btn" data-preset="acceleratedRetirement">Accelerated retirement</button>
+      <button class="btn" data-preset="coordinated">Coordinated package</button>
+    </div>
+  </div>
+
+  <div class="lab">
+    <aside class="controls">
+      <div class="eyebrow">Policy & structural assumptions</div>
+      <div class="control"><div class="control-head"><strong>Carbon price</strong><span id="carbonPriceOut">$0/tCO₂</span></div><input id="carbonPrice" type="range" min="0" max="250" step="5" value="0"><p>Acts through expected fossil profitability after a policy delay and institutional attenuation.</p><span class="kind">policy lever</span></div>
+      <div class="control"><div class="control-head"><strong>Fossil subsidy</strong><span id="subsidyOut">$0/tCO₂</span></div><input id="subsidy" type="range" min="-50" max="100" step="5" value="0"><p>Stylized net support. Negative values represent a supply-side penalty.</p><span class="kind">policy lever</span></div>
+      <div class="control"><div class="control-head"><strong>Fossil investment incentive</strong><span id="fossilInvestmentOut">1.00×</span></div><input id="fossilInvestment" type="range" min="0" max="1.5" step="0.05" value="1"><p>Multiplier on modeled production-capacity investment.</p><span class="kind">behavioral assumption</span></div>
+      <div class="control"><div class="control-head"><strong>Clean investment</strong><span id="cleanInvestmentOut">0.035/yr</span></div><input id="cleanInvestment" type="range" min="0" max="0.12" step="0.005" value="0.035"><p>Builds the competing clean-capital stock and contributes to substitution.</p><span class="kind">policy / investment assumption</span></div>
+      <div class="control"><div class="control-head"><strong>Accelerated retirement</strong><span id="retirementOut">0.000/yr</span></div><input id="retirement" type="range" min="0" max="0.08" step="0.005" value="0"><p>Adds to normal retirement of production and fossil-dependent demand capital.</p><span class="kind">policy lever</span></div>
+      <div class="control"><div class="control-head"><strong>Expected future fossil demand</strong><span id="demandOut">1.00×</span></div><input id="demand" type="range" min="0.4" max="1.4" step="0.05" value="1"><p>Expectation signal that affects demand and investment attractiveness.</p><span class="kind">behavioral assumption</span></div>
+      <div class="control"><div class="control-head"><strong>Institutional resistance</strong><span id="resistanceOut">0.55</span></div><input id="resistance" type="range" min="0" max="1" step="0.05" value="0.55"><p>Attenuates effective policy in this prototype; not a measured universal coefficient.</p><span class="kind">research hypothesis</span></div>
+      <div class="control"><div class="control-head"><strong>Clean learning rate</strong><span id="learningOut">0.08</span></div><input id="learning" type="range" min="0" max="0.2" step="0.01" value="0.08"><p>Stylized increasing-returns effect for accumulated clean deployment.</p><span class="kind">behavioral assumption</span></div>
+      <div class="control"><div class="control-head"><strong>Resource development cost</strong><span id="costOut">0.50</span></div><input id="cost" type="range" min="0" max="1.2" step="0.05" value="0.5"><p>Higher values reduce the aggregate fossil profitability index.</p><span class="kind">behavioral assumption</span></div>
+      <div class="control"><div class="control-head"><strong>Policy implementation delay</strong><span id="delayOut">5 yr</span></div><input id="delay" type="range" min="0.5" max="20" step="0.5" value="5"><p>First-order delay between announced policy and modeled effective pressure.</p><span class="kind">research hypothesis</span></div>
+    </aside>
+
+    <div class="results">
+      <div class="metrics">
+        <div class="metric blue"><small>2100 atmosphere</small><b id="ppm2100">—</b><span>ppm · simulated</span></div>
+        <div class="metric orange"><small>2100 fossil → atmosphere</small><b id="emissions2100">—</b><span>GtC/yr</span></div>
+        <div class="metric orange"><small>2100 extraction capacity</small><b id="capacity2100">—</b><span>GtC/yr capacity</span></div>
+        <div class="metric"><small>remaining resource frame</small><b id="resource2100">—</b><span>GtC · not reserves</span></div>
+        <div class="metric green"><small>clean substitution signal</small><b id="cleanShare2100">—</b><span>illustrative share</span></div>
+        <div class="metric"><small>institutional support</small><b id="institution2100">—</b><span>0–1 modeled index</span></div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart"><h3>Atmospheric CO₂</h3><p>Accounting stock response under the simplified sink closure.</p><svg id="ppmChart" viewBox="0 0 640 220" role="img" aria-label="Atmospheric carbon scenario chart"></svg></div>
+        <div class="chart"><h3>Fossil carbon reaching the atmosphere</h3><p>Combustion + process emissions + delayed product decay.</p><svg id="emissionsChart" viewBox="0 0 640 220" role="img" aria-label="Fossil emissions scenario chart"></svg></div>
+      </div>
+
+      <div class="pathway">
+        <div class="pathway-title"><strong id="pathTitle">Policy pathway</strong><span>Intermediate variables are explicit; no direct policy → ppm shortcut.</span></div>
+        <div class="trace" id="trace">
+          <div class="node" data-path="policy">Policy / expectation</div>
+          <div class="node" data-path="profit">Expected profitability</div>
+          <div class="node" data-path="investment">Capacity investment / retirement</div>
+          <div class="node" data-path="capacity">Production capacity</div>
+          <div class="node" data-path="extraction">Extraction</div>
+          <div class="node" data-path="combustion">Inventory → combustion / products</div>
+          <div class="node" data-path="atmosphere">Atmospheric carbon</div>
+        </div>
+      </div>
+
+      <div class="feedbacks" id="feedbacks">
+        <div class="loop reinforcing"><small>R1</small><strong>Infrastructure lock-in</strong><div class="bar"><div class="fill" id="r1"></div></div><p>Fossil-demand capital sustains demand and production utilization.</p></div>
+        <div class="loop reinforcing"><small>R2</small><strong>Accumulated capability</strong><div class="bar"><div class="fill" id="r2"></div></div><p>Use and deployment reinforce expertise and investment advantage.</p></div>
+        <div class="loop reinforcing"><small>R3</small><strong>Institutional dependence</strong><div class="bar"><div class="fill" id="r3"></div></div><p>Fossil activity supports institutions that attenuate policy pressure.</p></div>
+        <div class="loop"><small>B1</small><strong>Climate-policy response</strong><div class="bar"><div class="fill" id="b1"></div></div><p>Price and retirement pressure reduce fossil profitability and capital persistence.</p></div>
+        <div class="loop"><small>B2</small><strong>Clean substitution</strong><div class="bar"><div class="fill" id="b2"></div></div><p>Clean investment and learning reduce the modeled fossil-demand signal.</p></div>
+      </div>
+
+      <div class="diagnostics">
+        <div class="diag"><small>Maximum atmospheric balance residual</small><b id="atmResidual" class="good">—</b></div>
+        <div class="diag"><small>Maximum fossil-transfer residual</small><b id="fossilResidual" class="good">—</b></div>
+        <div class="diag"><small>Model status</small><b class="warn">Hypothesis sandbox · not calibrated</b></div>
+      </div>
+      <div class="assumptions"><strong>Interpretation boundary:</strong> the model structure is motivated by carbon-lock-in literature, capital turnover, and carbon accounting, but the behavioral coefficients are not estimated from data. The natural-sink closure is intentionally simplified. Scenario differences demonstrate consequences of the equations and assumptions—not forecasts or causal estimates.</div>
+    </div>
+  </div>
+</div></div></section>
+
+<section class="section" id="methods"><div class="wrap docs">
+  <div class="doc"><div class="eyebrow">Why this structure?</div><h2>Separate extraction from emission.</h2><p>The advanced engine explicitly passes fossil carbon through extraction, process emissions, a fuel-inventory stock, combustion, non-combustion product use, and delayed product decay. This prevents the common shortcut of treating extraction as instant atmospheric emission.</p><p>The atmospheric equation is a separate control volume: fossil + land-use inflows minus land uptake, ocean uptake, and durable removal.</p><a href="https://github.com/Aryakia/carbon-cycle-demo/blob/main/docs/UPSTREAM_MODEL_SPEC.md" target="_blank" rel="noreferrer">Read the upstream model specification ↗</a></div>
+  <div class="doc"><div class="eyebrow">Evidence</div><h2>Lock-in is supported; these coefficients are not.</h2><p>Unruh (2000) and Seto et al. (2016) describe path dependence and interacting technological, infrastructural, institutional, and behavioral forms of carbon lock-in. Tong et al. (2019) quantifies committed emissions from existing infrastructure.</p><p>Those studies motivate the feedback hypotheses. They do not provide one global parameterization for the equations shown here.</p><a href="https://github.com/Aryakia/carbon-cycle-demo/blob/main/docs/SCIENTIFIC_METHODS.md" target="_blank" rel="noreferrer">Read scientific methods and evidence boundaries ↗</a></div>
+</div></section>
+</main>
+
+<footer class="footer"><div class="wrap">Arya Kia · Carbon Beyond the Bathtub · advanced research-mode prototype</div></footer>
+
+<script type="module">
+import { simulate, SCENARIOS, DEFAULT_PARAMETERS } from "./model/upstream-engine.js";
+
+const $=id=>document.getElementById(id);
+const inputs={
+  carbonPrice:$("carbonPrice"),subsidy:$("subsidy"),fossilInvestment:$("fossilInvestment"),
+  cleanInvestment:$("cleanInvestment"),retirement:$("retirement"),demand:$("demand"),
+  resistance:$("resistance"),learning:$("learning"),cost:$("cost"),delay:$("delay")
+};
+const outputs={
+  carbonPrice:$("carbonPriceOut"),subsidy:$("subsidyOut"),fossilInvestment:$("fossilInvestmentOut"),
+  cleanInvestment:$("cleanInvestmentOut"),retirement:$("retirementOut"),demand:$("demandOut"),
+  resistance:$("resistanceOut"),learning:$("learningOut"),cost:$("costOut"),delay:$("delayOut")
+};
+let activePreset="bau";
+
+function params(){
+  return {
+    carbonPriceUsdPerTCO2:+inputs.carbonPrice.value,
+    fossilSubsidyUsdPerTCO2:+inputs.subsidy.value,
+    fossilInvestmentIncentive:+inputs.fossilInvestment.value,
+    cleanInvestmentIndexPerYr:+inputs.cleanInvestment.value,
+    acceleratedRetirementPerYr:+inputs.retirement.value,
+    expectedFutureDemandIndex:+inputs.demand.value,
+    institutionalResistance:+inputs.resistance.value,
+    cleanLearningRate:+inputs.learning.value,
+    resourceDevelopmentCostIndex:+inputs.cost.value,
+    policyImplementationDelayYears:+inputs.delay.value
+  }
+}
+function writeOutputs(){
+  outputs.carbonPrice.textContent="$"+(+inputs.carbonPrice.value).toFixed(0)+"/tCO₂";
+  outputs.subsidy.textContent="$"+(+inputs.subsidy.value).toFixed(0)+"/tCO₂";
+  outputs.fossilInvestment.textContent=(+inputs.fossilInvestment.value).toFixed(2)+"×";
+  outputs.cleanInvestment.textContent=(+inputs.cleanInvestment.value).toFixed(3)+"/yr";
+  outputs.retirement.textContent=(+inputs.retirement.value).toFixed(3)+"/yr";
+  outputs.demand.textContent=(+inputs.demand.value).toFixed(2)+"×";
+  outputs.resistance.textContent=(+inputs.resistance.value).toFixed(2);
+  outputs.learning.textContent=(+inputs.learning.value).toFixed(2);
+  outputs.cost.textContent=(+inputs.cost.value).toFixed(2);
+  outputs.delay.textContent=(+inputs.delay.value).toFixed(1)+" yr";
+}
+function setControls(preset){
+  const p={...DEFAULT_PARAMETERS,...preset};
+  inputs.carbonPrice.value=p.carbonPriceUsdPerTCO2;
+  inputs.subsidy.value=p.fossilSubsidyUsdPerTCO2;
+  inputs.fossilInvestment.value=p.fossilInvestmentIncentive;
+  inputs.cleanInvestment.value=p.cleanInvestmentIndexPerYr;
+  inputs.retirement.value=p.acceleratedRetirementPerYr;
+  inputs.demand.value=p.expectedFutureDemandIndex;
+  inputs.resistance.value=p.institutionalResistance;
+  inputs.learning.value=p.cleanLearningRate;
+  inputs.cost.value=p.resourceDevelopmentCostIndex;
+  inputs.delay.value=p.policyImplementationDelayYears;
+}
+function lineChart(svg,rows,key,opts={}){
+  const width=640,height=220,pad={l:48,r:14,t:16,b:28};
+  const vals=rows.map(r=>r[key]), minX=2025,maxX=2100;
+  let minY=Math.min(...vals),maxY=Math.max(...vals);
+  if(opts.zeroFloor)minY=Math.min(0,minY);
+  if(opts.target!=null){minY=Math.min(minY,opts.target);maxY=Math.max(maxY,opts.target)}
+  if(maxY-minY<1e-9)maxY=minY+1;
+  const gap=(maxY-minY)*.08;minY-=gap;maxY+=gap;
+  const sx=x=>pad.l+(x-minX)/(maxX-minX)*(width-pad.l-pad.r);
+  const sy=y=>height-pad.b-(y-minY)/(maxY-minY)*(height-pad.t-pad.b);
+  let content="";
+  for(let i=0;i<5;i++){const y=pad.t+i*(height-pad.t-pad.b)/4;const value=maxY-i*(maxY-minY)/4;content+=`<line class="gridline" x1="${pad.l}" x2="${width-pad.r}" y1="${y}" y2="${y}"/><text class="axis" x="4" y="${y+4}">${value.toFixed(opts.decimals??1)}</text>`}
+  content+=`<text class="axis" x="${pad.l}" y="${height-7}">2025</text><text class="axis" x="${width-43}" y="${height-7}">2100</text>`;
+  if(opts.target!=null){const y=sy(opts.target);content+=`<line class="target" x1="${pad.l}" x2="${width-pad.r}" y1="${y}" y2="${y}"/>`}
+  const d=rows.map((r,i)=>(i?"L":"M")+sx(r.year).toFixed(1)+","+sy(r[key]).toFixed(1)).join(" ");
+  content+=`<path class="${opts.lineClass||"line1"}" d="${d}"/>`;
+  svg.innerHTML=content;
+}
+function pct(v){return Math.max(0,Math.min(100,v*100))+"%"}
+function render(){
+  writeOutputs();
+  const rows=simulate(params(),{endYear:2100});
+  const last=rows.at(-1);
+  $("ppm2100").textContent=last.ppm.toFixed(0);
+  $("emissions2100").textContent=last.fossilToAtmosphereGtCPerYr.toFixed(2);
+  $("capacity2100").textContent=last.productionCapacityGtCPerYr.toFixed(2);
+  $("resource2100").textContent=Math.round(last.availableResourceGtC).toLocaleString();
+  $("cleanShare2100").textContent=(last.cleanShare*100).toFixed(0)+"%";
+  $("institution2100").textContent=last.institutionalSupport.toFixed(2);
+  lineChart($("ppmChart"),rows,"ppm",{target:450,lineClass:"line1",decimals:0});
+  lineChart($("emissionsChart"),rows,"fossilToAtmosphereGtCPerYr",{zeroFloor:true,lineClass:"line2",decimals:1});
+
+  const maxAtm=Math.max(...rows.map(r=>Math.abs(r.atmosphericBalanceResidualGtC)));
+  const maxFossil=Math.max(...rows.map(r=>Math.abs(r.fossilTransferResidualGtC)));
+  $("atmResidual").textContent=maxAtm.toExponential(2)+" GtC";
+  $("fossilResidual").textContent=maxFossil.toExponential(2)+" GtC";
+
+  const utilization=Math.min(1,last.extractionGtCPerYr/Math.max(.001,last.productionCapacityGtCPerYr));
+  $("r1").style.width=pct(Math.min(1,last.fossilDemandCapital*.65+utilization*.35));
+  $("r2").style.width=pct(Math.min(1,last.capability/1.5));
+  $("r3").style.width=pct(last.institutionalSupport);
+  $("b1").style.width=pct(Math.min(1,last.effectiveCarbonPrice/160+(+inputs.retirement.value)*5));
+  $("b2").style.width=pct(last.cleanShare);
+}
+function markCustom(id){
+  activePreset="custom";
+  document.querySelectorAll("#presets .btn").forEach(b=>b.classList.remove("active"));
+  const map={
+    carbonPrice:["policy","profit","investment","capacity","extraction","combustion","atmosphere"],
+    subsidy:["policy","profit","investment","capacity","extraction","combustion","atmosphere"],
+    fossilInvestment:["investment","capacity","extraction","combustion","atmosphere"],
+    cleanInvestment:["policy","profit","investment","capacity","extraction","combustion","atmosphere"],
+    retirement:["policy","investment","capacity","extraction","combustion","atmosphere"],
+    demand:["policy","profit","investment","capacity","extraction","combustion","atmosphere"],
+    resistance:["policy","profit","investment","capacity","extraction","combustion","atmosphere"],
+    learning:["policy","profit","investment","capacity","extraction","combustion","atmosphere"],
+    cost:["profit","investment","capacity","extraction","combustion","atmosphere"],
+    delay:["policy","profit","investment","capacity","extraction","combustion","atmosphere"]
+  };
+  document.querySelectorAll("#trace .node").forEach(n=>n.classList.toggle("hot",(map[id]||[]).includes(n.dataset.path)));
+  $("pathTitle").textContent="Trace: "+({
+    carbonPrice:"carbon price",subsidy:"fossil subsidy",fossilInvestment:"fossil investment incentive",
+    cleanInvestment:"clean investment",retirement:"accelerated retirement",demand:"expected demand",
+    resistance:"institutional resistance",learning:"clean learning",cost:"resource development cost",delay:"policy delay"
+  }[id]||"intervention");
+}
+Object.entries(inputs).forEach(([id,input])=>input.addEventListener("input",()=>{markCustom(id);render()}));
+document.querySelectorAll("#presets .btn").forEach(btn=>btn.addEventListener("click",()=>{
+  activePreset=btn.dataset.preset;
+  document.querySelectorAll("#presets .btn").forEach(b=>b.classList.toggle("active",b===btn));
+  setControls(SCENARIOS[activePreset]||{});
+  document.querySelectorAll("#trace .node").forEach(n=>n.classList.add("hot"));
+  $("pathTitle").textContent="Scenario pathway: "+btn.textContent;
+  render();
+}));
+setControls(SCENARIOS.bau);document.querySelectorAll("#trace .node").forEach(n=>n.classList.add("hot"));render();
+</script>
+</body>
+</html>
