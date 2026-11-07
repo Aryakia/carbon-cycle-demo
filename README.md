@@ -4,7 +4,7 @@
 
 **GitHub Pages preview:** https://aryakia.github.io/carbon-cycle-demo/
 
-**Advanced upstream laboratory:** https://aryakia.github.io/carbon-cycle-demo/upstream.html\n\n**Deep-time CO₂ perspective:** https://aryakia.github.io/carbon-cycle-demo/paleoclimate.html
+**Advanced upstream laboratory:** https://aryakia.github.io/carbon-cycle-demo/upstream.html\n\n**Deep-time CO₂ perspective:** https://aryakia.github.io/carbon-cycle-demo/paleoclimate.html\n\n**Comparative policy experiments:** https://aryakia.github.io/carbon-cycle-demo/experiments.html
 
 > Research-mode status: the upstream model is a transparent behavioral-hypothesis sandbox. Its carbon accounting is tested, but its behavioral coefficients are not calibrated or validated.
 
@@ -197,3 +197,18 @@ Design rules:
 - the older Lüthi et al. composite is not used as the preferred source because NOAA's revised composite states that it supersedes the older version where analytical bias and lower-quality sections were identified.
 
 The deep-time module is explanatory context, not part of the upstream behavioral simulation.
+
+
+## Comparative experiments
+
+The `experiments.html` module uses named, reproducible cases from `model/experiments.js` to compare:
+
+- business as usual and alternative policy packages;
+- early versus delayed intervention;
+- low versus high institutional resistance;
+- less versus more fossil-dependent initial conditions;
+- stylized supply-side, demand-side, and coordinated policies.
+
+The upstream engine now includes an explicit policy start year. Policy-controlled carbon pricing, fossil subsidy, fossil investment incentives, clean investment, and accelerated retirement enter through the implementation ramp instead of appearing instantaneously.
+
+The current experiment tests verify only **internal model consequences**. In particular, under the current equations, earlier coordinated action, lower institutional resistance, and a less fossil-dependent starting system produce lower cumulative fossil-to-atmosphere transfer than their paired alternatives. These are not calibrated empirical effect sizes.
