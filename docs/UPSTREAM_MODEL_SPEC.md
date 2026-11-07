@@ -73,7 +73,37 @@ dC_atm/dt =
 - durable removal
 ```
 
-The current advanced prototype closes land/ocean uptake with a clearly labeled **pedagogical sink fraction**. This is not a mechanistic sink model.
+The advanced prototype now closes atmospheric CO₂ with a **historically calibrated four-timescale reduced-form carbon-cycle response** rather than a fixed sink fraction. The response fractions and nominal time scales come from Joos et al. (2013) / IPCC AR5, while one constant lifetime scale (alpha = 0.555) and the 1959 legacy box state are fitted to the Global Carbon Budget 2025 atmospheric-stock trajectory.
+
+The carbon-cycle module diagnoses **combined net natural uptake**. It does not infer a unique land/ocean partition, and it is not a full Earth-system carbon-cycle model.
+
+## Reduced carbon-cycle equations
+
+For four atmospheric response pools `R_i`:
+
+```text
+dR_i/dt = a_i * E_CO2 - R_i / (alpha * tau_i)
+```
+
+and:
+
+```text
+C_atm = C_preindustrial + sum(R_i)
+```
+
+The first Joos pool is effectively persistent on this model horizon. The finite time constants are integrated analytically each step.
+
+The net natural uptake is diagnosed from conservation:
+
+```text
+net natural uptake
+= net anthropogenic CO2 input
+- change in atmospheric excess carbon
+```
+
+Durable removal enters the carbon cycle as negative net anthropogenic input and is also tracked in the explicit durable-storage stock.
+
+Historical calibration and validation are implemented in `model/carbon-cycle-reduced.js` and `tests/carbon-cycle-reduced.test.mjs`.
 
 ## Feedback hypotheses
 
