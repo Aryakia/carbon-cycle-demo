@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Local-only pre/post learning check for Carbon Beyond the Bathtub.">
+<meta name="theme-color" content="#06100d">
+<title>Learning Check — Carbon Beyond the Bathtub</title>
+<style>
+:root{--bg:#06100d;--panel:#0b1915;--panel2:#10231d;--text:#eff9f4;--muted:#9eb5ac;--line:#24463a;--green:#7fe0aa;--blue:#79c7ff;--amber:#ffd18a;--red:#ff8d7e;--shadow:0 24px 70px rgba(0,0,0,.34)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 82% -10%,rgba(73,153,118,.2),transparent 34rem),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--blue)}button,input{font:inherit}.wrap{width:min(1000px,calc(100% - 34px));margin:auto}.top{border-bottom:1px solid var(--line);background:rgba(6,16,13,.9)}.top .wrap{height:62px;display:flex;align-items:center;justify-content:space-between}.brand{color:var(--text);text-decoration:none;font-weight:850}.brand small{display:block;color:var(--muted);font-size:.68rem;font-weight:600}.hero{padding:58px 0 25px}.kicker{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:850;color:var(--green)}h1{font-size:clamp(2.7rem,6vw,5.2rem);line-height:.94;letter-spacing:-.04em;margin:.5rem 0 1rem}h2{font-size:clamp(1.55rem,3vw,2.3rem);line-height:1.08}.lead{color:var(--muted);max-width:900px}.privacy{border:1px solid #5b4c2d;background:#18150e;border-radius:14px;padding:12px 14px;color:#decfae;font-size:.78rem;margin-top:16px}.section{padding:22px 0 60px}.shell{border:1px solid var(--line);background:rgba(11,25,21,.96);border-radius:22px;padding:19px;box-shadow:var(--shadow)}.progress{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:13px}.phase{border-radius:999px;padding:6px 9px;background:var(--panel2);color:var(--green);font-size:.72rem;font-weight:800}.question{border:1px solid var(--line);border-radius:16px;background:#081612;padding:15px;margin-top:12px}.question h3{font-size:.98rem;margin:.2rem 0 .7rem}.concept{color:var(--muted);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em}.option{display:flex;gap:9px;align-items:flex-start;border:1px solid transparent;border-radius:10px;padding:7px}.option:hover{background:var(--panel2)}.option label{font-size:.82rem;cursor:pointer}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:999px;padding:9px 13px;cursor:pointer;text-decoration:none}.btn.primary{background:var(--green);border-color:var(--green);color:#06100d;font-weight:850}.message{margin-top:14px;border-left:4px solid var(--green);background:#0a1914;border-radius:12px;padding:13px 15px;color:#dceae5}.transition{text-align:center;padding:25px 10px}.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}.score{border:1px solid var(--line);border-radius:15px;background:var(--panel2);padding:14px;text-align:center}.score small{display:block;color:var(--muted);font-size:.67rem}.score b{display:block;font-size:2rem;margin:.2rem 0}.explanation{border:1px solid var(--line);border-radius:14px;background:#081612;padding:13px;margin-top:10px}.explanation.good{border-left:4px solid var(--green)}.explanation.bad{border-left:4px solid var(--red)}.explanation p{color:var(--muted);font-size:.8rem}.footer{border-top:1px solid var(--line);padding:28px 0 44px;color:#7c978e;font-size:.8rem}
+@media(max-width:650px){.wrap{width:min(100% - 22px,1000px)}.score-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./">Carbon Beyond the Bathtub<small>Voluntary learning self-assessment</small></a><a href="feedbacks.html">Causal map →</a></div></header>
+<main>
+<section class="hero"><div class="wrap"><div class="kicker">Educational module · not a research study</div><h1>What changed in your mental model?</h1><p class="lead">Use this optional pre/post check to test stock–flow reasoning, resource interpretation, policy delays, and carbon lock-in concepts. It is designed for personal learning feedback, not participant research.</p><div class="privacy"><strong>Privacy:</strong> No responses are transmitted. No identifying information is requested. Answers exist only in this page memory and disappear when the page is closed or refreshed. Nothing is saved to browser storage or a server.</div></div></section>
+<section class="section"><div class="wrap"><div class="shell">
+  <div class="progress"><div><div class="kicker">Learning check</div><strong id="phaseTitle">Pre-check</strong></div><span class="phase" id="phaseBadge">1 of 2</span></div>
+  <div id="content"></div>
+</div></div></section>
+</main>
+<footer class="footer"><div class="wrap">Arya Kia · Carbon Beyond the Bathtub · local-only educational self-assessment</div></footer>
+<script type="module">
+import { ASSESSMENT_QUESTIONS } from "./education/questions.js";
+const content=document.getElementById("content"),phaseTitle=document.getElementById("phaseTitle"),phaseBadge=document.getElementById("phaseBadge");
+let preAnswers=null,preScore=null,phase="pre";
+
+function formHtml(){
+ return '<form id="quiz">'+ASSESSMENT_QUESTIONS.map((q,i)=>'<section class="question"><div class="concept">'+q.concept+'</div><h3>'+(i+1)+'. '+q.prompt+'</h3>'+q.options.map((o,j)=>'<div class="option"><input type="radio" id="'+q.id+'-'+j+'" name="'+q.id+'" value="'+j+'"><label for="'+q.id+'-'+j+'">'+o+'</label></div>').join('')+'</section>').join('')+'<div class="actions"><button class="btn primary" type="submit">'+(phase==="pre"?"Complete pre-check":"Complete post-check")+'</button><a class="btn" href="./" target="_blank" rel="noreferrer">Open beginner game ↗</a><a class="btn" href="upstream.html" target="_blank" rel="noreferrer">Open advanced lab ↗</a></div><div id="formMessage"></div></form>';
+}
+function collect(form){
+ const answers={};
+ for(const q of ASSESSMENT_QUESTIONS){const v=form.querySelector('input[name="'+q.id+'"]:checked');if(!v)return null;answers[q.id]=Number(v.value)}
+ return answers;
+}
+function score(a){return ASSESSMENT_QUESTIONS.reduce((n,q)=>n+(a[q.id]===q.correctIndex?1:0),0)}
+function renderQuiz(){phaseTitle.textContent=phase==="pre"?"Pre-check":"Post-check";phaseBadge.textContent=phase==="pre"?"1 of 2":"2 of 2";content.innerHTML=formHtml();document.getElementById("quiz").addEventListener("submit",submit)}
+function submit(e){
+ e.preventDefault();const a=collect(e.currentTarget);if(!a){document.getElementById("formMessage").innerHTML='<div class="message">Please answer all questions before continuing.</div>';return}
+ if(phase==="pre"){preAnswers=a;preScore=score(a);content.innerHTML='<div class="transition"><div class="kicker">Pre-check captured in page memory</div><h2>Now explore the model before the post-check.</h2><p class="lead" style="margin:auto">Correct answers are intentionally not shown yet. Open the demonstration in a new tab, explore the bathtub, upstream laboratory, causal map, or experiments, then return here.</p><div class="actions" style="justify-content:center"><a class="btn" href="./" target="_blank" rel="noreferrer">Beginner game ↗</a><a class="btn" href="upstream.html" target="_blank" rel="noreferrer">Advanced lab ↗</a><a class="btn" href="feedbacks.html" target="_blank" rel="noreferrer">Causal map ↗</a><button class="btn primary" id="postBtn">Start post-check</button></div></div>';document.getElementById("postBtn").addEventListener("click",()=>{phase="post";renderQuiz()});return}
+ const postScore=score(a),gain=postScore-preScore;
+ phaseTitle.textContent="Results";phaseBadge.textContent="complete";
+ content.innerHTML='<div class="score-grid"><div class="score"><small>Pre-check</small><b>'+preScore+'/'+ASSESSMENT_QUESTIONS.length+'</b></div><div class="score"><small>Post-check</small><b>'+postScore+'/'+ASSESSMENT_QUESTIONS.length+'</b></div><div class="score"><small>Change</small><b>'+(gain>=0?"+":"")+gain+'</b></div></div><div class="message"><strong>Educational feedback only.</strong> This score is not a validated learning outcome measure and no result has been saved or transmitted.</div>'+ASSESSMENT_QUESTIONS.map((q,i)=>{const ok=a[q.id]===q.correctIndex;return '<div class="explanation '+(ok?"good":"bad")+'"><strong>'+(i+1)+'. '+q.concept+' — '+(ok?"correct":"review")+'</strong><p>'+q.explanation+'</p><p><strong>Correct answer:</strong> '+q.options[q.correctIndex]+'</p></div>'}).join('')+'<div class="actions"><button class="btn" id="restart">Restart without saving</button></div>';
+ document.getElementById("restart").addEventListener("click",()=>{preAnswers=null;preScore=null;phase="pre";renderQuiz()});
+}
+renderQuiz();
+</script>
+</body></html>
