@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Interactive causal-loop architecture for the Carbon Beyond the Bathtub upstream dynamics model.">
+<meta name="theme-color" content="#06100d">
+<title>Causal Architecture — Carbon Beyond the Bathtub</title>
+<style>
+:root{--bg:#06100d;--panel:#0b1915;--panel2:#10231d;--text:#eff9f4;--muted:#9eb5ac;--line:#24463a;--green:#7fe0aa;--blue:#79c7ff;--orange:#f0a35d;--amber:#ffd18a;--red:#ff8d7e;--violet:#c4a3ff;--shadow:0 24px 70px rgba(0,0,0,.34)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -10%,rgba(73,153,118,.2),transparent 34rem),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--blue)}button{font:inherit;color:inherit}.wrap{width:min(1320px,calc(100% - 34px));margin:auto}.top{position:sticky;top:0;z-index:50;background:rgba(6,16,13,.89);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.top .wrap{height:62px;display:flex;align-items:center;justify-content:space-between}.brand{color:var(--text);text-decoration:none;font-weight:850}.brand small{display:block;color:var(--muted);font-size:.68rem;font-weight:600}.nav{display:flex;gap:7px}.nav a{color:var(--muted);text-decoration:none;font-size:.79rem;padding:7px 9px;border-radius:999px}.nav a:hover{background:var(--panel2);color:var(--text)}
+.hero{padding:62px 0 28px}.kicker{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:850;color:var(--green)}h1{font-size:clamp(2.8rem,6.5vw,5.8rem);line-height:.93;letter-spacing:-.045em;margin:.55rem 0 1rem;max-width:1080px}h2{font-size:clamp(1.65rem,3.8vw,2.7rem);line-height:1.07;margin:.35rem 0 .8rem}h3{margin:.2rem 0 .45rem}.lead{color:var(--muted);max-width:990px;font-size:1.05rem}.section{padding:28px 0 64px}.shell{border:1px solid var(--line);border-radius:24px;background:rgba(11,25,21,.96);box-shadow:var(--shadow);padding:20px}
+.selectors{display:grid;grid-template-columns:1fr 1fr;gap:12px}.selector{border:1px solid var(--line);border-radius:16px;background:#081612;padding:13px}.selector strong{font-size:.84rem}.buttons{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.pill{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:7px 10px;cursor:pointer;font-size:.72rem}.pill.active{background:var(--panel2);color:var(--text);border-color:var(--green)}
+.workspace{display:grid;grid-template-columns:1.35fr .65fr;gap:14px;margin-top:14px}.diagram{border:1px solid var(--line);border-radius:18px;background:#071410;padding:8px;overflow:auto}.diagram svg{display:block;width:100%;min-width:800px;height:auto}.edge{stroke:#49675d;stroke-width:2.2;fill:none;opacity:.28;transition:.2s}.edge.active{opacity:1;stroke:var(--green);stroke-width:3.2}.edge.negative.active{stroke:var(--red)}.node rect{fill:#0d201a;stroke:#31584b;stroke-width:1.6}.node text{fill:#dcebe5;font-size:13px;font-weight:700;text-anchor:middle}.node.active rect{stroke:var(--green);stroke-width:3;filter:url(#glow)}.sign{font-size:14px;font-weight:900}.loop-label{font-size:14px;font-weight:900}.side{display:grid;gap:10px;align-content:start}.panel{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:15px}.panel p,.panel li{color:var(--muted);font-size:.78rem}.loop-code{display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;border-radius:10px;background:var(--panel2);color:var(--green);font-weight:900}.evidence{border-left:4px solid var(--amber);background:#18150e}.legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:.7rem;margin:10px 4px}.legend i{display:inline-block;width:19px;height:3px;margin-right:5px;vertical-align:middle}.footer{border-top:1px solid var(--line);padding:28px 0 44px;color:#7c978e;font-size:.8rem}
+@media(max-width:950px){.nav{display:none}.workspace,.selectors{grid-template-columns:1fr}.diagram svg{min-width:760px}}
+@media(max-width:560px){.wrap{width:min(100% - 22px,1320px)}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./">Carbon Beyond the Bathtub<small>Causal architecture</small></a><nav class="nav"><a href="./">Beginner</a><a href="upstream.html">Advanced lab</a><a href="experiments.html">Experiments</a><a href="assessment.html">Learning check</a></nav></div></header>
+<main>
+<section class="hero"><div class="wrap"><div class="kicker">Interactive causal-loop diagram</div><h1>What keeps the faucet open—and what pushes it closed?</h1><p class="lead">Select a feedback loop or policy lever to trace the causal hypothesis. Positive and negative polarities describe the direction of change, not whether a relationship is socially desirable. The diagram is a structural hypothesis map; the numerical equations remain in the upstream engine and model specification.</p></div></section>
+<section class="section"><div class="wrap"><div class="shell">
+  <div class="selectors">
+    <div class="selector"><strong>Highlight a feedback loop</strong><div class="buttons" id="loopButtons"><button class="pill active" data-loop="ALL">All</button><button class="pill" data-loop="R1">R1 infrastructure lock-in</button><button class="pill" data-loop="R2">R2 capability</button><button class="pill" data-loop="R3">R3 institutional dependence</button><button class="pill" data-loop="B1">B1 policy response</button><button class="pill" data-loop="B2">B2 clean substitution</button></div></div>
+    <div class="selector"><strong>Trace a policy lever</strong><div class="buttons" id="policyButtons"><button class="pill" data-policy="carbon">Carbon price</button><button class="pill" data-policy="clean">Clean investment</button><button class="pill" data-policy="retire">Accelerated retirement</button><button class="pill" data-policy="supply">Supply-side constraint</button><button class="pill" data-policy="resistance">Institutional resistance</button></div></div>
+  </div>
+  <div class="workspace">
+    <div class="diagram">
+      <svg viewBox="0 0 1100 690" role="img" aria-labelledby="cldTitle cldDesc">
+        <title id="cldTitle">Causal loop diagram of upstream fossil-carbon dynamics</title>
+        <desc id="cldDesc">Feedbacks connect fossil demand capital, demand, profitability, investment, production capacity, extraction, atmospheric carbon, policy pressure, institutional support, capability, clean capital, and clean competitiveness.</desc>
+        <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="context-stroke"/></marker><filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+
+        <g class="edge" data-loops="R1" data-nodes="demandCapital demand" marker-end="url(#arrow)"><path d="M210 118 C260 118 285 118 330 118"/></g>
+        <g class="edge" data-loops="R1" data-nodes="demand profit" marker-end="url(#arrow)"><path d="M470 118 C520 118 545 118 590 118"/></g>
+        <g class="edge" data-loops="R1 R2 R3" data-nodes="profit investment" marker-end="url(#arrow)"><path d="M730 118 C780 118 805 118 850 118"/></g>
+        <g class="edge" data-loops="R1 R2" data-nodes="investment capacity" marker-end="url(#arrow)"><path d="M920 148 C920 190 920 225 920 267"/></g>
+        <g class="edge" data-loops="R1 R2" data-nodes="capacity activity" marker-end="url(#arrow)"><path d="M850 310 C790 310 745 310 700 310"/></g>
+        <g class="edge" data-loops="R1" data-nodes="activity demandCapital" marker-end="url(#arrow)"><path d="M590 330 C440 390 180 330 140 158"/></g>
+
+        <g class="edge" data-loops="R2" data-nodes="capacity capability" marker-end="url(#arrow)"><path d="M895 350 C830 440 770 495 700 520"/></g>
+        <g class="edge" data-loops="R2" data-nodes="capability profit" marker-end="url(#arrow)"><path d="M630 495 C600 400 615 250 645 158"/></g>
+
+        <g class="edge" data-loops="R3" data-nodes="activity institution" marker-end="url(#arrow)"><path d="M590 345 C470 440 305 500 210 520"/></g>
+        <g class="edge negative" data-loops="R3 B1" data-nodes="institution policy" marker-end="url(#arrow)"><path d="M140 487 C110 420 110 380 140 348"/></g>
+        <g class="edge negative" data-loops="B1" data-nodes="policy profit" marker-end="url(#arrow)"><path d="M210 310 C360 250 500 200 610 148"/></g>
+        <g class="edge negative" data-loops="B1" data-nodes="policy capacity" marker-end="url(#arrow)"><path d="M210 330 C400 350 680 350 850 325"/></g>
+        <g class="edge" data-loops="B1" data-nodes="activity atmosphere" marker-end="url(#arrow)"><path d="M590 310 C525 310 480 310 430 310"/></g>
+        <g class="edge" data-loops="B1" data-nodes="atmosphere policy" marker-end="url(#arrow)"><path d="M330 310 C280 310 250 310 210 310"/></g>
+
+        <g class="edge" data-loops="B2" data-nodes="policy cleanCapital" marker-end="url(#arrow)"><path d="M180 350 C350 550 720 590 850 540"/></g>
+        <g class="edge" data-loops="B2" data-nodes="cleanCapital cleanShare" marker-end="url(#arrow)"><path d="M850 520 C760 520 520 520 470 520"/></g>
+        <g class="edge negative" data-loops="B2" data-nodes="cleanShare demand" marker-end="url(#arrow)"><path d="M400 485 C390 390 395 230 400 158"/></g>
+
+        <g class="node" data-node="demandCapital"><rect x="70" y="78" rx="15" width="140" height="80"/><text x="140" y="108"><tspan x="140">Fossil-dependent</tspan><tspan x="140" dy="18">demand capital</tspan></text></g>
+        <g class="node" data-node="demand"><rect x="330" y="78" rx="15" width="140" height="80"/><text x="400" y="109"><tspan x="400">Fossil demand</tspan><tspan x="400" dy="18">signal</tspan></text></g>
+        <g class="node" data-node="profit"><rect x="590" y="78" rx="15" width="140" height="80"/><text x="660" y="109"><tspan x="660">Expected fossil</tspan><tspan x="660" dy="18">profitability</tspan></text></g>
+        <g class="node" data-node="investment"><rect x="850" y="78" rx="15" width="140" height="80"/><text x="920" y="109"><tspan x="920">Capacity</tspan><tspan x="920" dy="18">investment</tspan></text></g>
+        <g class="node" data-node="capacity"><rect x="850" y="270" rx="15" width="140" height="80"/><text x="920" y="301"><tspan x="920">Developed fossil</tspan><tspan x="920" dy="18">capacity</tspan></text></g>
+        <g class="node" data-node="activity"><rect x="590" y="270" rx="15" width="140" height="80"/><text x="660" y="301"><tspan x="660">Extraction &</tspan><tspan x="660" dy="18">fossil activity</tspan></text></g>
+        <g class="node" data-node="atmosphere"><rect x="330" y="270" rx="15" width="140" height="80"/><text x="400" y="301"><tspan x="400">Atmospheric</tspan><tspan x="400" dy="18">carbon / concern</tspan></text></g>
+        <g class="node" data-node="policy"><rect x="70" y="270" rx="15" width="140" height="80"/><text x="140" y="301"><tspan x="140">Policy pressure &</tspan><tspan x="140" dy="18">implementation</tspan></text></g>
+        <g class="node" data-node="institution"><rect x="70" y="480" rx="15" width="140" height="80"/><text x="140" y="511"><tspan x="140">Institutional</tspan><tspan x="140" dy="18">support / resistance</tspan></text></g>
+        <g class="node" data-node="cleanShare"><rect x="330" y="480" rx="15" width="140" height="80"/><text x="400" y="511"><tspan x="400">Clean</tspan><tspan x="400" dy="18">competitiveness</tspan></text></g>
+        <g class="node" data-node="capability"><rect x="590" y="480" rx="15" width="140" height="80"/><text x="660" y="511"><tspan x="660">Accumulated fossil</tspan><tspan x="660" dy="18">capability</tspan></text></g>
+        <g class="node" data-node="cleanCapital"><rect x="850" y="480" rx="15" width="140" height="80"/><text x="920" y="511"><tspan x="920">Clean capital &</tspan><tspan x="920" dy="18">infrastructure</tspan></text></g>
+
+        <text class="loop-label" x="250" y="65" fill="#f0a35d">R1</text><text class="loop-label" x="800" y="445" fill="#f0a35d">R2</text><text class="loop-label" x="250" y="455" fill="#f0a35d">R3</text><text class="loop-label" x="260" y="250" fill="#7fe0aa">B1</text><text class="loop-label" x="520" y="590" fill="#7fe0aa">B2</text>
+        <text class="sign" x="285" y="108" fill="#7fe0aa">+</text><text class="sign" x="545" y="108" fill="#7fe0aa">+</text><text class="sign" x="805" y="108" fill="#7fe0aa">+</text><text class="sign" x="905" y="220" fill="#7fe0aa">+</text><text class="sign" x="780" y="300" fill="#7fe0aa">+</text>
+        <text class="sign" x="300" y="282" fill="#7fe0aa">+</text><text class="sign" x="235" y="270" fill="#7fe0aa">+</text><text class="sign" x="380" y="228" fill="#ff8d7e">−</text><text class="sign" x="505" y="495" fill="#ff8d7e">−</text>
+      </svg>
+      <div class="legend"><span><i style="background:#7fe0aa"></i>Highlighted positive link</span><span><i style="background:#ff8d7e"></i>Highlighted negative link</span><span>“+ / −” indicates causal polarity, not value judgment.</span></div>
+    </div>
+    <aside class="side">
+      <div class="panel"><span class="loop-code" id="loopCode">ALL</span><h3 id="loopTitle">All feedbacks</h3><p id="loopDesc">Use the controls above to isolate a feedback or trace how a policy lever enters the structure.</p></div>
+      <div class="panel"><div class="kicker">Model mapping</div><p id="mapping">The diagram corresponds to variables and signals in <code>model/upstream-engine.js</code>. It is more aggregated than a sector-specific energy model.</p><a href="experiments.html">Test the structure in comparative experiments →</a></div>
+      <div class="panel evidence"><div class="kicker">Evidence boundary</div><p>Carbon lock-in, capital turnover, and infrastructure commitment are supported in peer-reviewed literature. The exact loop strengths and coefficients in this prototype are simplifying assumptions and research hypotheses, not universally estimated causal effects.</p><a href="https://github.com/Aryakia/carbon-cycle-demo/blob/main/docs/UPSTREAM_MODEL_SPEC.md" target="_blank" rel="noreferrer">Model specification ↗</a></div>
+    </aside>
+  </div>
+</div></div></section>
+</main>
+<footer class="footer"><div class="wrap">Arya Kia · Carbon Beyond the Bathtub · causal architecture</div></footer>
+<script>
+const LOOP_INFO={
+ ALL:["ALL","All feedbacks","Use the controls above to isolate a feedback or trace how a policy lever enters the structure."],
+ R1:["R1","Infrastructure lock-in","Fossil-dependent demand capital sustains demand, profitability, investment, production capacity, and fossil activity; activity in turn supports continued fossil-dependent capital and complementary systems."],
+ R2:["R2","Accumulated technological advantage","Production and utilization build capability, expertise, supply chains, and complementary knowledge that can reinforce expected profitability and further capacity investment."],
+ R3:["R3","Economic and institutional dependence","Fossil activity can support stakeholders and institutions that resist or attenuate policy pressure, thereby preserving conditions for continued activity."],
+ B1:["B1","Climate-policy response","Atmospheric accumulation and climate concern increase pressure for policy. Effective policy can reduce profitability and accelerate retirement, lowering future fossil activity."],
+ B2:["B2","Alternative-technology substitution","Policy and clean investment build clean capital; deployment and learning improve competitiveness, displacing the fossil-demand signal."]
+};
+const POLICY_LOOPS={carbon:["B1"],clean:["B2"],retire:["B1"],supply:["B1","R1"],resistance:["R3","B1"]};
+function setHighlight(loops,code,title,desc){
+ document.querySelectorAll(".edge").forEach(e=>{const ls=e.dataset.loops.split(" ");e.classList.toggle("active",loops.includes("ALL")||ls.some(x=>loops.includes(x)))});
+ const activeNodes=new Set();
+ document.querySelectorAll(".edge.active").forEach(e=>e.dataset.nodes.split(" ").forEach(n=>activeNodes.add(n)));
+ document.querySelectorAll(".node").forEach(n=>n.classList.toggle("active",activeNodes.has(n.dataset.node)));
+ document.getElementById("loopCode").textContent=code;document.getElementById("loopTitle").textContent=title;document.getElementById("loopDesc").textContent=desc;
+}
+document.querySelectorAll("#loopButtons .pill").forEach(b=>b.addEventListener("click",()=>{
+ document.querySelectorAll(".pill").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+ const i=LOOP_INFO[b.dataset.loop];setHighlight([b.dataset.loop],...i);
+}));
+document.querySelectorAll("#policyButtons .pill").forEach(b=>b.addEventListener("click",()=>{
+ document.querySelectorAll(".pill").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+ const loops=POLICY_LOOPS[b.dataset.policy];
+ const names=loops.map(x=>LOOP_INFO[x][1]).join(" + ");
+ setHighlight(loops,"POL",b.textContent,"This lever enters the model through "+names+". Follow the highlighted links to see the mediated pathway rather than a direct policy-to-emissions shortcut.");
+}));
+setHighlight(["ALL"],...LOOP_INFO.ALL);
+</script>
+</body></html>
