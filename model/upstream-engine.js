@@ -206,11 +206,17 @@ export function stepUpstream(state, parameters = {}, dtOverride = null) {
     extractionGtCPerYr * clamp(p.processEmissionShare, 0, 0.3);
   const inventoryInGtCPerYr = extractionGtCPerYr - processEmissionsGtCPerYr;
 
-  const inventoryOutNominal =
-    s.fuelInventoryGtC / Math.max(0.01, p.fuelInventoryResidenceYears);
-  const inventoryAvailableRate =
-    (s.fuelInventoryGtC + inventoryInGtCPerYr * dt) / dt;
-  const inventoryOutGtCPerYr = Math.min(inventoryOutNominal, inventoryAvailableRate);
+  // Exact solution for a first-order inventory stock with constant inflow
+  // over the integration interval. This avoids explicit-Euler instability
+  // when dt approaches or exceeds the short inventory residence time.
+  const inventoryTauYears = Math.max(0.01, p.fuelInventoryResidenceYears);
+  const inventoryDecay = Math.exp(-dt / inventoryTauYears);
+  const nextFuelInventoryGtC =
+    s.fuelInventoryGtC * inventoryDecay +
+    inventoryInGtCPerYr * inventoryTauYears * (1 - inventoryDecay);
+  const inventoryOutAmountGtC =
+    s.fuelInventoryGtC + inventoryInGtCPerYr * dt - nextFuelInventoryGtC;
+  const inventoryOutGtCPerYr = Math.max(0, inventoryOutAmountGtC / dt);
 
   const nonCombustionShare = clamp(p.nonCombustionShare, 0, 0.5);
   const combustionGtCPerYr = inventoryOutGtCPerYr * (1 - nonCombustionShare);
@@ -258,10 +264,7 @@ export function stepUpstream(state, parameters = {}, dtOverride = null) {
       0,
       1,
     ),
-    fuelInventoryGtC: Math.max(
-      0,
-      s.fuelInventoryGtC + (inventoryInGtCPerYr - inventoryOutGtCPerYr) * dt,
-    ),
+    fuelInventoryGtC: Math.max(0, nextFuelInventoryGtC),
     productsGtC: Math.max(
       0,
       s.productsGtC + (productFormationGtCPerYr - productDecayGtCPerYr) * dt,
