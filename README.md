@@ -311,3 +311,16 @@ The advanced laboratory and comparative-experiment interface now support reprodu
 - Experiment trajectories use both color and line style so comparisons do not rely on color alone.
 
 The serialization and CSV functions live in `ui/scenario-io.js` and have automated round-trip/escaping tests.
+
+
+## Research software versioning and canonical source
+
+The current public research-software version is **v0.3.0**.
+
+- `game.html` is the canonical source for the public homepage.
+- The GitHub Pages workflow copies `game.html` to the deployed `index.html`; the obsolete repository-root prototype `index.html` has been removed to prevent accidental edits to a non-deployed page.
+- `CITATION.cff` provides software citation metadata.
+- `CHANGELOG.md` records notable scientific, modeling, validation, and interface changes.
+- `model/version.js` exposes the software version to research exports and the advanced interface.
+
+The advanced laboratory also provides an **Evidence** control beside every visible parameter. It reads directly from `model/parameter-metadata.js` and displays the parameter's classification, status, unit, default, source/rationale, and role in the model.
