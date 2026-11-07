@@ -10,7 +10,7 @@ export const DEFAULT_PARAMETERS = Object.freeze({
   carbonPriceUsdPerTCO2: 0,
   fossilSubsidyUsdPerTCO2: 0,
   fossilInvestmentIncentive: 1,
-  cleanInvestmentIndexPerYr: 0.0124804992199688,
+  cleanInvestmentIndexPerYr: 0.01248,
   acceleratedRetirementPerYr: 0,
   expectedFutureDemandIndex: 1,
   institutionalResistance: 0.55,
