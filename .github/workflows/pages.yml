@@ -32,9 +32,12 @@ jobs:
           cp upstream.html _site/upstream.html
           cp paleoclimate.html _site/paleoclimate.html
           cp experiments.html _site/experiments.html
-          mkdir -p _site/model _site/data
+          cp feedbacks.html _site/feedbacks.html
+          cp assessment.html _site/assessment.html
+          mkdir -p _site/model _site/data _site/education
           cp model/*.js _site/model/
           cp data/*.js _site/data/
+          cp education/*.js _site/education/
           touch _site/.nojekyll
 
       - name: Configure Pages
