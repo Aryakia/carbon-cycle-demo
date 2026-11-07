@@ -30,6 +30,17 @@ assert.ok(
 );
 
 const stability = runTimeStepStability();
+console.log("Time-step diagnostics:", JSON.stringify(stability.scenarios.map(s => ({
+  name: s.name,
+  ppmDiffPct: +(s.maxRelativePpmDifference * 100).toFixed(3),
+  cumulativeDiffPct: +(s.maxRelativeCumulativeDifference * 100).toFixed(3),
+  outcomes: s.outcomes.map(o => ({
+    dt: o.dtYears,
+    ppm: +o.ppm2100.toFixed(3),
+    cumulative: +o.cumulativeFossilToAtmosphereGtC.toFixed(3),
+    fossilFlow: +o.fossilFlow2100GtCPerYr.toFixed(4),
+  })),
+}))));
 for (const scenario of stability.scenarios) {
   assert.ok(
     scenario.maxRelativePpmDifference < 0.05,
