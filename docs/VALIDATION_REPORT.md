@@ -44,11 +44,11 @@ Comparing the default 0.25-year step with 0.125 and 0.0625-year runs:
 
 | Scenario | Maximum relative 2100-ppm difference | Maximum relative cumulative-fossil-transfer difference |
 | --- | ---: | ---: |
-| Business as usual | 0.017% | 0.217% |
-| Carbon price | 0.030% | 0.619% |
-| Price + clean investment | 0.046% | 1.464% |
-| Accelerated retirement | 0.045% | 1.059% |
-| Coordinated package | 0.050% | 2.482% |
+| Structural reference | 0.000% | 0.000% |
+| Carbon price | 0.018% | 0.068% |
+| Price + clean investment | 0.072% | 0.466% |
+| Accelerated retirement | 0.067% | 0.505% |
+| Coordinated package | 0.064% | 0.634% |
 
 These are numerical-convergence diagnostics, not empirical validation results.
 
@@ -94,9 +94,9 @@ This is a **screening analysis**, not a probability distribution, Monte Carlo un
 
 For the coordinated-policy scenario across the baseline and the low/high settings of the eight screened dimensions:
 
-- 2100 atmospheric CO₂: **449.31–462.53 ppm**;
-- cumulative fossil carbon transferred to the atmosphere: **32.39–62.49 GtC**;
-- 2100 fossil-to-atmosphere flow: **0.0267–0.0380 GtC/yr**.
+- 2100 atmospheric CO₂: **481.32–514.30 ppm**;
+- cumulative fossil carbon transferred to the atmosphere: **158.91–265.71 GtC**;
+- 2100 fossil-to-atmosphere flow: **0.1354–0.4107 GtC/yr**.
 
 These ranges are conditional on the tested one-at-a-time parameter bounds and should not be interpreted as statistical confidence intervals.
 
@@ -136,3 +136,19 @@ A peer-review-oriented version should next:
 6. perform global sensitivity / uncertainty analysis;
 7. conduct expert structural review;
 8. evaluate whether the educational interface improves stock-flow and lock-in understanding using a separately approved research protocol.
+
+
+## Stage 7 reference-mode correction
+
+The previous no-policy case contained a strong autonomous fossil decline and was incorrectly labeled “business as usual.” It has been replaced by a neutral **Structural reference**.
+
+The reference initialization now reproduces the Global Carbon Budget 2025 fossil-flow benchmark:
+
+- first modeled fossil-to-atmosphere flow: **10.4 GtC/yr**;
+- Structural reference fossil flow in 2050: **10.4 GtC/yr**;
+- Structural reference fossil flow in 2100: **10.4 GtC/yr**;
+- clean-capital stock in 2100: **0.32**, equal to its reference initial stock.
+
+These are structure/initialization checks, not a forecast.
+
+The Structural reference produces about **645 ppm** in 2100 under the current pedagogical natural-sink closure. This value must not be interpreted as a climate projection: the advanced model still uses a simplified sink fraction rather than a mechanistic or calibrated carbon-cycle response model.
