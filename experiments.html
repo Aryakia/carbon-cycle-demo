@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Reproducible comparative policy experiments for Carbon Beyond the Bathtub.">
+<meta name="theme-color" content="#06100d">
+<title>Policy Experiments — Carbon Beyond the Bathtub</title>
+<style>
+:root{--bg:#06100d;--panel:#0b1915;--panel2:#10231d;--panel3:#142c24;--text:#eff9f4;--muted:#9eb5ac;--line:#24463a;--line2:#376353;--green:#7fe0aa;--blue:#79c7ff;--orange:#f0a35d;--amber:#ffd18a;--red:#ff8d7e;--violet:#c4a3ff;--shadow:0 24px 70px rgba(0,0,0,.34)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 82% -10%,rgba(73,153,118,.22),transparent 34rem),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+a{color:var(--blue)}button{font:inherit;color:inherit}.wrap{width:min(1350px,calc(100% - 34px));margin:auto}.top{position:sticky;top:0;z-index:50;background:rgba(6,16,13,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.top .wrap{height:62px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brand{color:var(--text);text-decoration:none;font-weight:850}.brand small{display:block;color:var(--muted);font-size:.68rem;font-weight:600}.nav{display:flex;gap:7px}.nav a{color:var(--muted);text-decoration:none;font-size:.79rem;padding:7px 9px;border-radius:999px}.nav a:hover{background:var(--panel2);color:var(--text)}
+.hero{padding:62px 0 30px}.kicker{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:850;color:var(--green)}h1{font-size:clamp(2.8rem,6.5vw,5.9rem);line-height:.93;letter-spacing:-.045em;margin:.55rem 0 1rem;max-width:1080px}h2{font-size:clamp(1.65rem,3.8vw,2.7rem);line-height:1.07;margin:.35rem 0 .8rem}h3{margin:.2rem 0 .45rem}.lead{color:var(--muted);max-width:1000px;font-size:1.05rem}.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.badge{border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:var(--muted);font-size:.69rem}.badge.warn{border-color:#61502f;color:#f1d69d}
+.section{padding:28px 0 65px}.shell{border:1px solid var(--line);border-radius:24px;background:rgba(11,25,21,.96);box-shadow:var(--shadow);padding:20px}.experiment-tabs{display:flex;gap:6px;flex-wrap:wrap;border:1px solid var(--line);background:#071410;padding:5px;border-radius:15px}.experiment-tab{border:0;background:transparent;color:var(--muted);border-radius:11px;padding:9px 12px;cursor:pointer;font-weight:750;font-size:.8rem}.experiment-tab.active{background:var(--panel3);color:var(--text);box-shadow:inset 0 0 0 1px rgba(127,224,170,.16)}
+.question{display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap;margin-top:17px}.question p{color:var(--muted);max-width:930px;margin:.25rem 0}.method-note{font-size:.72rem;color:var(--muted);border:1px solid var(--line);border-radius:12px;padding:8px 10px}
+.case-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:14px}.case-card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));border-radius:15px;padding:13px;min-height:116px}.swatch{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}.case-card strong{font-size:.86rem}.case-card b{display:block;font-size:1.35rem;margin:.4rem 0 .1rem}.case-card span{font-size:.67rem;color:var(--muted)}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}.chart{border:1px solid var(--line);border-radius:16px;background:#071410;padding:12px}.chart h3{font-size:.9rem}.chart p{font-size:.68rem;color:var(--muted);margin:.1rem 0 .5rem}.chart svg{display:block;width:100%;height:250px}.grid{stroke:#1d3930;stroke-width:1}.axis{fill:#839f96;font-size:10px}.target{stroke:var(--green);stroke-dasharray:5 5;stroke-width:1.1;opacity:.7}
+.summary-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}.summary{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:12px}.summary small{display:block;color:var(--muted);font-size:.65rem;text-transform:uppercase;letter-spacing:.07em}.summary b{display:block;margin:.3rem 0;font-size:1.05rem}.summary p{color:var(--muted);font-size:.69rem;margin:0}
+.table-wrap{margin-top:14px;overflow:auto;border:1px solid var(--line);border-radius:16px}.results-table{border-collapse:collapse;width:100%;min-width:1020px;background:#091612;font-size:.73rem}.results-table th,.results-table td{padding:10px 11px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}.results-table th{color:var(--muted);font-weight:700;background:#0d1e19}.results-table th:first-child,.results-table td:first-child{text-align:left;position:sticky;left:0;background:inherit}.results-table tr:last-child td{border-bottom:0}.results-table td strong{color:var(--text)}
+.mechanisms{display:grid;grid-template-columns:1.1fr .9fr;gap:13px;margin-top:14px}.mechanism,.boundary{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:16px}.mechanism p,.boundary p,.boundary li{color:var(--muted);font-size:.78rem}.trace{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin-top:10px}.node{border:1px solid var(--line);border-radius:10px;background:#081612;padding:9px;text-align:center;font-size:.67rem;min-height:58px;display:flex;align-items:center;justify-content:center}.node.hot{border-color:var(--green)}.boundary{border-left:4px solid var(--amber)}
+.footer{border-top:1px solid var(--line);padding:28px 0 44px;color:#7c978e;font-size:.8rem}
+@media(max-width:1150px){.case-cards{grid-template-columns:repeat(3,1fr)}.summary-strip{grid-template-columns:repeat(2,1fr)}.trace{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:850px){.nav{display:none}.charts,.mechanisms{grid-template-columns:1fr}.case-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.wrap{width:min(100% - 22px,1350px)}.case-cards,.summary-strip,.trace{grid-template-columns:1fr}.chart svg{height:220px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./">Carbon Beyond the Bathtub<small>Comparative policy experiments</small></a><nav class="nav"><a href="./">Beginner game</a><a href="upstream.html">Advanced lab</a><a href="paleoclimate.html">800k CO₂</a><a href="#results">Results</a></nav></div></header>
+<main>
+<section class="hero"><div class="wrap">
+  <div class="kicker">Controlled comparisons · research-mode prototype</div>
+  <h1>What changes when the policy—or the history—changes?</h1>
+  <p class="lead">These experiments hold the model structure fixed and vary explicit policy packages, timing, institutional resistance, or initial conditions. They are designed to expose inertia and pathway dependence generated by the model equations. They are not forecasts, causal estimates, or evidence that every energy system behaves the same way.</p>
+  <div class="badges"><span class="badge">Same tested simulation engine</span><span class="badge">Reproducible named cases</span><span class="badge">Carbon accounting residuals checked</span><span class="badge warn">No monetary transition-cost claim yet</span></div>
+</div></section>
+
+<section class="section" id="results"><div class="wrap"><div class="shell">
+  <div class="experiment-tabs" id="experimentTabs">
+    <button class="experiment-tab active" data-id="policyMix">Policy packages</button>
+    <button class="experiment-tab" data-id="timing">Early vs delayed</button>
+    <button class="experiment-tab" data-id="resistance">Institutional resistance</button>
+    <button class="experiment-tab" data-id="initialConditions">Historical investment</button>
+    <button class="experiment-tab" data-id="supplyDemand">Supply vs demand</button>
+  </div>
+
+  <div class="question"><div><div class="kicker" id="experimentTitle">Policy packages</div><h2 id="experimentQuestion"></h2></div><div class="method-note">2025–2100 · Δt = 0.25 yr · same equations within each comparison</div></div>
+  <div class="case-cards" id="caseCards"></div>
+
+  <div class="charts">
+    <div class="chart"><h3>Fossil carbon reaching the atmosphere</h3><p>Combustion + process emissions + delayed product decay, GtC/yr.</p><svg id="emissionsChart" viewBox="0 0 650 250"></svg></div>
+    <div class="chart"><h3>Atmospheric CO₂</h3><p>Simplified atmospheric control-volume response, ppm.</p><svg id="ppmChart" viewBox="0 0 650 250"></svg></div>
+    <div class="chart"><h3>Developed fossil production capacity</h3><p>Aggregate production-capacity stock, GtC/yr capacity.</p><svg id="capacityChart" viewBox="0 0 650 250"></svg></div>
+    <div class="chart"><h3>Fossil-dependent demand capital</h3><p>Dimensionless persistent-capital index; behavioral hypothesis.</p><svg id="demandChart" viewBox="0 0 650 250"></svg></div>
+  </div>
+
+  <div class="summary-strip">
+    <div class="summary"><small>Timing / inertia diagnostic</small><b id="timingFinding">—</b><p id="timingText">Select an experiment.</p></div>
+    <div class="summary"><small>Cumulative fossil transfer spread</small><b id="cumulativeSpread">—</b><p>Difference between the highest and lowest case by 2100.</p></div>
+    <div class="summary"><small>Atmospheric outcome spread</small><b id="ppmSpread">—</b><p>Difference in modeled 2100 atmospheric CO₂ across cases.</p></div>
+    <div class="summary"><small>Accounting diagnostics</small><b id="residualFinding">—</b><p>Maximum absolute mass-balance residual across displayed cases.</p></div>
+  </div>
+
+  <div class="table-wrap"><table class="results-table">
+    <thead><tr><th>Case</th><th>2050 fossil flow<br>GtC/yr</th><th>2100 fossil flow<br>GtC/yr</th><th>2100 CO₂<br>ppm</th><th>Cumulative fossil→atm<br>GtC</th><th>2100 capacity<br>GtC/yr</th><th>2100 fossil demand<br>index</th><th>2100 clean capital<br>index</th><th>Below 95% initial<br>year</th><th>Below 50% initial<br>year</th></tr></thead>
+    <tbody id="resultsBody"></tbody>
+  </table></div>
+
+  <div class="mechanisms">
+    <div class="mechanism"><div class="kicker">Causal pathway represented</div><h3>Policy reaches CO₂ through intermediate stocks and decisions.</h3><div class="trace"><div class="node hot">Policy / expectations</div><div class="node hot">Profitability</div><div class="node hot">Investment & retirement</div><div class="node hot">Capacity & demand capital</div><div class="node hot">Extraction</div><div class="node hot">Inventory / combustion</div><div class="node hot">Atmospheric stock</div></div><p>The comparison page does not directly map a carbon-price setting to ppm. All cases use the same upstream stock–flow engine.</p></div>
+    <div class="boundary"><div class="kicker">What is not claimed</div><h3>These are structural experiments, not calibrated policy forecasts.</h3><ul><li>Behavioral coefficients are not globally estimated.</li><li>The natural-sink closure remains pedagogical.</li><li>No dollar transition cost is shown because a defensible cost module has not yet been calibrated.</li><li>Differences across cases are consequences of this model structure and parameterization.</li></ul></div>
+  </div>
+</div></div></section>
+</main>
+<footer class="footer"><div class="wrap">Arya Kia · Carbon Beyond the Bathtub · comparative policy experiment module</div></footer>
+
+<script type="module">
+import { runExperiment } from "./model/experiments.js";
+
+const $=id=>document.getElementById(id);
+const COLORS=["#79c7ff","#f0a35d","#7fe0aa","#c4a3ff","#ff8d7e","#ffd18a"];
+let current="policyMix";
+
+function fmtYear(v){return v==null?"not reached":v.toFixed(0)}
+function lineChart(svg,cases,key,opts={}){
+  const W=650,H=250,p={l:48,r:14,t:15,b:28};
+  const vals=cases.flatMap(c=>c.rows.map(r=>r[key]));
+  let minY=Math.min(...vals),maxY=Math.max(...vals);
+  if(opts.zeroFloor)minY=Math.min(0,minY);
+  if(opts.target!=null){minY=Math.min(minY,opts.target);maxY=Math.max(maxY,opts.target)}
+  if(Math.abs(maxY-minY)<1e-9)maxY=minY+1;
+  const gap=(maxY-minY)*.08;minY-=gap;maxY+=gap;
+  const sx=y=>p.l+(y-2025)/(2100-2025)*(W-p.l-p.r);
+  const sy=v=>H-p.b-(v-minY)/(maxY-minY)*(H-p.t-p.b);
+  let out="";
+  for(let i=0;i<5;i++){
+    const yy=p.t+i*(H-p.t-p.b)/4;
+    const val=maxY-i*(maxY-minY)/4;
+    out+=`<line class="grid" x1="${p.l}" x2="${W-p.r}" y1="${yy}" y2="${yy}"/><text class="axis" x="3" y="${yy+4}">${val.toFixed(opts.decimals??1)}</text>`;
+  }
+  for(const yr of [2025,2050,2075,2100]){
+    const xx=sx(yr);out+=`<line class="grid" x1="${xx}" x2="${xx}" y1="${p.t}" y2="${H-p.b}"/><text class="axis" x="${xx-14}" y="${H-7}">${yr}</text>`;
+  }
+  if(opts.target!=null){
+    const yy=sy(opts.target);out+=`<line class="target" x1="${p.l}" x2="${W-p.r}" y1="${yy}" y2="${yy}"/>`;
+  }
+  cases.forEach((c,i)=>{
+    const d=c.rows.map((r,j)=>(j?"L":"M")+sx(r.year).toFixed(1)+","+sy(r[key]).toFixed(1)).join(" ");
+    out+=`<path d="${d}" fill="none" stroke="${COLORS[i%COLORS.length]}" stroke-width="2.6" stroke-linecap="round"><title>${c.label}</title></path>`;
+  });
+  svg.innerHTML=out;
+}
+
+function finding(exp){
+  const s=exp.cases.map(c=>c.summary);
+  if(exp.id==="timing"){
+    const early=s.find(x=>x.id==="early"),late=s.find(x=>x.id==="delayed");
+    const delta=late.cumulativeFossilToAtmosphereGtC-early.cumulativeFossilToAtmosphereGtC;
+    return ["Earlier action matters here",`Starting the same package in 2025 instead of 2040 lowers cumulative modeled fossil-to-atmosphere transfer by ${delta.toFixed(1)} GtC by 2100.`];
+  }
+  if(exp.id==="resistance"){
+    const low=s.find(x=>x.id==="lowResistance"),high=s.find(x=>x.id==="highResistance");
+    const delta=high.cumulativeFossilToAtmosphereGtC-low.cumulativeFossilToAtmosphereGtC;
+    return ["Policy transmission is mediated",`Under these equations, high institutional resistance leaves ${delta.toFixed(1)} GtC more cumulative fossil transfer than low resistance by 2100.`];
+  }
+  if(exp.id==="initialConditions"){
+    const less=s.find(x=>x.id==="lessDependent"),more=s.find(x=>x.id==="moreDependent");
+    const delta=more.cumulativeFossilToAtmosphereGtC-less.cumulativeFossilToAtmosphereGtC;
+    return ["History changes response",`With the same policy package, the more fossil-dependent starting system transfers ${delta.toFixed(1)} GtC more fossil carbon to the atmosphere by 2100 in this model.`];
+  }
+  if(exp.id==="supplyDemand") return ["Coordination can be compared", "Supply-side, demand-side, and coordinated packages act through different parts of the same causal chain; inspect the trajectories rather than treating any lever as instantaneous."];
+  return ["Compare pathways, not just endpoints", "Single-policy and combined packages can differ because capital stocks, learning, institutional support, and retirement create time-dependent responses."];
+}
+
+function render(id){
+  current=id;
+  document.querySelectorAll(".experiment-tab").forEach(b=>b.classList.toggle("active",b.dataset.id===id));
+  const exp=runExperiment(id);
+  $("experimentTitle").textContent=exp.title;
+  $("experimentQuestion").textContent=exp.question;
+  $("caseCards").innerHTML=exp.cases.map((c,i)=>`<div class="case-card"><strong><i class="swatch" style="background:${COLORS[i%COLORS.length]}"></i>${c.label}</strong><b>${c.summary.ppm2100.toFixed(0)} ppm</b><span>2100 · ${c.summary.emissions2100GtCPerYr.toFixed(2)} GtC/yr fossil→atmosphere</span></div>`).join("");
+  lineChart($("emissionsChart"),exp.cases,"fossilToAtmosphereGtCPerYr",{zeroFloor:true});
+  lineChart($("ppmChart"),exp.cases,"ppm",{target:450,decimals:0});
+  lineChart($("capacityChart"),exp.cases,"productionCapacityGtCPerYr",{zeroFloor:true});
+  lineChart($("demandChart"),exp.cases,"fossilDemandCapital",{zeroFloor:true,decimals:2});
+  $("resultsBody").innerHTML=exp.cases.map(c=>{const s=c.summary;return `<tr><td><strong>${c.label}</strong></td><td>${s.emissions2050GtCPerYr.toFixed(2)}</td><td>${s.emissions2100GtCPerYr.toFixed(2)}</td><td>${s.ppm2100.toFixed(0)}</td><td>${s.cumulativeFossilToAtmosphereGtC.toFixed(1)}</td><td>${s.productionCapacity2100GtCPerYr.toFixed(2)}</td><td>${s.fossilDemandCapital2100.toFixed(2)}</td><td>${s.cleanCapital2100.toFixed(2)}</td><td>${fmtYear(s.yearBelow95PercentOfInitial)}</td><td>${fmtYear(s.yearBelow50PercentOfInitial)}</td></tr>`}).join("");
+  const summaries=exp.cases.map(c=>c.summary);
+  const cum=summaries.map(s=>s.cumulativeFossilToAtmosphereGtC);
+  const ppms=summaries.map(s=>s.ppm2100);
+  const residual=Math.max(...summaries.flatMap(s=>[s.maxAtmosphericBalanceResidualGtC,s.maxFossilTransferResidualGtC]));
+  $("cumulativeSpread").textContent=(Math.max(...cum)-Math.min(...cum)).toFixed(1)+" GtC";
+  $("ppmSpread").textContent=(Math.max(...ppms)-Math.min(...ppms)).toFixed(0)+" ppm";
+  $("residualFinding").textContent=residual.toExponential(2)+" GtC";
+  const [title,text]=finding(exp);$("timingFinding").textContent=title;$("timingText").textContent=text;
+}
+document.querySelectorAll(".experiment-tab").forEach(b=>b.addEventListener("click",()=>render(b.dataset.id)));
+render(current);
+</script>
+</body>
+</html>
