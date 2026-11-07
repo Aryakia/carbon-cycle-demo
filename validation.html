@@ -33,7 +33,7 @@
   </div>
 
   <div class="grid2">
-    <div class="panel"><div class="kicker">One-at-a-time sensitivity</div><h3>Coordinated-policy outcome envelope</h3><p>Eight uncertain behavioral or closure assumptions are varied one at a time over explicit low/high values. This is a screening exercise, not a probabilistic uncertainty analysis.</p><div class="cards" style="grid-template-columns:repeat(3,1fr)"><div class="card"><small>2100 CO₂ range</small><b id="ppmRange">—</b><span>ppm</span></div><div class="card"><small>Cumulative fossil→atm</small><b id="cumRange">—</b><span>GtC</span></div><div class="card"><small>2100 fossil flow</small><b id="flowRange">—</b><span>GtC/yr</span></div></div></div>
+    <div class="panel"><div class="kicker">One-at-a-time sensitivity</div><h3>Coordinated-policy outcome envelope</h3><p>Eight uncertain behavioral or calibrated-response assumptions are varied one at a time over explicit low/high values. This is a screening exercise, not a probabilistic uncertainty analysis.</p><div class="cards" style="grid-template-columns:repeat(3,1fr)"><div class="card"><small>2100 CO₂ range</small><b id="ppmRange">—</b><span>ppm</span></div><div class="card"><small>Cumulative fossil→atm</small><b id="cumRange">—</b><span>GtC</span></div><div class="card"><small>2100 fossil flow</small><b id="flowRange">—</b><span>GtC/yr</span></div></div></div>
     <div class="panel"><div class="kicker">Numerical stability</div><h3>Default versus finer time steps</h3><p>The model rejects time steps coarser than 0.25 year. The table reports the largest relative difference between the default quarterly run and finer resolutions for each named scenario.</p><div class="table-wrap"><table class="table"><thead><tr><th>Scenario</th><th>Max CO₂ difference</th><th>Max cumulative-flow difference</th></tr></thead><tbody id="stabilityBody"></tbody></table></div></div>
   </div>
 
@@ -53,6 +53,17 @@
     <div class="compare-card"><h3>IEA Current Policies Scenario</h3><p>IEA WEO 2025 keeps global energy-related CO₂ near <strong>40 GtCO₂/yr through 2050</strong>. This is used only as an external order-of-magnitude guardrail because its accounting boundary differs from the Global Carbon Budget fossil-CO₂ boundary.</p><a href="https://www.iea.org/reports/world-energy-outlook-2025/current-policies-scenario" target="_blank" rel="noreferrer">IEA Current Policies Scenario ↗</a></div>
     <div class="compare-card"><h3>Interpretation rule</h3><p>The IEA explicitly states that CPS is not a forecast, prediction, or “business-as-usual” scenario. This project therefore uses the term <strong>Structural reference</strong> and does not fit its default trajectory to CPS.</p></div>
   </div>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
+  <div class="kicker">Carbon-cycle historical validation</div><h2>The advanced atmosphere is now fitted to history, not a fixed sink share.</h2>
+  <div class="cards">
+    <div class="card good"><small>1959–2024 stock RMSE</small><b>1.19 ppm</b><span>Global Carbon Budget atmospheric-stock trajectory.</span></div>
+    <div class="card good"><small>Maximum historical error</small><b>2.98 ppm</b><span>Across the 1959–2024 fitted period.</span></div>
+    <div class="card good"><small>2025 one-year check</small><b>425.16 ppm</b><span>Before observing/assimilating the preliminary 425.6 ppm level.</span></div>
+    <div class="card"><small>Lifetime scale</small><b>α = 0.555</b><span>Single historically fitted multiplier on published Joos finite time scales.</span></div>
+  </div>
+  <div class="note"><strong>Model boundary:</strong> this is a reduced-form atmospheric CO₂ emulator. It diagnoses combined net natural uptake and does not uniquely separate land and ocean sinks. The Joos response fractions/time scales remain fixed; only one lifetime multiplier and the legacy initial state are calibrated.</div>
 </div></div></section>
 
 <section class="section"><div class="wrap"><div class="shell">
