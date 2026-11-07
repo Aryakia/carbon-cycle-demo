@@ -17,6 +17,7 @@ export const DEFAULT_PARAMETERS = Object.freeze({
   cleanLearningRate: 0.08,
   resourceDevelopmentCostIndex: 0.5,
   policyImplementationDelayYears: 5,
+  policyStartYear: 2025,
   durableRemovalGtCPerYr: 0,
 
   // Behavioral / capital-turnover assumptions. These are not calibrated.
@@ -72,8 +73,11 @@ export function createInitialState(overrides = {}) {
 }
 
 export function policyRamp(state, p) {
+  const start = Number.isFinite(p.policyStartYear) ? p.policyStartYear : p.startYear;
+  if (state.year < start) return 0;
   const delay = Math.max(0.01, p.policyImplementationDelayYears);
-  return 1 - Math.exp(-state.timeSincePolicyYears / delay);
+  const elapsed = Math.max(0, state.year - start);
+  return 1 - Math.exp(-elapsed / delay);
 }
 
 export function calculateSignals(state, p = DEFAULT_PARAMETERS) {
@@ -95,7 +99,15 @@ export function calculateSignals(state, p = DEFAULT_PARAMETERS) {
     Math.max(0, state.fossilDemandCapital) *
     (1 - cleanShare);
 
-  const subsidyEffect = p.fossilSubsidyUsdPerTCO2 / 100;
+  const effectiveSubsidyUsdPerTCO2 = p.fossilSubsidyUsdPerTCO2 * ramp;
+  const effectiveFossilInvestmentIncentive =
+    1 + (p.fossilInvestmentIncentive - 1) * ramp;
+  const baselineCleanInvestment = DEFAULT_PARAMETERS.cleanInvestmentIndexPerYr;
+  const effectiveCleanInvestmentIndexPerYr =
+    baselineCleanInvestment +
+    (p.cleanInvestmentIndexPerYr - baselineCleanInvestment) * ramp;
+
+  const subsidyEffect = effectiveSubsidyUsdPerTCO2 / 100;
   const carbonPriceEffect = effectiveCarbonPrice / 180;
   const profitabilityIndex =
     0.45 +
@@ -112,6 +124,9 @@ export function calculateSignals(state, p = DEFAULT_PARAMETERS) {
     cleanShare,
     fossilDemandSignal,
     profitabilityIndex,
+    effectiveSubsidyUsdPerTCO2,
+    effectiveFossilInvestmentIncentive,
+    effectiveCleanInvestmentIndexPerYr,
   };
 }
 
@@ -125,7 +140,7 @@ export function stepUpstream(state, parameters = {}, dtOverride = null) {
     p.capacityInvestmentRatePerYr *
     Math.max(0.1, s.productionCapacityGtCPerYr) *
     Math.max(0, sig.profitabilityIndex) *
-    Math.max(0, p.fossilInvestmentIncentive);
+    Math.max(0, sig.effectiveFossilInvestmentIncentive);
 
   const policyRetirementBoost =
     Math.max(0, p.acceleratedRetirementPerYr) * sig.ramp;
@@ -144,7 +159,7 @@ export function stepUpstream(state, parameters = {}, dtOverride = null) {
     (1 / p.fossilDemandCapitalLifetimeYears + policyRetirementBoost);
 
   const cleanInvestment =
-    Math.max(0, p.cleanInvestmentIndexPerYr) *
+    Math.max(0, sig.effectiveCleanInvestmentIndexPerYr) *
     (1 + p.cleanLearningRate * Math.max(0, s.cleanCapital));
   const cleanRetirement =
     Math.max(0, s.cleanCapital) *
