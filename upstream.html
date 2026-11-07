@@ -56,7 +56,7 @@ a{color:var(--blue)}button,input{font:inherit}button{color:inherit}.wrap{width:m
   <div class="toolbar">
     <div><div class="eyebrow">Upstream Dynamics Model v0.1</div><h2>Trace interventions before they reach the atmosphere.</h2><p>Choose a reproducible scenario or change one assumption at a time. The equations are deliberately transparent and the coefficients are placeholders for sensitivity analysis, not empirical estimates.</p></div>
     <div class="presets" id="presets">
-      <button class="btn active" data-preset="bau">Business as usual</button>
+      <button class="btn active" data-preset="structuralReference">Structural reference</button>
       <button class="btn" data-preset="carbonPrice">Carbon price</button>
       <button class="btn" data-preset="pricePlusClean">Price + clean investment</button>
       <button class="btn" data-preset="acceleratedRetirement">Accelerated retirement</button>
@@ -147,7 +147,7 @@ const outputs={
   cleanInvestment:$("cleanInvestmentOut"),retirement:$("retirementOut"),demand:$("demandOut"),
   resistance:$("resistanceOut"),learning:$("learningOut"),cost:$("costOut"),delay:$("delayOut")
 };
-let activePreset="bau";
+let activePreset="structuralReference";
 
 function params(){
   return {
@@ -263,7 +263,7 @@ document.querySelectorAll("#presets .btn").forEach(btn=>btn.addEventListener("cl
   $("pathTitle").textContent="Scenario pathway: "+btn.textContent;
   render();
 }));
-setControls(SCENARIOS.bau);document.querySelectorAll("#trace .node").forEach(n=>n.classList.add("hot"));render();
+setControls(SCENARIOS.structuralReference);document.querySelectorAll("#trace .node").forEach(n=>n.classList.add("hot"));render();
 </script>
 </body>
 </html>
