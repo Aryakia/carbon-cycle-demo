@@ -37,11 +37,11 @@ export const SENSITIVITY_DIMENSIONS = Object.freeze([
     rationale: "Behavioral/institutional implementation delay.",
   },
   {
-    key: "pedagogicalNaturalSinkFraction",
-    label: "Natural-sink closure fraction",
-    low: 0.35,
-    high: 0.58,
-    rationale: "Pedagogical closure, not a mechanistic sink response.",
+    key: "carbonCycleLifetimeScaleAlpha",
+    label: "Reduced carbon-cycle lifetime scale",
+    low: 0.50,
+    high: 0.62,
+    rationale: "Exploratory future sink-response range around the historically fitted alpha=0.555; not a statistical confidence interval.",
   },
   {
     key: "resourceDevelopmentCostIndex",
