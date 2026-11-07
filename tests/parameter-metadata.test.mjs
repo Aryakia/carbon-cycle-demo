@@ -17,6 +17,6 @@ for (const [key, meta] of Object.entries(PARAMETER_METADATA)) {
 }
 
 const inactive = Object.entries(PARAMETER_METADATA).filter(([,m])=>!m.active).map(([k])=>k);
-assert.deepEqual(inactive, ["cleanCapitalLifetimeYears"]);
+assert.deepEqual(inactive, []);
 
 console.log("Parameter metadata coverage checks passed.");
