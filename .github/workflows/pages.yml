@@ -30,8 +30,10 @@ jobs:
           mkdir -p _site
           cp game.html _site/index.html
           cp upstream.html _site/upstream.html
-          mkdir -p _site/model
+          cp paleoclimate.html _site/paleoclimate.html
+          mkdir -p _site/model _site/data
           cp model/*.js _site/model/
+          cp data/*.js _site/data/
           touch _site/.nojekyll
 
       - name: Configure Pages

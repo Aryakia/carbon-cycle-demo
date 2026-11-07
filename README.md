@@ -4,7 +4,7 @@
 
 **GitHub Pages preview:** https://aryakia.github.io/carbon-cycle-demo/
 
-**Advanced upstream laboratory:** https://aryakia.github.io/carbon-cycle-demo/upstream.html
+**Advanced upstream laboratory:** https://aryakia.github.io/carbon-cycle-demo/upstream.html\n\n**Deep-time CO₂ perspective:** https://aryakia.github.io/carbon-cycle-demo/paleoclimate.html
 
 > Research-mode status: the upstream model is a transparent behavioral-hypothesis sandbox. Its carbon accounting is tested, but its behavioral coefficients are not calibrated or validated.
 
@@ -182,3 +182,18 @@ The project now separates scientific logic from the public visualization:
 - `docs/STAGE1_AUDIT.md` — repository and scientific audit.
 
 The public bathtub game remains the beginner/presenter experience. The advanced lab is intentionally separate so research hypotheses do not get confused with established carbon-cycle science.
+
+
+## Deep-time historical context
+
+The optional `paleoclimate.html` module uses the NOAA/WDS **Antarctic Ice Cores Revised 800KYr CO₂ Data** composite (Bereiter et al., 2015; dataset DOI `10.25921/n8y4-bp27`).
+
+Design rules:
+
+- the page attempts to load the complete NOAA composite at runtime;
+- a local sparse fallback contains only actual NOAA observations and preserves irregular spacing;
+- the interface does not fabricate an annual 800,000-year time series;
+- ice-core observations are visually separated from the modern Global Carbon Budget marker;
+- the older Lüthi et al. composite is not used as the preferred source because NOAA's revised composite states that it supersedes the older version where analytical bias and lower-quality sections were identified.
+
+The deep-time module is explanatory context, not part of the upstream behavioral simulation.

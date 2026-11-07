@@ -2,7 +2,7 @@ name: Scientific model checks
 
 on:
   push:
-    branches: ["stage1-scientific-foundation"]
+    branches: ["stage*"]
   pull_request:
     branches: ["main"]
   workflow_dispatch:

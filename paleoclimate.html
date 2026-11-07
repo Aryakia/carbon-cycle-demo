@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Deep-time atmospheric CO2 perspective for Carbon Beyond the Bathtub, using the revised NOAA Antarctic ice-core composite.">
+<meta name="theme-color" content="#06100d">
+<title>800,000 Years of CO₂ — Carbon Beyond the Bathtub</title>
+<style>
+:root{--bg:#06100d;--panel:#0b1915;--panel2:#10231d;--text:#eff9f4;--muted:#9eb5ac;--line:#24463a;--green:#7fe0aa;--blue:#79c7ff;--ice:#bfe9ff;--orange:#f0a35d;--amber:#ffd18a;--red:#ff8d7e;--shadow:0 24px 70px rgba(0,0,0,.34)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% -10%,rgba(81,149,187,.2),transparent 34rem),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}
+a{color:var(--blue)}button{font:inherit;color:inherit}.wrap{width:min(1260px,calc(100% - 34px));margin:auto}.top{position:sticky;top:0;z-index:40;background:rgba(6,16,13,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.top .wrap{height:62px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brand{color:var(--text);text-decoration:none;font-weight:850}.brand small{display:block;color:var(--muted);font-weight:600;font-size:.68rem}.nav{display:flex;gap:7px}.nav a{color:var(--muted);text-decoration:none;font-size:.8rem;padding:7px 9px;border-radius:999px}.nav a:hover{background:var(--panel2);color:var(--text)}
+.hero{padding:66px 0 30px}.kicker{font-size:.73rem;letter-spacing:.14em;text-transform:uppercase;font-weight:850;color:var(--ice)}h1{font-size:clamp(3rem,7vw,6.2rem);line-height:.92;letter-spacing:-.047em;margin:.55rem 0 1rem;max-width:1100px}h2{font-size:clamp(1.75rem,4vw,2.85rem);line-height:1.07;margin:.35rem 0 .8rem}h3{margin:.2rem 0 .5rem}.lead{color:var(--muted);max-width:970px;font-size:1.06rem}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.chip{border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:var(--muted);font-size:.7rem}.chip.ice{border-color:#315d79;color:#bfe9ff}.chip.modern{border-color:#6b4a2c;color:#ffd0a4}
+.section{padding:30px 0 64px}.shell{border:1px solid var(--line);background:rgba(11,25,21,.96);border-radius:24px;padding:20px;box-shadow:var(--shadow)}.head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}.head p{color:var(--muted);max-width:820px;margin:.3rem 0 0}.status{border:1px solid var(--line);background:#081612;border-radius:13px;padding:9px 11px;font-size:.72rem;color:var(--muted)}.status strong{color:var(--ice)}
+.chart{margin-top:16px;border:1px solid var(--line);border-radius:18px;background:#071410;padding:12px}.chart svg{display:block;width:100%;height:440px}.grid{stroke:#1d3930;stroke-width:1}.axis{fill:#8aa79d;font-size:11px}.paleo-line{fill:none;stroke:var(--ice);stroke-width:1.5;opacity:.65}.paleo-point{fill:var(--ice);opacity:.72}.modern-line{stroke:var(--orange);stroke-width:2;stroke-dasharray:7 5}.industrial-zone{fill:rgba(240,163,93,.08)}.pre-zone{fill:rgba(121,199,255,.05)}.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:.72rem;margin-top:8px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.readout{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));border-radius:16px;padding:14px}.card small{display:block;color:var(--muted);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em}.card b{display:block;font-size:1.35rem;margin:.3rem 0}.card span{color:var(--muted);font-size:.72rem}.card.ice b{color:var(--ice)}.card.orange b{color:var(--orange)}
+.callout{margin-top:14px;border-left:4px solid var(--ice);background:#0b1917;border-radius:12px;padding:13px 15px;color:#d9e8e2}.callout strong{color:white}
+.scale{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.scale-card,.note{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:18px}.bar-row{display:grid;grid-template-columns:190px 1fr 110px;gap:10px;align-items:center;margin:12px 0}.bar-row span{font-size:.78rem;color:var(--muted)}.track{height:18px;border:1px solid var(--line);background:#07110f;border-radius:999px;overflow:hidden}.fill{height:100%;border-radius:999px}.fill.resource{width:100%;background:linear-gradient(90deg,#8c5b32,var(--orange))}.fill.atm{width:4.82%;min-width:7px;background:var(--blue)}.fill.pre{width:3.17%;min-width:6px;background:var(--ice)}.value{text-align:right;font-weight:800;font-size:.8rem}.note p,.note li{color:var(--muted);font-size:.82rem}.warning{border:1px solid #5b4c2d;background:#19160e;border-radius:14px;padding:13px;color:#ded0b5;font-size:.78rem;margin-top:12px}
+.sources{display:grid;grid-template-columns:1fr 1fr;gap:16px}.source{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:18px}.source p{color:var(--muted);font-size:.82rem}.source a{display:block;border-top:1px solid var(--line);padding:10px 0;text-decoration:none;color:var(--muted)}.source a:hover{color:var(--text)}
+.footer{border-top:1px solid var(--line);padding:28px 0 44px;color:#7c978e;font-size:.8rem}
+@media(max-width:900px){.nav{display:none}.readout{grid-template-columns:repeat(2,1fr)}.scale,.sources{grid-template-columns:1fr}.chart svg{height:350px}.bar-row{grid-template-columns:150px 1fr 90px}}
+@media(max-width:560px){.wrap{width:min(100% - 22px,1260px)}.readout{grid-template-columns:1fr}.chart svg{height:310px}.bar-row{grid-template-columns:1fr}.value{text-align:left}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./">Carbon Beyond the Bathtub<small>Deep-time CO₂ perspective</small></a><nav class="nav"><a href="./">Beginner game</a><a href="upstream.html">Advanced lab</a><a href="#scale">Scale comparison</a><a href="#sources">Sources</a></nav></div></header>
+<main>
+<section class="hero"><div class="wrap">
+  <div class="kicker">Optional historical context · ice-core observations</div>
+  <h1>800,000 years changes the scale of the story.</h1>
+  <p class="lead">Antarctic ice cores preserve samples of ancient atmosphere. This view uses the revised NOAA/WDS composite assembled by Bereiter and colleagues. It is deliberately separate from the modern instrumental/assessment marker so reconstructed ancient observations and present-day concentrations are not visually conflated.</p>
+  <div class="chips"><span class="chip ice">Ice core: irregularly spaced observations</span><span class="chip modern">Modern marker: 2024 assessed mean</span><span class="chip">No annual paleoclimate interpolation</span></div>
+</div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
+  <div class="head"><div><div class="kicker">Atmospheric CO₂ history</div><h2>Glacial–interglacial variability, then an exceptional modern level.</h2><p>The line between ice-core observations is only a guide to the eye. Hover or focus the chart to inspect nearby source observations. The modern orange marker is not part of the ice-core series.</p></div><div class="status" id="dataStatus">Loading <strong>NOAA composite</strong>…</div></div>
+  <div class="chart"><svg id="paleoChart" viewBox="0 0 1100 440" role="img" aria-label="Atmospheric carbon dioxide over roughly 800,000 years from Antarctic ice cores, with a separate 2024 marker"></svg><div class="legend"><span><i class="dot" style="background:#bfe9ff"></i>NOAA revised Antarctic ice-core composite</span><span><i class="dot" style="background:#f0a35d"></i>2024 global atmospheric CO₂, Global Carbon Budget</span></div></div>
+  <div class="readout">
+    <div class="card ice"><small>Lowest revised observation</small><b>173.7 ppm</b><span>near 667 kyr BP in the revised composite</span></div>
+    <div class="card ice"><small>High preindustrial ice-core observation</small><b>298.6 ppm</b><span>around 335 kyr BP in the composite</span></div>
+    <div class="card orange"><small>2024 atmosphere</small><b>422.8 ppm</b><span>Global Carbon Budget 2025 assessment</span></div>
+    <div class="card orange"><small>Rate context</small><b>≥10× faster</b><span>current CO₂ rise versus any other time in the last 800 kyr, as assessed by IPCC/GCB</span></div>
+  </div>
+  <div class="callout"><strong>What the comparison means:</strong> late-Pleistocene CO₂ rose and fell naturally with glacial–interglacial carbon-cycle changes, but the modern anthropogenic perturbation is occurring from an already high interglacial baseline and has pushed atmospheric CO₂ well beyond the preindustrial range represented by the ice-core composite. This figure does not attribute every ancient change to one process and does not treat natural sinks as a fixed-capacity drain.</div>
+</div></div></section>
+
+<section class="section" id="scale"><div class="wrap scale">
+  <div class="scale-card"><div class="kicker">Inventory scale bridge</div><h2>Same unit, very different inventories.</h2><div class="bar-row"><span>IPCC fossil-resource frame</span><div class="track"><div class="fill resource"></div></div><div class="value">18,635 GtC</div></div><div class="bar-row"><span>Atmosphere · 2024</span><div class="track"><div class="fill atm"></div></div><div class="value">898 GtC</div></div><div class="bar-row"><span>Atmosphere · ~1750</span><div class="track"><div class="fill pre"></div></div><div class="value">≈590 GtC</div></div><p style="color:var(--muted);font-size:.79rem">The fossil-resource frame is about 20.8 times the 2024 atmospheric carbon stock. The bars share GtC units but represent different kinds of inventories; the comparison is about scale, not availability to burn.</p></div>
+  <div class="note"><div class="kicker">Do not collapse these categories</div><h2>Resource abundance is not a carbon budget.</h2><ul><li>Resources are not proved reserves.</li><li>Resources are not all geological carbon.</li><li>Physical occurrence is not economic recoverability.</li><li>Extraction is not the same event as combustion or atmospheric emission.</li><li>A large resource stock does not imply that it will—or safely can—enter the atmosphere.</li></ul><div class="warning"><strong>Model boundary:</strong> the upstream resource tank in the game is an IPCC fossil-resource comparison frame, not a forecast of future extraction.</div></div>
+</div></section>
+
+<section class="section" id="sources"><div class="wrap sources">
+  <div class="source"><div class="kicker">Paleoclimate source</div><h2>Revised Antarctic composite</h2><p>NOAA’s file states that the 2015 revised composite replaces the older Lüthi et al. version because of an analytical bias in the oldest section and lower-quality data elsewhere. Ages are calendar years before 1950 and observations are irregularly spaced.</p><a href="https://www.ncei.noaa.gov/access/paleo-search/study/17975" target="_blank" rel="noreferrer">NOAA/WDS study 17975 ↗</a><a href="https://doi.org/10.25921/n8y4-bp27" target="_blank" rel="noreferrer">Dataset DOI 10.25921/n8y4-bp27 ↗</a><a href="https://doi.org/10.1002/2014GL061957" target="_blank" rel="noreferrer">Bereiter et al. (2015) ↗</a></div>
+  <div class="source"><div class="kicker">Modern comparison</div><h2>Global Carbon Budget 2025</h2><p>The 2025 budget reports 422.80 ± 0.1 ppm and about 898 GtC in the atmosphere in 2024, compared with about 278 ppm and 590 GtC around 1750. It also states that the current atmospheric CO₂ increase is at least ten times faster than any other time during the last 800,000 years.</p><a href="https://essd.copernicus.org/articles/18/3211/2026/" target="_blank" rel="noreferrer">Friedlingstein et al., Global Carbon Budget 2025 ↗</a><a href="./">Return to the interactive bathtub ↗</a></div>
+</div></section>
+</main>
+<footer class="footer"><div class="wrap">Arya Kia · Carbon Beyond the Bathtub · deep-time context module</div></footer>
+
+<script type="module">
+import { PALEO_FALLBACK, PALEO_METADATA } from "./data/paleo-co2-fallback.js";
+
+const NOAA_URL=PALEO_METADATA.sourceUrl;
+const MODERN_2024=422.8;
+const svg=document.getElementById("paleoChart");
+const status=document.getElementById("dataStatus");
+
+function parseNoaa(text){
+  const rows=[];
+  for(const raw of text.split(/\r?\n/)){
+    const line=raw.trim();
+    if(!line || line.startsWith("#") || line.startsWith("age_gas_calBP")) continue;
+    const parts=line.split(/\s+/).map(Number);
+    if(parts.length>=3 && parts.slice(0,3).every(Number.isFinite)) rows.push(parts.slice(0,3));
+  }
+  rows.sort((a,b)=>a[0]-b[0]);
+  return rows;
+}
+
+async function load(){
+  try{
+    const response=await fetch(NOAA_URL,{mode:"cors",cache:"force-cache"});
+    if(!response.ok) throw new Error("HTTP "+response.status);
+    const rows=parseNoaa(await response.text());
+    if(rows.length<1500) throw new Error("Unexpected row count");
+    status.innerHTML='Loaded <strong>'+rows.length.toLocaleString()+' NOAA observations</strong>';
+    return {rows,full:true};
+  }catch(err){
+    status.innerHTML='Using <strong>local NOAA observation subset</strong> · full source fetch unavailable';
+    return {rows:[...PALEO_FALLBACK],full:false};
+  }
+}
+
+function draw(rows,full){
+  const W=1100,H=440,p={l:62,r:30,t:22,b:46};
+  const maxAge=810000,minPpm=160,maxPpm=440;
+  const x=age=>p.l+(1-Math.max(0,Math.min(maxAge,age))/maxAge)*(W-p.l-p.r);
+  const y=ppm=>H-p.b-(ppm-minPpm)/(maxPpm-minPpm)*(H-p.t-p.b);
+  let s='';
+  // background regions and horizontal grid
+  s+=`<rect class="pre-zone" x="${p.l}" y="${y(300)}" width="${W-p.l-p.r}" height="${y(170)-y(300)}"/>`;
+  for(const ppm of [200,250,300,350,400]){
+    s+=`<line class="grid" x1="${p.l}" x2="${W-p.r}" y1="${y(ppm)}" y2="${y(ppm)}"/><text class="axis" x="10" y="${y(ppm)+4}">${ppm} ppm</text>`;
+  }
+  for(const ka of [800,600,400,200,0]){
+    const xx=x(ka*1000);s+=`<line class="grid" x1="${xx}" x2="${xx}" y1="${p.t}" y2="${H-p.b}"/><text class="axis" x="${xx-18}" y="${H-16}">${ka} ka</text>`;
+  }
+  const visible=rows.filter(r=>r[0]>=0 && r[0]<=maxAge);
+  const d=visible.map((r,i)=>(i?'L':'M')+x(r[0]).toFixed(2)+','+y(r[1]).toFixed(2)).join(' ');
+  s+=`<path class="paleo-line" d="${d}"/>`;
+  const stride=full?Math.max(1,Math.floor(visible.length/650)):1;
+  for(let i=0;i<visible.length;i+=stride){
+    const r=visible[i];s+=`<circle class="paleo-point" cx="${x(r[0]).toFixed(2)}" cy="${y(r[1]).toFixed(2)}" r="${full?1.6:2.6}"><title>${Math.round(r[0]).toLocaleString()} yr BP · ${r[1].toFixed(2)} ppm · 1σ ${r[2].toFixed(2)} ppm</title></circle>`;
+  }
+  const mx=x(0),my=y(MODERN_2024);
+  s+=`<line class="modern-line" x1="${mx}" x2="${mx}" y1="${my}" y2="${H-p.b}"/><circle cx="${mx}" cy="${my}" r="6" fill="#f0a35d"><title>2024 · 422.8 ppm · Global Carbon Budget 2025</title></circle><text x="${mx-132}" y="${my-10}" fill="#ffd0a4" font-size="12">2024 · 422.8 ppm</text>`;
+  s+=`<text class="axis" x="${p.l}" y="14">older ← calendar years before 1950 → present</text>`;
+  svg.innerHTML=s;
+}
+load().then(({rows,full})=>draw(rows,full));
+</script>
+</body>
+</html>
