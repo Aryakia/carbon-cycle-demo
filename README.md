@@ -10,6 +10,8 @@
 
 **Voluntary learning self-assessment:** https://aryakia.github.io/carbon-cycle-demo/assessment.html
 
+**Validation & methods dashboard:** https://aryakia.github.io/carbon-cycle-demo/validation.html
+
 > Research-mode status: the upstream model is a transparent behavioral-hypothesis sandbox. Its carbon accounting is tested, but its behavioral coefficients are not calibrated or validated.
 
 [Five-minute demonstration and visual model guide](docs/VISUAL_CASE_STUDY.md)
@@ -234,3 +236,26 @@ The assessment is deliberately **local-only**:
 - results are labeled educational feedback, not validated research findings.
 
 A future participant study would require a separate protocol, validated instruments, consent/privacy safeguards, and any applicable institutional ethics review before response collection is enabled.
+
+
+## Validation status
+
+The repository now distinguishes **verification** from **empirical validation**.
+
+Implemented verification includes:
+
+- carbon-unit and stock-flow accounting checks;
+- atmospheric and fossil-transfer mass-balance residuals;
+- nonnegative physical-stock checks;
+- deterministic reproducibility;
+- paleoclimate data-integrity checks;
+- named-scenario consistency checks;
+- static Pages/accessibility checks;
+- educational-assessment privacy checks;
+- complete parameter metadata coverage;
+- one-at-a-time sensitivity screening;
+- time-step stability tests.
+
+The maximum supported integration step is 0.25 year. The default quarterly run is checked against finer 0.125 and 0.0625-year resolutions.
+
+The upstream behavioral model remains **uncalibrated and not out-of-sample validated**. See `docs/VALIDATION_REPORT.md`, `docs/MODEL_COMPARISON.md`, and `docs/RESEARCH_ROADMAP.md`.
