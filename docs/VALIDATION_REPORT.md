@@ -38,6 +38,20 @@ The default quarterly run is compared with 0.125-year and 0.0625-year runs. This
 
 The short fuel-inventory stock is integrated with an exact first-order solution rather than explicit Euler, because its default residence time is 0.25 year.
 
+### Current time-step diagnostics
+
+Comparing the default 0.25-year step with 0.125 and 0.0625-year runs:
+
+| Scenario | Maximum relative 2100-ppm difference | Maximum relative cumulative-fossil-transfer difference |
+| --- | ---: | ---: |
+| Business as usual | 0.017% | 0.217% |
+| Carbon price | 0.030% | 0.619% |
+| Price + clean investment | 0.046% | 1.464% |
+| Accelerated retirement | 0.045% | 1.059% |
+| Coordinated package | 0.050% | 2.482% |
+
+These are numerical-convergence diagnostics, not empirical validation results.
+
 ## Mass-balance tests
 
 The atmospheric stock obeys:
@@ -75,6 +89,16 @@ The coordinated-policy scenario is screened one parameter at a time over explici
 - non-combustion fossil-carbon share.
 
 This is a **screening analysis**, not a probability distribution, Monte Carlo uncertainty assessment, or calibrated confidence interval.
+
+### Current screening envelope
+
+For the coordinated-policy scenario across the baseline and the low/high settings of the eight screened dimensions:
+
+- 2100 atmospheric CO₂: **449.31–462.53 ppm**;
+- cumulative fossil carbon transferred to the atmosphere: **32.39–62.49 GtC**;
+- 2100 fossil-to-atmosphere flow: **0.0267–0.0380 GtC/yr**.
+
+These ranges are conditional on the tested one-at-a-time parameter bounds and should not be interpreted as statistical confidence intervals.
 
 ## Parameter provenance
 
