@@ -31,6 +31,7 @@ jobs:
           cp game.html _site/index.html
           cp upstream.html _site/upstream.html
           cp paleoclimate.html _site/paleoclimate.html
+          cp experiments.html _site/experiments.html
           mkdir -p _site/model _site/data
           cp model/*.js _site/model/
           cp data/*.js _site/data/
