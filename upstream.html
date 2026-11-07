@@ -87,10 +87,11 @@ a{color:var(--blue)}button,input{font:inherit}button{color:inherit}.wrap{width:m
         <div class="metric"><small>remaining resource frame</small><b id="resource2100">—</b><span>GtC · not reserves</span></div>
         <div class="metric green"><small>clean substitution signal</small><b id="cleanShare2100">—</b><span>illustrative share</span></div>
         <div class="metric"><small>institutional support</small><b id="institution2100">—</b><span>0–1 modeled index</span></div>
+        <div class="metric blue"><small>2100 net natural uptake</small><b id="naturalSink2100">—</b><span>GtC/yr · diagnosed by reduced carbon cycle</span></div>
       </div>
 
       <div class="chart-grid">
-        <div class="chart"><h3>Atmospheric CO₂</h3><p>Accounting stock response under the simplified sink closure.</p><svg id="ppmChart" viewBox="0 0 640 220" role="img" aria-label="Atmospheric carbon scenario chart"></svg></div>
+        <div class="chart"><h3>Atmospheric CO₂</h3><p>Four-timescale reduced carbon-cycle response calibrated to the 1959–2024 atmospheric history.</p><svg id="ppmChart" viewBox="0 0 640 220" role="img" aria-label="Atmospheric carbon scenario chart"></svg></div>
         <div class="chart"><h3>Fossil carbon reaching the atmosphere</h3><p>Combustion + process emissions + delayed product decay.</p><svg id="emissionsChart" viewBox="0 0 640 220" role="img" aria-label="Fossil emissions scenario chart"></svg></div>
       </div>
 
@@ -120,13 +121,13 @@ a{color:var(--blue)}button,input{font:inherit}button{color:inherit}.wrap{width:m
         <div class="diag"><small>Maximum fossil-transfer residual</small><b id="fossilResidual" class="good">—</b></div>
         <div class="diag"><small>Model status</small><b class="warn">Hypothesis sandbox · not calibrated</b></div>
       </div>
-      <div class="assumptions"><strong>Interpretation boundary:</strong> the model structure is motivated by carbon-lock-in literature, capital turnover, and carbon accounting, but the behavioral coefficients are not estimated from data. The natural-sink closure is intentionally simplified. Scenario differences demonstrate consequences of the equations and assumptions—not forecasts or causal estimates.</div>
+      <div class="assumptions"><strong>Interpretation boundary:</strong> the upstream behavioral coefficients remain largely uncalibrated. The atmospheric response now uses a reduced four-timescale carbon-cycle emulator with Joos/IPCC response coefficients and one historically fitted lifetime scale (α = 0.555). It reproduces the 1959–2024 atmospheric stock with ≈1.19 ppm RMSE, but it is still not a full Earth-system model or a forecast. Scenario differences remain conditional on the upstream assumptions.</div>
     </div>
   </div>
 </div></div></section>
 
 <section class="section" id="methods"><div class="wrap docs">
-  <div class="doc"><div class="eyebrow">Why this structure?</div><h2>Separate extraction from emission.</h2><p>The advanced engine explicitly passes fossil carbon through extraction, process emissions, a fuel-inventory stock, combustion, non-combustion product use, and delayed product decay. This prevents the common shortcut of treating extraction as instant atmospheric emission.</p><p>The atmospheric equation is a separate control volume: fossil + land-use inflows minus land uptake, ocean uptake, and durable removal.</p><a href="https://github.com/Aryakia/carbon-cycle-demo/blob/main/docs/UPSTREAM_MODEL_SPEC.md" target="_blank" rel="noreferrer">Read the upstream model specification ↗</a></div>
+  <div class="doc"><div class="eyebrow">Why this structure?</div><h2>Separate extraction from emission.</h2><p>The advanced engine explicitly passes fossil carbon through extraction, process emissions, a fuel-inventory stock, combustion, non-combustion product use, and delayed product decay. This prevents the common shortcut of treating extraction as instant atmospheric emission.</p><p>The atmospheric response uses four carbon-response pools based on the Joos/IPCC impulse-response coefficients. Their decay timescales are multiplied by a single historically calibrated lifetime scale, following the reduced-form logic used by FaIR. The model diagnoses combined net natural uptake from the carbon balance rather than imposing a fixed fraction of current emissions.</p><a href="https://github.com/Aryakia/carbon-cycle-demo/blob/main/docs/UPSTREAM_MODEL_SPEC.md" target="_blank" rel="noreferrer">Read the upstream model specification ↗</a></div>
   <div class="doc"><div class="eyebrow">Evidence</div><h2>Lock-in is supported; these coefficients are not.</h2><p>Unruh (2000) and Seto et al. (2016) describe path dependence and interacting technological, infrastructural, institutional, and behavioral forms of carbon lock-in. Tong et al. (2019) quantifies committed emissions from existing infrastructure.</p><p>Those studies motivate the feedback hypotheses. They do not provide one global parameterization for the equations shown here.</p><a href="https://github.com/Aryakia/carbon-cycle-demo/blob/main/docs/SCIENTIFIC_METHODS.md" target="_blank" rel="noreferrer">Read scientific methods and evidence boundaries ↗</a></div>
 </div></section>
 </main>
@@ -217,6 +218,7 @@ function render(){
   $("resource2100").textContent=Math.round(last.availableResourceGtC).toLocaleString();
   $("cleanShare2100").textContent=(last.cleanShare*100).toFixed(0)+"%";
   $("institution2100").textContent=last.institutionalSupport.toFixed(2);
+  $("naturalSink2100").textContent=last.naturalSinkGtCPerYr.toFixed(2);
   lineChart($("ppmChart"),rows,"ppm",{target:450,lineClass:"line1",decimals:0});
   lineChart($("emissionsChart"),rows,"fossilToAtmosphereGtCPerYr",{zeroFloor:true,lineClass:"line2",decimals:1});
 
