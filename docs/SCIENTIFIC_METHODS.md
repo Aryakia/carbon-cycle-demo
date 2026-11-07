@@ -85,9 +85,26 @@ The forward Policy Lab and advanced upstream model are simulations. Their result
 
 Land and ocean sinks continue to function while atmospheric CO₂ rises. Atmospheric accumulation occurs when total anthropogenic inflow exceeds total net removal.
 
-The beginner sandbox currently represents net natural uptake with a simplified share. That is a pedagogical closure, not a mechanistic carbon-cycle sink model. The advanced model preserves that simplification for now and labels it accordingly.
+The beginner sandbox represents net natural uptake with a simplified share. That remains an intentionally pedagogical closure.
 
-IPCC AR6 also notes that, under sufficiently strong net-negative emissions, land and ocean responses can change over time; sinks are not a single fixed-capacity drain.
+The **advanced upstream model no longer uses a fixed sink fraction**. It uses a four-timescale reduced-form atmospheric CO₂ response based on the Joos et al. (2013) / IPCC AR5 impulse-response coefficients:
+
+- response fractions: 0.2173, 0.2240, 0.2824, 0.2763;
+- nominal time scales: effectively persistent, 394.4 yr, 36.54 yr, and 4.304 yr.
+
+Following the reduced-complexity logic used by FaIR, the three finite time scales are multiplied by a lifetime scaling factor `alpha`. The project keeps the published Joos fractions and time scales fixed and calibrates **one constant alpha = 0.555** plus a non-negative 1959 legacy box state to the Global Carbon Budget 2025 atmospheric-stock history for 1959–2024.
+
+The fitted model:
+
+- reproduces the 1959–2024 atmospheric concentration trajectory with about **1.19 ppm RMSE**;
+- has a maximum absolute historical stock error of about **2.98 ppm**;
+- is constrained to reproduce the assessed 2024 mean of **422.8 ppm**;
+- predicts **425.16 ppm** for 2025 before seeing the preliminary 2025 concentration of 425.6 ppm;
+- then assimilates the small 0.44 ppm residual into the fastest response box to initialize the 2025 simulation state.
+
+This is a **historically calibrated reduced-form emulator**, not a mechanistic land/ocean model and not a full implementation of FaIR. It diagnoses combined net natural uptake from the atmospheric mass balance and does not claim to partition that uptake uniquely between land and ocean.
+
+IPCC AR6 and the Global Carbon Budget also emphasize that land and ocean uptake changes with atmospheric CO₂, climate and variability; sinks are not a single fixed-capacity drain.
 
 ## 7. Carbon lock-in evidence
 
@@ -114,3 +131,11 @@ The test suite checks:
 7. sensitivity of the 2100 result to the numerical time step.
 
 Passing these tests establishes **internal numerical consistency**, not empirical validity.
+
+
+## 9. Reduced carbon-cycle references
+
+- Joos, F. et al. (2013). *Carbon dioxide and climate impulse response functions for the computation of greenhouse gas metrics: a multi-model analysis*. Atmospheric Chemistry and Physics 13, 2793–2825. https://doi.org/10.5194/acp-13-2793-2013
+- Millar, R. J. et al. (2017). *A modified impulse-response representation of the global near-surface air temperature and atmospheric concentration response to carbon dioxide emissions*. Atmospheric Chemistry and Physics 17, 7213–7228. https://doi.org/10.5194/acp-17-7213-2017
+- Smith, C. J. et al. (2018). *FAIR v1.3: a simple emissions-based impulse response and carbon cycle model*. Geoscientific Model Development 11, 2273–2297. https://doi.org/10.5194/gmd-11-2273-2018
+- Leach, N. J. et al. (2021). *FaIRv2.0.0: a generalized impulse response model for climate uncertainty and future scenario exploration*. Geoscientific Model Development 14, 3007–3036. https://doi.org/10.5194/gmd-14-3007-2021
