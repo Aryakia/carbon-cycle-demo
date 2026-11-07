@@ -28,7 +28,7 @@ export const PARAMETER_METADATA = Object.freeze({
   },
   cleanInvestmentIndexPerYr: {
     label: "Clean investment index", unit: "index/yr", classification: "behavioral / policy assumption",
-    status: "uncalibrated", source: "Prototype assumption", default: DEFAULT_PARAMETERS.cleanInvestmentIndexPerYr, active: true,
+    status: "reference replacement level; policy scenarios can raise it", source: "Derived so clean-capital investment equals depreciation at the reference initial stock (0.32) under the default learning coefficient", default: DEFAULT_PARAMETERS.cleanInvestmentIndexPerYr, active: true,
   },
   acceleratedRetirementPerYr: {
     label: "Accelerated fossil-asset retirement", unit: "1/yr", classification: "policy lever",
@@ -75,17 +75,13 @@ export const PARAMETER_METADATA = Object.freeze({
     label: "Fossil-dependent demand-capital lifetime", unit: "year", classification: "behavioral assumption",
     status: "uncalibrated", source: "Prototype aggregate capital-turnover assumption", default: DEFAULT_PARAMETERS.fossilDemandCapitalLifetimeYears, active: true,
   },
-  cleanCapitalLifetimeYears: {
-    label: "Nominal clean-capital lifetime", unit: "year", classification: "documentation placeholder",
-    status: "not currently active in equations", source: "Retained for future refactor; current engine uses cleanDepreciationRatePerYr", default: DEFAULT_PARAMETERS.cleanCapitalLifetimeYears, active: false,
-  },
   fuelInventoryResidenceYears: {
     label: "Fuel inventory residence time", unit: "year", classification: "behavioral / accounting assumption",
-    status: "uncalibrated", source: "Prototype aggregate delay between extraction and allocation to uses", default: DEFAULT_PARAMETERS.fuelInventoryResidenceYears, active: true,
+    status: "uncalibrated residence time; initial stock is initialized consistently with the reference flow", source: "Prototype aggregate delay between extraction and allocation to uses", default: DEFAULT_PARAMETERS.fuelInventoryResidenceYears, active: true,
   },
   productCarbonLifetimeYears: {
     label: "Non-combustion product-carbon lifetime", unit: "year", classification: "behavioral / accounting assumption",
-    status: "uncalibrated", source: "Prototype aggregate product-decay time", default: DEFAULT_PARAMETERS.productCarbonLifetimeYears, active: true,
+    status: "uncalibrated lifetime; initial product stock is initialized consistently with the reference flow", source: "Prototype aggregate product-decay time", default: DEFAULT_PARAMETERS.productCarbonLifetimeYears, active: true,
   },
   nonCombustionShare: {
     label: "Non-combustion fossil-carbon share", unit: "fraction", classification: "behavioral / accounting assumption",
@@ -107,10 +103,6 @@ export const PARAMETER_METADATA = Object.freeze({
   capacityInvestmentRatePerYr: {
     label: "Capacity investment adjustment rate", unit: "1/yr", classification: "behavioral assumption",
     status: "uncalibrated", source: "Prototype behavioral coefficient", default: DEFAULT_PARAMETERS.capacityInvestmentRatePerYr, active: true,
-  },
-  demandCapitalInvestmentRatePerYr: {
-    label: "Demand-capital investment rate", unit: "index/yr", classification: "behavioral assumption",
-    status: "uncalibrated", source: "Prototype behavioral coefficient", default: DEFAULT_PARAMETERS.demandCapitalInvestmentRatePerYr, active: true,
   },
   capabilityLearningRatePerYr: {
     label: "Fossil capability accumulation rate", unit: "1/yr", classification: "research hypothesis",
