@@ -41,7 +41,7 @@ export const DEFAULT_PARAMETERS = Object.freeze({
   cleanDepreciationRatePerYr: 0.04,
 });
 
-export const DEFAULT_STATE = Object.freeze({
+export const MAX_SUPPORTED_DT_YEARS = 0.25;\n\nfunction validateTimeStep(dtYears) {\n  if (!Number.isFinite(dtYears) || dtYears <= 0) {\n    throw new Error("dtYears must be finite and positive; received " + dtYears);\n  }\n  if (dtYears > MAX_SUPPORTED_DT_YEARS) {\n    throw new Error(\n      "dtYears=" + dtYears + " exceeds the supported maximum of " +\n      MAX_SUPPORTED_DT_YEARS +\n      " year. Use the default quarterly step or a finer step for this prototype.",\n    );\n  }\n}\n\nexport const DEFAULT_STATE = Object.freeze({
   year: 2025,
   availableResourceGtC:
     SCIENCE.ar6FossilResourcesGtC -
