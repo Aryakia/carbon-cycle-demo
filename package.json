@@ -4,6 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/model.test.mjs && node tests/paleo.test.mjs && node tests/experiments.test.mjs && node tests/static-pages.test.mjs && node tests/assessment.test.mjs && node tests/parameter-metadata.test.mjs && node tests/sensitivity.test.mjs"
+    "test": "node tests/model.test.mjs && node tests/paleo.test.mjs && node tests/experiments.test.mjs && node tests/static-pages.test.mjs && node tests/assessment.test.mjs && node tests/parameter-metadata.test.mjs && node tests/sensitivity.test.mjs && node tests/reference-mode.test.mjs"
   }
 }
