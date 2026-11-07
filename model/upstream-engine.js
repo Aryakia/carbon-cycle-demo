@@ -41,6 +41,20 @@ export const DEFAULT_PARAMETERS = Object.freeze({
   cleanDepreciationRatePerYr: 0.04,
 });
 
+export const MAX_SUPPORTED_DT_YEARS = 0.25;
+
+function validateTimeStep(dtYears) {
+  if (!Number.isFinite(dtYears) || dtYears <= 0) {
+    throw new Error("dtYears must be finite and positive; received " + dtYears);
+  }
+  if (dtYears > MAX_SUPPORTED_DT_YEARS) {
+    throw new Error(
+      "dtYears=" + dtYears + " exceeds the supported maximum of " +
+      MAX_SUPPORTED_DT_YEARS +
+      " year. Use the default quarterly step or a finer step for this prototype.",
+    );
+  }
+}
 export const DEFAULT_STATE = Object.freeze({
   year: 2025,
   availableResourceGtC:
@@ -133,6 +147,7 @@ export function calculateSignals(state, p = DEFAULT_PARAMETERS) {
 export function stepUpstream(state, parameters = {}, dtOverride = null) {
   const p = { ...DEFAULT_PARAMETERS, ...parameters };
   const dt = dtOverride ?? p.dtYears;
+  validateTimeStep(dt);
   const s = { ...state };
   const sig = calculateSignals(s, p);
 
@@ -206,11 +221,17 @@ export function stepUpstream(state, parameters = {}, dtOverride = null) {
     extractionGtCPerYr * clamp(p.processEmissionShare, 0, 0.3);
   const inventoryInGtCPerYr = extractionGtCPerYr - processEmissionsGtCPerYr;
 
-  const inventoryOutNominal =
-    s.fuelInventoryGtC / Math.max(0.01, p.fuelInventoryResidenceYears);
-  const inventoryAvailableRate =
-    (s.fuelInventoryGtC + inventoryInGtCPerYr * dt) / dt;
-  const inventoryOutGtCPerYr = Math.min(inventoryOutNominal, inventoryAvailableRate);
+  // Exact solution for a first-order inventory stock with constant inflow
+  // over the integration interval. This avoids explicit-Euler instability
+  // when dt approaches or exceeds the short inventory residence time.
+  const inventoryTauYears = Math.max(0.01, p.fuelInventoryResidenceYears);
+  const inventoryDecay = Math.exp(-dt / inventoryTauYears);
+  const nextFuelInventoryGtC =
+    s.fuelInventoryGtC * inventoryDecay +
+    inventoryInGtCPerYr * inventoryTauYears * (1 - inventoryDecay);
+  const inventoryOutAmountGtC =
+    s.fuelInventoryGtC + inventoryInGtCPerYr * dt - nextFuelInventoryGtC;
+  const inventoryOutGtCPerYr = Math.max(0, inventoryOutAmountGtC / dt);
 
   const nonCombustionShare = clamp(p.nonCombustionShare, 0, 0.5);
   const combustionGtCPerYr = inventoryOutGtCPerYr * (1 - nonCombustionShare);
@@ -258,10 +279,7 @@ export function stepUpstream(state, parameters = {}, dtOverride = null) {
       0,
       1,
     ),
-    fuelInventoryGtC: Math.max(
-      0,
-      s.fuelInventoryGtC + (inventoryInGtCPerYr - inventoryOutGtCPerYr) * dt,
-    ),
+    fuelInventoryGtC: Math.max(0, nextFuelInventoryGtC),
     productsGtC: Math.max(
       0,
       s.productsGtC + (productFormationGtCPerYr - productDecayGtCPerYr) * dt,
@@ -328,6 +346,7 @@ export function stepUpstream(state, parameters = {}, dtOverride = null) {
 export function simulate(parameters = {}, options = {}) {
   const p = { ...DEFAULT_PARAMETERS, ...parameters };
   const dt = options.dtYears ?? p.dtYears;
+  validateTimeStep(dt);
   const endYear = options.endYear ?? p.endYear;
   let state = createInitialState(options.initialState);
   const rows = [];

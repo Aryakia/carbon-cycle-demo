@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Validation, sensitivity, parameter provenance, and model-boundary dashboard for Carbon Beyond the Bathtub.">
+<meta name="theme-color" content="#06100d">
+<title>Validation & Methods — Carbon Beyond the Bathtub</title>
+<style>
+:root{--bg:#06100d;--panel:#0b1915;--panel2:#10231d;--panel3:#142c24;--text:#eff9f4;--muted:#9eb5ac;--line:#24463a;--green:#7fe0aa;--blue:#79c7ff;--orange:#f0a35d;--amber:#ffd18a;--red:#ff8d7e;--shadow:0 24px 70px rgba(0,0,0,.34)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 82% -10%,rgba(73,153,118,.2),transparent 34rem),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--blue)}button{font:inherit;color:inherit}.wrap{width:min(1320px,calc(100% - 34px));margin:auto}.top{position:sticky;top:0;z-index:50;background:rgba(6,16,13,.89);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.top .wrap{height:62px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brand{color:var(--text);text-decoration:none;font-weight:850}.brand small{display:block;color:var(--muted);font-size:.68rem;font-weight:600}.nav{display:flex;gap:6px;flex-wrap:wrap}.nav a{color:var(--muted);text-decoration:none;font-size:.77rem;padding:7px 8px;border-radius:999px}.nav a:hover{background:var(--panel2);color:var(--text)}
+.hero{padding:62px 0 28px}.kicker{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:850;color:var(--green)}h1{font-size:clamp(2.8rem,6.3vw,5.8rem);line-height:.93;letter-spacing:-.045em;margin:.55rem 0 1rem;max-width:1100px}h2{font-size:clamp(1.65rem,3.8vw,2.65rem);line-height:1.07;margin:.35rem 0 .8rem}h3{margin:.2rem 0 .45rem}.lead{color:var(--muted);max-width:1000px;font-size:1.05rem}.status-line{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.badge{border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:var(--muted);font-size:.69rem}.badge.good{border-color:#2d654d;color:var(--green)}.badge.warn{border-color:#665129;color:var(--amber)}
+.section{padding:28px 0 64px}.shell{border:1px solid var(--line);border-radius:24px;background:rgba(11,25,21,.96);box-shadow:var(--shadow);padding:20px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.card{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,var(--panel2),var(--panel));padding:15px;min-height:125px}.card small{display:block;color:var(--muted);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em}.card b{display:block;font-size:1.35rem;margin:.4rem 0}.card span{color:var(--muted);font-size:.72rem}.card.good b{color:var(--green)}.card.warn b{color:var(--amber)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.panel{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:17px}.panel p,.panel li{color:var(--muted);font-size:.79rem}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:15px;margin-top:12px}.table{border-collapse:collapse;width:100%;min-width:820px;background:#081612;font-size:.71rem}.table th,.table td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}.table th{background:#0d1e19;color:var(--muted);font-weight:700}.table th:first-child,.table td:first-child{text-align:left}.table tr:last-child td{border-bottom:0}.state{display:inline-block;padding:3px 6px;border-radius:999px;border:1px solid var(--line);font-size:.62rem;white-space:nowrap}.state.assessed{border-color:#315d79;color:#bfe9ff}.state.assumption{border-color:#665129;color:#ffe0a1}.state.hypothesis{border-color:#5e3a52;color:#ffc1e0}.state.config{border-color:#335c4d;color:#a8ebc6}
+.ladder{display:grid;gap:9px;margin-top:12px}.rung{border:1px solid var(--line);border-radius:14px;background:#081612;padding:12px;display:grid;grid-template-columns:155px 1fr auto;gap:12px;align-items:center}.rung strong{font-size:.82rem}.rung p{margin:0;color:var(--muted);font-size:.73rem}.tag{border-radius:999px;padding:5px 8px;font-size:.64rem;font-weight:800}.tag.pass{background:#123323;color:var(--green)}.tag.partial{background:#2b2213;color:var(--amber)}.tag.open{background:#301b1c;color:#ffb5ad}
+.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.compare-card{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:15px}.compare-card p,.compare-card li{color:var(--muted);font-size:.75rem}.compare-card.current{border-color:var(--green)}.note{border-left:4px solid var(--amber);background:#18150e;border-radius:12px;padding:12px 14px;color:#dfd1b4;font-size:.76rem;margin-top:14px}.footer{border-top:1px solid var(--line);padding:28px 0 44px;color:#7c978e;font-size:.8rem}
+@media(max-width:1000px){.cards,.compare{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.rung{grid-template-columns:1fr}}
+@media(max-width:650px){.wrap{width:min(100% - 22px,1320px)}.nav{display:none}.cards,.compare{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./">Carbon Beyond the Bathtub<small>Validation & methods</small></a><nav class="nav"><a href="./">Beginner</a><a href="upstream.html">Advanced lab</a><a href="experiments.html">Experiments</a><a href="feedbacks.html">Causal map</a><a href="assessment.html">Learning check</a></nav></div></header>
+<main>
+<section class="hero"><div class="wrap"><div class="kicker">Verification, sensitivity, and evidence boundary</div><h1>What has been tested—and what has not?</h1><p class="lead">This page is deliberately stricter than a typical demo “methods” page. It separates bookkeeping verification and numerical checks from empirical calibration and validation. Passing the tests below means the code is internally consistent under the stated assumptions; it does not make the behavioral model predictive.</p><div class="status-line"><span class="badge good">Mass-balance tests</span><span class="badge good">Reproducibility tests</span><span class="badge good">Sensitivity & time-step tests</span><span class="badge warn">Behavioral calibration not completed</span><span class="badge warn">Predictive validation not claimed</span></div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
+  <div class="kicker">Live validation snapshot</div><h2>Computed from the same modules used by the advanced laboratory.</h2>
+  <div class="cards">
+    <div class="card good"><small>Atmospheric balance residual</small><b id="atmResidual">—</b><span>Maximum absolute GtC residual across sensitivity runs.</span></div>
+    <div class="card good"><small>Fossil-transfer residual</small><b id="fossilResidual">—</b><span>Extraction bookkeeping across inventory, products, and atmosphere.</span></div>
+    <div class="card good"><small>Supported numerical step</small><b>≤ 0.25 yr</b><span>Quarterly default tested against 0.125 and 0.0625-year steps.</span></div>
+    <div class="card warn"><small>Behavioral model status</small><b>Uncalibrated</b><span>Coefficients remain hypotheses / transparent assumptions.</span></div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel"><div class="kicker">One-at-a-time sensitivity</div><h3>Coordinated-policy outcome envelope</h3><p>Eight uncertain behavioral or closure assumptions are varied one at a time over explicit low/high values. This is a screening exercise, not a probabilistic uncertainty analysis.</p><div class="cards" style="grid-template-columns:repeat(3,1fr)"><div class="card"><small>2100 CO₂ range</small><b id="ppmRange">—</b><span>ppm</span></div><div class="card"><small>Cumulative fossil→atm</small><b id="cumRange">—</b><span>GtC</span></div><div class="card"><small>2100 fossil flow</small><b id="flowRange">—</b><span>GtC/yr</span></div></div></div>
+    <div class="panel"><div class="kicker">Numerical stability</div><h3>Default versus finer time steps</h3><p>The model rejects time steps coarser than 0.25 year. The table reports the largest relative difference between the default quarterly run and finer resolutions for each named scenario.</p><div class="table-wrap"><table class="table"><thead><tr><th>Scenario</th><th>Max CO₂ difference</th><th>Max cumulative-flow difference</th></tr></thead><tbody id="stabilityBody"></tbody></table></div></div>
+  </div>
+
+  <div class="table-wrap"><table class="table"><thead><tr><th>Sensitivity dimension</th><th>Low</th><th>High</th><th>2100 CO₂ low setting</th><th>2100 CO₂ high setting</th><th>Cumulative fossil→atm low</th><th>Cumulative fossil→atm high</th></tr></thead><tbody id="sensitivityBody"></tbody></table></div>
+</div></div></section>
+
+<section class="section" id="parameters"><div class="wrap"><div class="shell">
+  <div class="kicker">Parameter registry</div><h2>Every default parameter has an explicit status.</h2><p style="color:var(--muted)">“Uncalibrated” is a feature of the documentation, not a hidden caveat. It tells you which quantities still need empirical work before scientific effect-size claims are defensible.</p>
+  <div class="table-wrap"><table class="table"><thead><tr><th>Parameter</th><th>Default</th><th>Unit</th><th>Classification</th><th>Status</th><th>Source / rationale</th><th>Active?</th></tr></thead><tbody id="parameterBody"></tbody></table></div>
+  <div class="note"><strong>Audit finding:</strong> <code>cleanCapitalLifetimeYears</code> is currently retained as a configuration/documentation placeholder but is not used by the equations; clean-capital turnover is controlled by <code>cleanDepreciationRatePerYr</code>. This is documented rather than silently treated as active.</div>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
+  <div class="kicker">Validation ladder</div><h2>Verification is not the same thing as empirical validation.</h2>
+  <div class="ladder">
+    <div class="rung"><strong>Dimensional & unit checks</strong><p>ppm ↔ GtC ↔ GtCO₂ conversions and parameter units are explicit.</p><span class="tag pass">implemented</span></div>
+    <div class="rung"><strong>Mass-balance verification</strong><p>Atmospheric and fossil-transfer accounting residuals are tested to floating-point tolerance.</p><span class="tag pass">implemented</span></div>
+    <div class="rung"><strong>Numerical stability</strong><p>Quarterly default compared with finer time steps; coarser unsupported steps are rejected.</p><span class="tag pass">implemented</span></div>
+    <div class="rung"><strong>Reproducibility</strong><p>Identical parameter sets reproduce identical trajectories; named experiments are deterministic.</p><span class="tag pass">implemented</span></div>
+    <div class="rung"><strong>Sensitivity screening</strong><p>One-at-a-time ranges test key uncertain assumptions and verify nonnegative stocks/residual closure.</p><span class="tag pass">implemented</span></div>
+    <div class="rung"><strong>Structural / face validation</strong><p>Feedbacks are motivated by carbon-lock-in and capital-turnover literature, but expert review of the exact equations is still needed.</p><span class="tag partial">partial</span></div>
+    <div class="rung"><strong>Historical calibration</strong><p>The behavioral upstream model has not been fit to historical investment, capacity, extraction, price, or policy data.</p><span class="tag open">not completed</span></div>
+    <div class="rung"><strong>Out-of-sample validation</strong><p>No held-out empirical validation of the behavioral model has been performed.</p><span class="tag open">not completed</span></div>
+  </div>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
+  <div class="kicker">Scope comparison</div><h2>This project is intentionally not another EN‑ROADS or EPS.</h2>
+  <div class="compare">
+    <div class="compare-card current"><h3>Carbon Beyond the Bathtub</h3><ul><li>Narrow question: why fossil-carbon mobilization persists.</li><li>Explicit extraction → inventory → combustion/product pathway.</li><li>Focus on lock-in, investment, capital turnover, capability, and institutional resistance.</li><li>Educational carbon-cycle shell plus research-hypothesis upstream model.</li><li>Currently uncalibrated; no temperature or economy-wide cost outputs.</li></ul></div>
+    <div class="compare-card"><h3>EN‑ROADS</h3><p>EN‑ROADS is a globally aggregated system-dynamics model spanning energy, economy, land use, agriculture, greenhouse gases, and climate. Its technical reference documents calibration to extensive historical data and a much broader endogenous energy/climate system.</p><a href="https://docs.climateinteractive.org/projects/en-roads-reference-guide/en/latest/" target="_blank" rel="noreferrer">Official technical reference ↗</a></div>
+    <div class="compare-card"><h3>Energy Policy Simulator</h3><p>EPS is a free, open-source policy model covering major economy sectors including transportation, electricity, buildings, industry, agriculture, and land use, with policy, financial, and public-health outputs. This project does not attempt that sectoral breadth.</p><a href="https://docs.energypolicy.solutions/" target="_blank" rel="noreferrer">Official EPS documentation ↗</a></div>
+  </div>
+  <div class="note"><strong>Positioning:</strong> the contribution being explored here is not breadth. It is a transparent, inspectable chain from historical lock-in and upstream investment to fossil extraction and atmospheric carbon, suitable for teaching and for developing testable research hypotheses.</div>
+</div></div></section>
+</main>
+<footer class="footer"><div class="wrap">Arya Kia · Carbon Beyond the Bathtub · validation and methods dashboard</div></footer>
+
+<script type="module">
+import { validationSnapshot } from "./model/validation.js";
+import { parameterRows } from "./model/parameter-metadata.js";
+const $=id=>document.getElementById(id);
+const v=validationSnapshot();
+$("atmResidual").textContent=v.maxAtmosphericResidualGtC.toExponential(2)+" GtC";
+$("fossilResidual").textContent=v.maxFossilTransferResidualGtC.toExponential(2)+" GtC";
+const e=v.sensitivity.envelope;
+$("ppmRange").textContent=e.ppm2100Min.toFixed(0)+"–"+e.ppm2100Max.toFixed(0);
+$("cumRange").textContent=e.cumulativeFossilMinGtC.toFixed(1)+"–"+e.cumulativeFossilMaxGtC.toFixed(1);
+$("flowRange").textContent=e.fossilFlow2100MinGtCPerYr.toFixed(3)+"–"+e.fossilFlow2100MaxGtCPerYr.toFixed(3);
+$("stabilityBody").innerHTML=v.stability.scenarios.map(s=>'<tr><td><strong>'+s.name+'</strong></td><td>'+(s.maxRelativePpmDifference*100).toFixed(3)+'%</td><td>'+(s.maxRelativeCumulativeDifference*100).toFixed(3)+'%</td></tr>').join("");
+$("sensitivityBody").innerHTML=v.sensitivity.dimensions.map(d=>'<tr><td><strong>'+d.label+'</strong><br><span style="color:var(--muted)">'+d.rationale+'</span></td><td>'+d.low+'</td><td>'+d.high+'</td><td>'+d.lowOutcome.ppm2100.toFixed(1)+'</td><td>'+d.highOutcome.ppm2100.toFixed(1)+'</td><td>'+d.lowOutcome.cumulativeFossilToAtmosphereGtC.toFixed(1)+'</td><td>'+d.highOutcome.cumulativeFossilToAtmosphereGtC.toFixed(1)+'</td></tr>').join("");
+function cls(meta){
+ const c=meta.classification.toLowerCase();
+ if(c.includes("benchmark"))return "assessed";
+ if(c.includes("hypothesis"))return "hypothesis";
+ if(c.includes("configuration")||c.includes("policy lever")||c.includes("scenario"))return "config";
+ return "assumption";
+}
+$("parameterBody").innerHTML=parameterRows().map(r=>'<tr><td><strong>'+r.label+'</strong><br><code>'+r.key+'</code></td><td>'+r.default+'</td><td>'+r.unit+'</td><td><span class="state '+cls(r)+'">'+r.classification+'</span></td><td>'+r.status+'</td><td>'+r.source+'</td><td>'+(r.active?"yes":"no")+'</td></tr>').join("");
+</script>
+</body></html>
