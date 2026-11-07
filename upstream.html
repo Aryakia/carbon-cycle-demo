@@ -19,7 +19,7 @@ a{color:var(--blue)}button,input{font:inherit}button{color:inherit}.wrap{width:m
 .topbar .wrap{height:62px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brand{text-decoration:none;color:var(--text);font-weight:850}.brand small{display:block;color:var(--muted);font-size:.68rem;font-weight:600}.nav{display:flex;gap:8px;align-items:center}.nav a{color:var(--muted);text-decoration:none;font-size:.8rem;padding:7px 10px;border-radius:999px}.nav a:hover{background:var(--panel2);color:var(--text)}
 .hero{padding:62px 0 30px}.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:850;color:var(--green)}h1{font-size:clamp(2.8rem,6vw,5.7rem);line-height:.94;letter-spacing:-.045em;margin:.5rem 0 1rem;max-width:1050px}h2{font-size:clamp(1.65rem,3.7vw,2.65rem);line-height:1.08;margin:.35rem 0 .8rem}h3{margin:.2rem 0 .5rem}.lead{color:var(--muted);font-size:1.06rem;max-width:1000px}.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.badge{border:1px solid var(--line);border-radius:999px;padding:6px 9px;font-size:.7rem;color:var(--muted)}.badge.obs{border-color:#315d79;color:#a9d9ff}.badge.assumption{border-color:#665229;color:#ffe0a1}.badge.hypothesis{border-color:#5e3a52;color:#ffc1e0}
 .section{padding:28px 0 64px}.shell{border:1px solid var(--line);border-radius:24px;background:rgba(11,25,21,.96);box-shadow:var(--shadow);padding:20px}
-.toolbar{display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap}.toolbar p{color:var(--muted);max-width:850px;margin:.3rem 0 0}.presets{display:flex;gap:7px;flex-wrap:wrap}.method-note{font-size:.7rem;color:var(--muted);border:1px solid var(--line);border-radius:12px;padding:8px 10px}.btn{border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:8px 11px;cursor:pointer;font-size:.78rem}.btn:hover{border-color:var(--line2)}.btn.active{background:var(--green);color:#06100d;border-color:var(--green);font-weight:850}
+.toolbar{display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap}.toolbar p{color:var(--muted);max-width:850px;margin:.3rem 0 0}.presets{display:flex;gap:7px;flex-wrap:wrap}.share-tools{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:8px}.share-tools .status{font-size:.68rem;color:var(--muted);min-width:120px}.method-note{font-size:.7rem;color:var(--muted);border:1px solid var(--line);border-radius:12px;padding:8px 10px}.btn{border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:8px 11px;cursor:pointer;font-size:.78rem}.btn:hover{border-color:var(--line2)}.btn.active{background:var(--green);color:#06100d;border-color:var(--green);font-weight:850}
 .lab{display:grid;grid-template-columns:360px 1fr;gap:16px;margin-top:16px}.controls,.results{border:1px solid var(--line);border-radius:18px;background:#081612;padding:16px}.controls{align-self:start;position:sticky;top:78px;max-height:calc(100vh - 96px);overflow:auto}.control{padding:11px 0;border-top:1px solid var(--line)}.control:first-child{border-top:0}.control-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.control-head strong{font-size:.86rem}.control-head span{color:var(--green);font-weight:800;font-size:.78rem}.control p{color:var(--muted);font-size:.69rem;margin:.25rem 0}.control input{width:100%;accent-color:var(--green)}.control .kind{display:inline-block;margin-top:4px;border-radius:999px;padding:3px 6px;border:1px solid var(--line);font-size:.61rem;color:var(--muted)}
 .metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.metric{border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,var(--panel2),var(--panel));padding:12px;min-height:98px}.metric small{display:block;color:var(--muted);font-size:.63rem;text-transform:uppercase;letter-spacing:.08em}.metric b{display:block;font-size:1.3rem;margin:.25rem 0}.metric span{font-size:.66rem;color:var(--muted)}.metric.orange b{color:var(--orange)}.metric.blue b{color:var(--blue)}.metric.green b{color:var(--green)}
 .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.chart{border:1px solid var(--line);border-radius:15px;background:#071410;padding:12px}.chart h3{font-size:.9rem}.chart p{font-size:.68rem;color:var(--muted);margin:.1rem 0 .6rem}.chart svg{width:100%;height:220px;display:block}.axis{fill:#829f95;font-size:10px}.gridline{stroke:#1c372f;stroke-width:1}.line1{fill:none;stroke:var(--blue);stroke-width:3}.line2{fill:none;stroke:var(--orange);stroke-width:3}.target{stroke:var(--green);stroke-width:1.2;stroke-dasharray:5 5}
@@ -55,12 +55,22 @@ a{color:var(--blue)}button,input{font:inherit}button{color:inherit}.wrap{width:m
 <section class="section" id="lab"><div class="wrap"><div class="shell">
   <div class="toolbar">
     <div><div class="eyebrow">Upstream Dynamics Model v0.1</div><h2>Trace interventions before they reach the atmosphere.</h2><p>Choose a reproducible scenario or change one assumption at a time. The equations are deliberately transparent and the coefficients are placeholders for sensitivity analysis, not empirical estimates.</p></div>
-    <div class="method-note" style="max-width:520px">Structural reference is a neutral initialization test, not a forecast or “business as usual” claim.</div><div class="presets" id="presets">
-      <button class="btn active" data-preset="structuralReference">Structural reference</button>
-      <button class="btn" data-preset="carbonPrice">Carbon price</button>
-      <button class="btn" data-preset="pricePlusClean">Price + clean investment</button>
-      <button class="btn" data-preset="acceleratedRetirement">Accelerated retirement</button>
-      <button class="btn" data-preset="coordinated">Coordinated package</button>
+    <div>
+      <div class="method-note" style="max-width:520px">Structural reference is a neutral initialization test, not a forecast or “business as usual” claim. The carbon-cycle response is historically calibrated; the upstream behavioral model is not.</div>
+      <div class="presets" id="presets">
+        <button class="btn active" data-preset="structuralReference">Structural reference</button>
+        <button class="btn" data-preset="carbonPrice">Carbon price</button>
+        <button class="btn" data-preset="pricePlusClean">Price + clean investment</button>
+        <button class="btn" data-preset="acceleratedRetirement">Accelerated retirement</button>
+        <button class="btn" data-preset="coordinated">Coordinated package</button>
+      </div>
+      <div class="share-tools">
+        <button class="btn" id="copyScenario">Copy scenario link</button>
+        <button class="btn" id="exportCsv">Export CSV</button>
+        <button class="btn" id="exportJson">Export JSON</button>
+        <button class="btn" id="resetScenario">Reset</button>
+        <span class="status" id="scenarioStatus" aria-live="polite"></span>
+      </div>
     </div>
   </div>
 
@@ -136,6 +146,7 @@ a{color:var(--blue)}button,input{font:inherit}button{color:inherit}.wrap{width:m
 
 <script type="module">
 import { simulate, SCENARIOS, DEFAULT_PARAMETERS } from "./model/upstream-engine.js";
+import { decodeAdvancedScenario, encodeAdvancedScenario, rowsToCsv } from "./ui/scenario-io.js";
 
 const $=id=>document.getElementById(id);
 const inputs={
@@ -149,6 +160,7 @@ const outputs={
   resistance:$("resistanceOut"),learning:$("learningOut"),cost:$("costOut"),delay:$("delayOut")
 };
 let activePreset="structuralReference";
+let currentRows=[];
 
 function params(){
   return {
@@ -211,6 +223,7 @@ function pct(v){return Math.max(0,Math.min(100,v*100))+"%"}
 function render(){
   writeOutputs();
   const rows=simulate(params(),{endYear:2100});
+  currentRows=rows;
   const last=rows.at(-1);
   $("ppm2100").textContent=last.ppm.toFixed(0);
   $("emissions2100").textContent=last.fossilToAtmosphereGtCPerYr.toFixed(2);
@@ -234,6 +247,106 @@ function render(){
   $("b1").style.width=pct(Math.min(1,last.effectiveCarbonPrice/160+(+inputs.retirement.value)*5));
   $("b2").style.width=pct(last.cleanShare);
 }
+
+const exportColumns=[
+  ["year","Year"],
+  ["ppm","Atmospheric CO2 (ppm)"],
+  ["fossilToAtmosphereGtCPerYr","Fossil to atmosphere (GtC/yr)"],
+  ["extractionGtCPerYr","Extraction (GtC/yr)"],
+  ["productionCapacityGtCPerYr","Production capacity (GtC/yr)"],
+  ["fossilDemandCapital","Fossil demand capital index"],
+  ["cleanCapital","Clean capital index"],
+  ["institutionalSupport","Institutional support index"],
+  ["naturalSinkGtCPerYr","Net natural uptake (GtC/yr)"],
+  ["netAtmosphericGtCPerYr","Atmospheric growth (GtC/yr)"],
+  ["cumulativeExtractionGtC","Cumulative extraction (GtC)"],
+  ["cumulativeFossilToAtmosphereGtC","Cumulative fossil to atmosphere (GtC)"]
+];
+
+function setScenarioStatus(message){
+  $("scenarioStatus").textContent=message;
+  if(message) setTimeout(()=>{if($("scenarioStatus").textContent===message)$("scenarioStatus").textContent="";},3500);
+}
+
+function downloadText(filename,text,mime){
+  const blob=new Blob([text],{type:mime});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+async function copyScenarioLink(){
+  const url=new URL(location.href);
+  url.search=encodeAdvancedScenario(params());
+  history.replaceState(null,"",url);
+  try{
+    await navigator.clipboard.writeText(url.href);
+    setScenarioStatus("Scenario link copied.");
+  }catch{
+    setScenarioStatus("Scenario encoded in address bar.");
+  }
+}
+
+function exportScenarioCsv(){
+  downloadText(
+    "carbon-beyond-the-bathtub-scenario.csv",
+    rowsToCsv(currentRows,exportColumns),
+    "text/csv;charset=utf-8"
+  );
+  setScenarioStatus("CSV exported.");
+}
+
+function exportScenarioJson(){
+  const rows=currentRows.map(row=>{
+    const clean={};
+    for(const [key] of exportColumns)clean[key]=row[key];
+    return clean;
+  });
+  const last=currentRows.at(-1);
+  const payload={
+    project:"Carbon Beyond the Bathtub",
+    module:"Upstream Dynamics Model",
+    exportedAt:new Date().toISOString(),
+    parameters:params(),
+    summary2100:last?{
+      ppm:last.ppm,
+      fossilToAtmosphereGtCPerYr:last.fossilToAtmosphereGtCPerYr,
+      naturalSinkGtCPerYr:last.naturalSinkGtCPerYr,
+      cumulativeFossilToAtmosphereGtC:last.cumulativeFossilToAtmosphereGtC
+    }:null,
+    rows
+  };
+  downloadText(
+    "carbon-beyond-the-bathtub-scenario.json",
+    JSON.stringify(payload,null,2),
+    "application/json;charset=utf-8"
+  );
+  setScenarioStatus("JSON exported.");
+}
+
+function resetScenario(){
+  activePreset="structuralReference";
+  document.querySelectorAll("#presets .btn").forEach(b=>b.classList.toggle("active",b.dataset.preset==="structuralReference"));
+  setControls(SCENARIOS.structuralReference);
+  history.replaceState(null,"",location.pathname);
+  document.querySelectorAll("#trace .node").forEach(n=>n.classList.add("hot"));
+  $("pathTitle").textContent="Scenario pathway: Structural reference";
+  render();
+  setScenarioStatus("Structural reference restored.");
+}
+
+function applyScenarioFromUrl(){
+  const decoded=decodeAdvancedScenario(location.search);
+  if(!Object.keys(decoded).length)return false;
+  setControls({...DEFAULT_PARAMETERS,...decoded});
+  activePreset="custom";
+  document.querySelectorAll("#presets .btn").forEach(b=>b.classList.remove("active"));
+  $("pathTitle").textContent="Shared custom scenario";
+  document.querySelectorAll("#trace .node").forEach(n=>n.classList.add("hot"));
+  return true;
+}
+
 function markCustom(id){
   activePreset="custom";
   document.querySelectorAll("#presets .btn").forEach(b=>b.classList.remove("active"));
@@ -261,11 +374,20 @@ document.querySelectorAll("#presets .btn").forEach(btn=>btn.addEventListener("cl
   activePreset=btn.dataset.preset;
   document.querySelectorAll("#presets .btn").forEach(b=>b.classList.toggle("active",b===btn));
   setControls(SCENARIOS[activePreset]||{});
+  history.replaceState(null,"",location.pathname);
   document.querySelectorAll("#trace .node").forEach(n=>n.classList.add("hot"));
   $("pathTitle").textContent="Scenario pathway: "+btn.textContent;
   render();
 }));
-setControls(SCENARIOS.structuralReference);document.querySelectorAll("#trace .node").forEach(n=>n.classList.add("hot"));render();
+$("copyScenario").addEventListener("click",copyScenarioLink);
+$("exportCsv").addEventListener("click",exportScenarioCsv);
+$("exportJson").addEventListener("click",exportScenarioJson);
+$("resetScenario").addEventListener("click",resetScenario);
+
+setControls(SCENARIOS.structuralReference);
+document.querySelectorAll("#trace .node").forEach(n=>n.classList.add("hot"));
+applyScenarioFromUrl();
+render();
 </script>
 </body>
 </html>
