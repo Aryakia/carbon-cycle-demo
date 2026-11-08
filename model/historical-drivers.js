@@ -61,6 +61,7 @@ export function historicalObservedAt(year) {
     "renewableCapacityGw",
     "fossilEnergyProductionTWh",
     "fossilEnergyConsumptionTWh",
+    "totalEnergySupplyTWh",
     "worldGdpConstant2015Usd",
   ]);
 }
@@ -72,6 +73,7 @@ export function historicalProxyAt(year) {
     "cleanCapitalProxy",
     "fossilProductionActivityIndex2025",
     "fossilDemandActivityIndex2025",
+    "energyActivityIndex2025",
     "gdpIndex2025",
   ]);
 }
@@ -89,4 +91,12 @@ export function splitHistoricalRows(rows = HISTORICAL_REFERENCE_ROWS) {
 
 export function shockForYear(year) {
   return EXOGENOUS_SHOCK_WINDOWS.find(s => s.years.includes(Math.round(year))) ?? null;
+}
+
+
+export function historicalParameterOverridesAt(year) {
+  const proxy = historicalProxyAt(year);
+  return {
+    energyActivityIndex: proxy.energyActivityIndex2025,
+  };
 }
