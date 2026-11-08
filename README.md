@@ -16,6 +16,8 @@
 
 **Validation & methods dashboard:** https://aryakia.github.io/carbon-cycle-demo/validation.html
 
+**Historical empirical reference:** https://aryakia.github.io/carbon-cycle-demo/history.html
+
 > Research-mode status: the upstream model is a transparent behavioral-hypothesis sandbox. Its carbon accounting and structural-reference initialization are tested, but its behavioral coefficients are not historically calibrated or out-of-sample validated.
 
 [Five-minute demonstration and visual model guide](docs/VISUAL_CASE_STUDY.md)
@@ -324,3 +326,20 @@ The current public research-software version is **v0.3.0**.
 - `model/version.js` exposes the software version to research exports and the advanced interface.
 
 The advanced laboratory also provides an **Evidence** control beside every visible parameter. It reads directly from `model/parameter-metadata.js` and displays the parameter's classification, status, unit, default, source/rationale, and role in the model.
+
+
+## Historical empirical reference dataset
+
+Stage 11 adds a canonical 2000–2025 empirical layer before upstream behavioral calibration.
+
+Continuous series:
+
+- Global Carbon Budget fossil CO₂;
+- Global Carbon Budget atmospheric CO₂ history;
+- IRENA global renewable power capacity (harmonized by Our World in Data);
+- Energy Institute global fossil-energy consumption (harmonized by Our World in Data);
+- World Bank world GDP in constant 2015 US$.
+
+The model-observation mapping is explicit: renewable capacity and fossil-energy consumption are **proxies**, not silently relabeled model stocks. Fossil production capacity, investment, and institutional resistance remain documented measurement gaps until defensible observations are added.
+
+The provisional calibration split is **2000–2017 training / 2018–2025 held-out validation**. See `history.html` and `docs/STAGE11_HISTORICAL_REFERENCE.md`.
