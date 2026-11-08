@@ -82,3 +82,28 @@ Before Stage 13 calibration, add:
 2. exact clean/fossil investment history where licensing/access permits;
 3. a time-varying historical driver layer for GDP/energy-service demand and policy shocks;
 4. explicit treatment of the 2008–2009 financial crisis and 2020 COVID shock as exogenous disturbances where appropriate.
+
+
+## Current screen result
+
+The automated Stage 12 screen currently finds:
+
+- **9 of 12** screened behavioral parameters are weakly expressed in the neutral Structural reference at the chosen observable-compatible outputs;
+- **4 parameters** become materially visible only under the standardized policy excitation: fossil-demand-capital lifetime, clean learning, institutional resistance, and policy implementation delay;
+- the strongest neutral-reference sensitivity is clean-capital depreciation;
+- production-capacity lifetime and capacity-investment rate are locally almost perfectly collinear;
+- capability learning/decay and institutional formation/erosion form several near-collinear pairs.
+
+These results reinforce the measurement-gap decision: adding more free parameters to an optimizer now would increase compensating-error risk rather than scientific information.
+
+## Literature-constrained priors
+
+Stage 12 also adds broad external plausibility priors for:
+
+- aggregate fossil production-capacity lifetime: 20–40 years;
+- fossil-dependent demand-capital lifetime: 15–35 years;
+- clean-capital depreciation: equivalent to a 20–30 year lifetime.
+
+These are intentionally broad because the model stocks aggregate heterogeneous infrastructure. They are not treated as universal observed lifetimes.
+
+The carbon-cycle lifetime scale and current fossil-flow anchor are excluded from upstream calibration because they have already been separately calibrated/anchored.
