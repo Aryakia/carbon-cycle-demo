@@ -41,11 +41,12 @@ export const HISTORICAL_MODEL_MAPPING = Object.freeze({
   fossilEnergyConsumptionTWh: {
     observedField: "fossilEnergyConsumptionTWh",
     modelField: "fossilDemandCapital",
-    role: "fossil-demand proxy",
-    measurementType: "flow proxy for persistent demand stock",
-    transform: "normalize to 2025 = 1",
+    role: "fossil-dependency/share proxy after separating aggregate energy activity",
+    measurementType: "derived dependency proxy",
+    transform:
+      "compute fossil share of total energy supply, then normalize that share to 2025 = 1",
     interpretation:
-      "Annual fossil energy use is not a capital stock. It can constrain demand-side behavior, but should not be treated as a direct measurement of fossil-dependent installed capital.",
+      "Absolute fossil consumption combines overall energy-system growth and fossil dependence. Historical mode therefore factors it into total energy activity × a normalized fossil-share/dependency index. The resulting dependency index is still a proxy, not a direct capital-stock measurement.",
   },
   totalEnergySupplyTWh: {
     observedField: "totalEnergySupplyTWh",
@@ -80,6 +81,9 @@ export const HISTORICAL_PROXY_ROWS = Object.freeze(
         row.fossilEnergyProductionTWh / last.fossilEnergyProductionTWh,
       fossilDemandActivityIndex2025:
         row.fossilEnergyConsumptionTWh / last.fossilEnergyConsumptionTWh,
+      fossilDependencyIndex2025:
+        (row.fossilEnergyConsumptionTWh / row.totalEnergySupplyTWh) /
+        (last.fossilEnergyConsumptionTWh / last.totalEnergySupplyTWh),
       energyActivityIndex2025:
         row.totalEnergySupplyTWh / last.totalEnergySupplyTWh,
       gdpIndex2025:
