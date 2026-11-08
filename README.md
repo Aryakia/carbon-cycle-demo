@@ -343,3 +343,22 @@ Continuous series:
 The model-observation mapping is explicit: renewable capacity and fossil-energy consumption are **proxies**, not silently relabeled model stocks. Fossil production capacity, investment, and institutional resistance remain documented measurement gaps until defensible observations are added.
 
 The provisional calibration split is **2000–2017 training / 2018–2025 held-out validation**. See `history.html` and `docs/STAGE11_HISTORICAL_REFERENCE.md`.
+
+
+## Calibration scaffold and holdout rule
+
+Stage 13 freezes the first empirical split **before** behavioral optimization:
+
+- training/calibration: **2000–2017**;
+- held-out validation: **2018–2025**.
+
+The initial upstream objective weights are:
+
+- fossil-to-atmosphere flow: **0.50**;
+- clean-capital proxy trajectory: **0.25**;
+- fossil-demand activity proxy: **0.25**;
+- atmospheric CO₂: **0.00** for upstream fitting.
+
+Atmospheric CO₂ remains a diagnostic because the reduced carbon-cycle component was already calibrated separately.
+
+The repository now enforces a leakage rule: held-out observations must not be used to select behavioral parameters, priors, or objective weights. Stage 13 currently provides the driver/interpolation layer and objective function; **no upstream behavioral optimizer has been run yet** because Stage 12 identified substantial parameter confounding and the production-capacity/investment observation layer is still incomplete.
