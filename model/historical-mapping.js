@@ -47,10 +47,19 @@ export const HISTORICAL_MODEL_MAPPING = Object.freeze({
     interpretation:
       "Annual fossil energy use is not a capital stock. It can constrain demand-side behavior, but should not be treated as a direct measurement of fossil-dependent installed capital.",
   },
+  totalEnergySupplyTWh: {
+    observedField: "totalEnergySupplyTWh",
+    modelField: "energyActivityIndex",
+    role: "preferred historical aggregate energy-activity driver",
+    measurementType: "exogenous flow index",
+    transform: "normalize to 2025 = 1",
+    interpretation:
+      "Total primary energy supply is closer to the scale of energy-system activity than GDP. It is still not identical to final energy services because primary-energy accounting depends on the technology mix.",
+  },
   worldGdpConstant2015Usd: {
     observedField: "worldGdpConstant2015Usd",
     modelField: "expectedFutureDemandIndex",
-    role: "candidate exogenous demand driver",
+    role: "secondary macroeconomic diagnostic / candidate explanatory driver",
     measurementType: "driver proxy",
     transform: "normalize to 2025 = 1",
     interpretation:
@@ -71,6 +80,8 @@ export const HISTORICAL_PROXY_ROWS = Object.freeze(
         row.fossilEnergyProductionTWh / last.fossilEnergyProductionTWh,
       fossilDemandActivityIndex2025:
         row.fossilEnergyConsumptionTWh / last.fossilEnergyConsumptionTWh,
+      energyActivityIndex2025:
+        row.totalEnergySupplyTWh / last.totalEnergySupplyTWh,
       gdpIndex2025:
         row.worldGdpConstant2015Usd / last.worldGdpConstant2015Usd,
     }),
