@@ -57,6 +57,23 @@
 </div></div></section>
 
 <section class="section"><div class="wrap"><div class="shell">
+<div class="kicker">Stage 13 · calibration scaffold</div><h2>The holdout is frozen before optimization begins.</h2>
+<div class="cards">
+  <div class="card"><small>Training window</small><b>2000–2017</b><span>18 annual observations</span></div>
+  <div class="card"><small>Held-out validation</small><b>2018–2025</b><span>8 annual observations</span></div>
+  <div class="card"><small>Fossil-flow weight</small><b>0.50</b><span>primary directly observed upstream target</span></div>
+  <div class="card"><small>Clean proxy weight</small><b>0.25</b><span>renewable-capacity trajectory shape</span></div>
+  <div class="card"><small>Demand proxy weight</small><b>0.25</b><span>fossil-energy activity trajectory</span></div>
+</div>
+<div class="mapping">
+  <div class="map-card"><span class="status">diagnostic only</span><h3>Atmospheric CO₂ weight = 0</h3><p>The carbon-cycle component was already calibrated separately. Giving ppm another fitting weight would allow upstream behavioral errors to be compensated by a component that has already been fitted.</p></div>
+  <div class="map-card"><span class="status">leakage rule</span><h3>2018–2025 stays held out</h3><p>Validation observations cannot be used for parameter fitting, prior selection, or objective-weight tuning. If model structure is changed after inspecting holdout results, the research record must explicitly say the holdout was consumed.</p></div>
+  <div class="map-card"><span class="status">shock metadata</span><h3>2008–09 and 2020 are marked</h3><p>The global financial crisis and COVID-19 are recorded as external disturbance windows. They are not automatically excluded or down-weighted; any treatment must be explicit in a calibration run.</p></div>
+  <div class="map-card"><span class="status">optimizer gate</span><h3>No free multi-parameter fit yet</h3><p>Stage 12 shows substantial local confounding. The next requirement is a historical/backcast engine plus stronger capacity/investment observations—not a larger optimizer.</p></div>
+</div>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
 <div class="kicker">Deliberate gaps</div><h2>Missing is better than fabricated.</h2>
 <div class="gaps" id="gapCards"></div>
 </div></div></section>
