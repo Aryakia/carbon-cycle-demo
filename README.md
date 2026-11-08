@@ -363,3 +363,32 @@ The initial upstream objective weights are:
 Atmospheric CO₂ remains a diagnostic because the reduced carbon-cycle component was already calibrated separately.
 
 The repository now enforces a leakage rule: held-out observations must not be used to select behavioral parameters, priors, or objective weights. Stage 13 currently provides the driver/interpolation layer and objective function; **no upstream behavioral optimizer has been run yet** because Stage 12 identified substantial parameter confounding and the production-capacity/investment observation layer is still incomplete.
+
+
+## Historical backcast initialization discipline
+
+Stage 13A prepares the 2000 starting state without hiding unsupported initial conditions.
+
+The historical model now separates:
+
+```text
+aggregate energy activity × expected future fossil demand × fossil-dependent capital
+```
+
+Historical aggregate energy activity is mapped to observed Energy Institute total primary-energy supply, normalized to 2025. Fossil-dependent capital is provisionally initialized from a normalized **fossil share of total energy**, not absolute fossil consumption, so system growth is not counted twice.
+
+Automatically initialized from observations/proxies:
+
+- clean capital;
+- fossil-dependency proxy;
+- end-1999 calibrated carbon-cycle state;
+- short fuel-inventory/product accounting stocks;
+- aggregate energy-activity index.
+
+Still explicitly latent and required as inputs:
+
+- production capacity;
+- accumulated fossil capability;
+- institutional support.
+
+No behavioral optimizer is run by Stage 13A. See `docs/STAGE13A_BACKCAST_READINESS.md`.
