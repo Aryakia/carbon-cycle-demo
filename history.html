@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Historical empirical reference data for calibrating the Carbon Beyond the Bathtub upstream model.">
+<meta name="theme-color" content="#06100d">
+<title>Historical Reference — Carbon Beyond the Bathtub</title>
+<style>
+:root{--bg:#06100d;--panel:#0b1915;--panel2:#10231d;--text:#eff9f4;--muted:#9eb5ac;--line:#24463a;--green:#7fe0aa;--blue:#79c7ff;--orange:#f0a35d;--amber:#ffd18a;--red:#ff8d7e;--violet:#c4a3ff;--shadow:0 24px 70px rgba(0,0,0,.34)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 82% -10%,rgba(73,153,118,.2),transparent 34rem),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--blue)}.wrap{width:min(1320px,calc(100% - 34px));margin:auto}.top{position:sticky;top:0;z-index:50;background:rgba(6,16,13,.89);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.top .wrap{height:62px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brand{color:var(--text);text-decoration:none;font-weight:850}.brand small{display:block;color:var(--muted);font-size:.68rem;font-weight:600}.nav{display:flex;gap:6px;flex-wrap:wrap}.nav a{color:var(--muted);text-decoration:none;font-size:.77rem;padding:7px 8px;border-radius:999px}.nav a:hover{background:var(--panel2);color:var(--text)}
+.hero{padding:62px 0 28px}.kicker{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:850;color:var(--green)}h1{font-size:clamp(2.8rem,6.3vw,5.7rem);line-height:.93;letter-spacing:-.045em;margin:.55rem 0 1rem;max-width:1150px}h2{font-size:clamp(1.65rem,3.8vw,2.65rem);line-height:1.07;margin:.35rem 0 .8rem}h3{margin:.2rem 0 .45rem}.lead{color:var(--muted);max-width:1000px;font-size:1.05rem}.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.badge{border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:var(--muted);font-size:.69rem}.badge.train{border-color:#315d79;color:#bfe9ff}.badge.hold{border-color:#665129;color:var(--amber)}
+.section{padding:28px 0 64px}.shell{border:1px solid var(--line);border-radius:24px;background:rgba(11,25,21,.96);box-shadow:var(--shadow);padding:20px}.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.card{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,var(--panel2),var(--panel));padding:15px}.card small{display:block;color:var(--muted);font-size:.63rem;text-transform:uppercase;letter-spacing:.08em}.card b{display:block;font-size:1.25rem;margin:.35rem 0}.card span{color:var(--muted);font-size:.7rem}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px}.chart{border:1px solid var(--line);border-radius:17px;background:#071410;padding:13px}.chart h3{font-size:.9rem}.chart p{font-size:.69rem;color:var(--muted);margin:.1rem 0 .5rem}.chart svg{display:block;width:100%;height:265px}.grid{stroke:#1d3930;stroke-width:1}.axis{fill:#839f96;font-size:10px}.train-zone{fill:rgba(121,199,255,.05)}.hold-zone{fill:rgba(255,209,138,.07)}.split{stroke:var(--amber);stroke-width:1.3;stroke-dasharray:5 4}.series{fill:none;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}.point{stroke:none}
+.mapping{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-top:14px}.map-card{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:15px}.map-card p{color:var(--muted);font-size:.78rem}.map-card code{color:#d9f0e5}.status{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 7px;color:var(--muted);font-size:.62rem}.gaps{display:grid;gap:9px}.gap{border-left:4px solid var(--amber);background:#18150e;border-radius:12px;padding:12px 14px}.gap p{color:#d8c9a9;font-size:.77rem;margin:.3rem 0}.source-table{width:100%;border-collapse:collapse;font-size:.73rem;margin-top:12px}.source-table th,.source-table td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.source-table th{color:var(--muted);background:#0d1e19}.source-table td{color:#cbdcd5}.footer{border-top:1px solid var(--line);padding:28px 0 44px;color:#7c978e;font-size:.8rem}
+@media(max-width:1050px){.cards{grid-template-columns:repeat(3,1fr)}.charts,.mapping{grid-template-columns:1fr}}@media(max-width:650px){.wrap{width:min(100% - 22px,1320px)}.nav{display:none}.cards{grid-template-columns:1fr 1fr}.chart svg{height:230px}}@media(max-width:430px){.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./">Carbon Beyond the Bathtub<small>Historical empirical reference</small></a><nav class="nav"><a href="./">Beginner</a><a href="upstream.html">Advanced lab</a><a href="experiments.html">Experiments</a><a href="validation.html">Methods</a></nav></div></header>
+<main>
+<section class="hero"><div class="wrap">
+<div class="kicker">Stage 11 · observations before calibration</div>
+<h1>What historical behavior must the model explain?</h1>
+<p class="lead">This page defines the empirical reference layer for the upstream model. The observed series are kept distinct from model stocks: renewable capacity is a proxy for clean capital, fossil-energy consumption is a proxy for demand activity, and GDP is a candidate driver—not a parameter imposed by assumption.</p>
+<div class="badges"><span class="badge train">Calibration window: 2000–2017</span><span class="badge hold">Held-out window: 2018–2025</span><span class="badge">Annual observations</span><span class="badge">No interpolation across missing conceptual variables</span></div>
+</div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
+<div class="kicker">Reference endpoints</div><h2>Five continuous empirical series, 2000–2025.</h2>
+<div class="cards" id="endpointCards"></div>
+<div class="charts">
+  <div class="chart"><h3>Fossil CO₂</h3><p>Global Carbon Budget; primary carbon-flow target.</p><svg id="fossilCo2Chart" viewBox="0 0 620 265"></svg></div>
+  <div class="chart"><h3>Renewable power capacity</h3><p>IRENA original provider, harmonized by OWID; clean-capital stock proxy.</p><svg id="renewableChart" viewBox="0 0 620 265"></svg></div>
+  <div class="chart"><h3>Fossil-energy consumption</h3><p>Energy Institute original provider, harmonized by OWID; demand-activity proxy.</p><svg id="fossilEnergyChart" viewBox="0 0 620 265"></svg></div>
+  <div class="chart"><h3>World real GDP</h3><p>World Bank constant 2015 US$; candidate demand driver.</p><svg id="gdpChart" viewBox="0 0 620 265"></svg></div>
+  <div class="chart"><h3>Atmospheric CO₂</h3><p>GCB atmospheric growth anchored to 2024 mean; 2025 preliminary.</p><svg id="ppmChart" viewBox="0 0 620 265"></svg></div>
+  <div class="chart"><h3>Normalized measurement proxies</h3><p>2025 reference scaling for model-observation comparison—not direct stock measurements.</p><svg id="proxyChart" viewBox="0 0 620 265"></svg></div>
+</div>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
+<div class="kicker">Measurement model</div><h2>Observed data do not automatically equal model variables.</h2>
+<div class="mapping" id="mappingCards"></div>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
+<div class="kicker">Deliberate gaps</div><h2>Missing is better than fabricated.</h2>
+<div class="gaps" id="gapCards"></div>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
+<div class="kicker">Source provenance</div><h2>Each series retains its original provider and processing status.</h2>
+<div style="overflow:auto"><table class="source-table"><thead><tr><th>Series</th><th>Provider</th><th>Processor</th><th>Period</th><th>Unit</th><th>Use</th></tr></thead><tbody id="sourceRows"></tbody></table></div>
+</div></div></section>
+</main>
+<footer class="footer"><div class="wrap">Arya Kia · Carbon Beyond the Bathtub · Stage 11 historical reference</div></footer>
+
+<script type="module">
+import { HISTORICAL_REFERENCE_ROWS, HISTORICAL_SOURCE_METADATA, HISTORICAL_MEASUREMENT_GAPS } from "./data/historical-reference-2000-2025.js";
+import { HISTORICAL_MODEL_MAPPING, HISTORICAL_PROXY_ROWS } from "./model/historical-mapping.js";
+
+const $=id=>document.getElementById(id);
+const first=HISTORICAL_REFERENCE_ROWS[0], last=HISTORICAL_REFERENCE_ROWS.at(-1);
+$("endpointCards").innerHTML=[
+ ["Fossil CO₂",first.fossilCO2GtCPerYr.toFixed(2)+" → "+last.fossilCO2GtCPerYr.toFixed(2),"GtC/yr · GCB"],
+ ["Renewable capacity",first.renewableCapacityGw.toFixed(0)+" → "+last.renewableCapacityGw.toFixed(0),"GW · IRENA"],
+ ["Fossil energy",(first.fossilEnergyConsumptionTWh/1000).toFixed(1)+" → "+(last.fossilEnergyConsumptionTWh/1000).toFixed(1),"thousand TWh · EI"],
+ ["World GDP",(first.worldGdpConstant2015Usd/1e12).toFixed(1)+" → "+(last.worldGdpConstant2015Usd/1e12).toFixed(1),"trillion 2015 USD · World Bank"],
+ ["Atmospheric CO₂",first.atmosphericPpm.toFixed(1)+" → "+last.atmosphericPpm.toFixed(1),"ppm · GCB"],
+].map(([a,b,c])=>'<div class="card"><small>'+a+'</small><b>'+b+'</b><span>'+c+'</span></div>').join("");
+
+function chart(svg,series,{color="#79c7ff",format=v=>v.toFixed(0),extra=[]}={}){
+ const W=620,H=265,p={l:52,r:15,t:16,b:30};
+ const vals=[...series.flatMap(s=>s.values),...extra.flatMap(s=>s.values)].filter(Number.isFinite);
+ let min=Math.min(...vals),max=Math.max(...vals);const gap=(max-min||1)*.08;min-=gap;max+=gap;
+ const x=y=>p.l+(y-2000)/25*(W-p.l-p.r), y=v=>H-p.b-(v-min)/(max-min)*(H-p.t-p.b);
+ let out='<rect class="train-zone" x="'+x(2000)+'" y="'+p.t+'" width="'+(x(2017.5)-x(2000))+'" height="'+(H-p.t-p.b)+'"/><rect class="hold-zone" x="'+x(2017.5)+'" y="'+p.t+'" width="'+(x(2025)-x(2017.5))+'" height="'+(H-p.t-p.b)+'"/><line class="split" x1="'+x(2017.5)+'" x2="'+x(2017.5)+'" y1="'+p.t+'" y2="'+(H-p.b)+'"/>';
+ for(let i=0;i<5;i++){const yy=p.t+i*(H-p.t-p.b)/4,val=max-i*(max-min)/4;out+='<line class="grid" x1="'+p.l+'" x2="'+(W-p.r)+'" y1="'+yy+'" y2="'+yy+'"/><text class="axis" x="3" y="'+(yy+4)+'">'+format(val)+'</text>'}
+ for(const yr of [2000,2005,2010,2015,2020,2025]){const xx=x(yr);out+='<text class="axis" x="'+(xx-13)+'" y="'+(H-8)+'">'+yr+'</text>'}
+ [...series,...extra].forEach((s,idx)=>{const d=s.values.map((v,i)=>(i?"L":"M")+x(HISTORICAL_REFERENCE_ROWS[i].year).toFixed(1)+","+y(v).toFixed(1)).join(" ");out+='<path class="series" d="'+d+'" stroke="'+(s.color||color)+'" '+(s.dash?'stroke-dasharray="'+s.dash+'"':'')+'><title>'+s.label+'</title></path>'});
+ svg.innerHTML=out;
+}
+chart($("fossilCo2Chart"),[{label:"Fossil CO2",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.fossilCO2GtCPerYr),color:"#f0a35d"}],{format:v=>v.toFixed(1)});
+chart($("renewableChart"),[{label:"Renewable capacity",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.renewableCapacityGw),color:"#7fe0aa"}],{format:v=>v.toFixed(0)});
+chart($("fossilEnergyChart"),[{label:"Fossil energy",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.fossilEnergyConsumptionTWh/1000),color:"#ff8d7e"}],{format:v=>v.toFixed(0)});
+chart($("gdpChart"),[{label:"World GDP",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.worldGdpConstant2015Usd/1e12),color:"#c4a3ff"}],{format:v=>v.toFixed(0)});
+chart($("ppmChart"),[{label:"Atmospheric CO2",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.atmosphericPpm),color:"#79c7ff"}],{format:v=>v.toFixed(0)});
+chart($("proxyChart"),[
+ {label:"Clean-capital proxy",values:HISTORICAL_PROXY_ROWS.map(r=>r.cleanCapitalProxy/0.32),color:"#7fe0aa"},
+ {label:"Fossil-demand activity",values:HISTORICAL_PROXY_ROWS.map(r=>r.fossilDemandActivityIndex2025),color:"#ff8d7e",dash:"9 5"},
+ {label:"GDP index",values:HISTORICAL_PROXY_ROWS.map(r=>r.gdpIndex2025),color:"#c4a3ff",dash:"2 4"},
+],{format:v=>v.toFixed(2)});
+
+$("mappingCards").innerHTML=Object.entries(HISTORICAL_MODEL_MAPPING).map(([key,m])=>'<div class="map-card"><span class="status">'+m.measurementType+'</span><h3>'+key+' → <code>'+m.modelField+'</code></h3><p><strong>'+m.role+'.</strong> '+m.interpretation+'</p>'+(m.transform?'<p><strong>Transform:</strong> '+m.transform+'.</p>':'')+'</div>').join("");
+$("gapCards").innerHTML=HISTORICAL_MEASUREMENT_GAPS.map(g=>'<div class="gap"><strong>'+g.modelConcept+'</strong><p>'+g.reason+'</p><p><strong>Candidate:</strong> '+g.candidateSource+'</p></div>').join("");
+const uses={fossilCO2:"primary fossil-flow target",atmosphericCO2:"carbon-cycle validation",renewableCapacity:"clean-capital proxy",fossilEnergyConsumption:"demand-activity proxy",worldGdp:"candidate demand driver"};
+$("sourceRows").innerHTML=Object.entries(HISTORICAL_SOURCE_METADATA).map(([key,s])=>'<tr><td><strong>'+key+'</strong></td><td>'+s.provider+'</td><td>'+(s.processor||"—")+'</td><td>'+s.period+'</td><td>'+s.unit+'</td><td>'+uses[key]+'</td></tr>').join("");
+</script>
+</body>
+</html>
