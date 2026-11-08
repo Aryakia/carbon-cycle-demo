@@ -59,6 +59,7 @@ export function historicalObservedAt(year) {
     "fossilCO2GtCPerYr",
     "atmosphericPpm",
     "renewableCapacityGw",
+    "fossilEnergyProductionTWh",
     "fossilEnergyConsumptionTWh",
     "worldGdpConstant2015Usd",
   ]);
@@ -69,6 +70,7 @@ export function historicalProxyAt(year) {
     "fossilFlowObservedGtCPerYr",
     "atmosphericPpmObserved",
     "cleanCapitalProxy",
+    "fossilProductionActivityIndex2025",
     "fossilDemandActivityIndex2025",
     "gdpIndex2025",
   ]);
