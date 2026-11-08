@@ -51,9 +51,16 @@ assert.ok(Math.abs(Object.values(UPSTREAM_CALIBRATION_WEIGHTS).reduce((a,b)=>a+b
 const biased = perfect.map(row => ({
   ...row,
   fossilToAtmosphereGtCPerYr: row.fossilToAtmosphereGtCPerYr * 1.10,
+  extractionGtCPerYr:
+    row.extractionGtCPerYr * (1 + 0.10 * (2025 - row.year) / 25),
   cleanCapital: row.cleanCapital * 0.90,
+  fossilDemandCapital: row.fossilDemandCapital * 1.08,
 }));
 const biasedScore = scoreHistoricalFit(biased, { window: "training" });
+assert.ok(biasedScore.metrics.fossilFlow > 0.09);
+assert.ok(biasedScore.metrics.extractionActivity > 0.02);
+assert.ok(biasedScore.metrics.cleanCapitalShape > 0);
+assert.ok(biasedScore.metrics.fossilDemandActivity > 0.07);
 assert.ok(biasedScore.objective > 0.05);
 
 const excluded = scoreHistoricalFit(perfect, {
