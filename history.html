@@ -124,7 +124,7 @@ chart($("ppmChart"),[{label:"Atmospheric CO2",values:HISTORICAL_REFERENCE_ROWS.m
 chart($("proxyChart"),[
  {label:"Clean-capital proxy",values:HISTORICAL_PROXY_ROWS.map(r=>r.cleanCapitalProxy/0.32),color:"#7fe0aa"},
  {label:"Fossil-production activity",values:HISTORICAL_PROXY_ROWS.map(r=>r.fossilProductionActivityIndex2025),color:"#f0a35d",dash:"12 5"},
- {label:"Fossil-demand activity",values:HISTORICAL_PROXY_ROWS.map(r=>r.fossilDemandActivityIndex2025),color:"#ff8d7e",dash:"9 5"},
+ {label:"Fossil-dependency index",values:HISTORICAL_PROXY_ROWS.map(r=>r.fossilDependencyIndex2025),color:"#ff8d7e",dash:"9 5"},
  {label:"GDP index",values:HISTORICAL_PROXY_ROWS.map(r=>r.gdpIndex2025),color:"#c4a3ff",dash:"2 4"},
 ],{format:v=>v.toFixed(2)});
 
