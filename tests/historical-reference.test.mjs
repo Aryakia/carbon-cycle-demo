@@ -27,6 +27,7 @@ for (const row of HISTORICAL_REFERENCE_ROWS) {
     "fossilCO2GtCPerYr",
     "atmosphericPpm",
     "renewableCapacityGw",
+    "fossilEnergyProductionTWh",
     "fossilEnergyConsumptionTWh",
     "worldGdpConstant2015Usd",
   ]) {
@@ -37,6 +38,8 @@ for (const row of HISTORICAL_REFERENCE_ROWS) {
 
 assert.ok(Math.abs(rowForYear(2000).renewableCapacityGw - 763.94165) < 1e-8);
 assert.ok(Math.abs(rowForYear(2025).renewableCapacityGw - 5155.0073) < 1e-8);
+assert.ok(Math.abs(rowForYear(2000).fossilEnergyProductionTWh - 92680.402) < 1e-8);
+assert.ok(Math.abs(rowForYear(2025).fossilEnergyProductionTWh - 146848.375) < 1e-8);
 assert.ok(Math.abs(rowForYear(2000).fossilEnergyConsumptionTWh - 94434) < 1e-8);
 assert.ok(Math.abs(rowForYear(2025).fossilEnergyConsumptionTWh - 143805.69) < 1e-8);
 assert.ok(Math.abs(rowForYear(2025).fossilCO2GtCPerYr - 10.4) < 1e-12);
@@ -46,6 +49,7 @@ assert.ok(
 );
 
 assert.equal(HISTORICAL_PROXY_ROWS.length, 26);
+assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).fossilProductionActivityIndex2025 - 1) < 1e-12);
 assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).fossilDemandActivityIndex2025 - 1) < 1e-12);
 assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).gdpIndex2025 - 1) < 1e-12);
 assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).cleanCapitalProxy - 0.32) < 1e-12);
