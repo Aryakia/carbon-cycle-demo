@@ -54,6 +54,15 @@ assert.ok(
 assert.equal(HISTORICAL_PROXY_ROWS.length, 26);
 assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).fossilProductionActivityIndex2025 - 1) < 1e-12);
 assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).fossilDemandActivityIndex2025 - 1) < 1e-12);
+assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).fossilDependencyIndex2025 - 1) < 1e-12);
+assert.ok(
+  Math.abs(
+    HISTORICAL_PROXY_ROWS[0].energyActivityIndex2025 *
+      HISTORICAL_PROXY_ROWS[0].fossilDependencyIndex2025 -
+      HISTORICAL_PROXY_ROWS[0].fossilDemandActivityIndex2025,
+  ) < 1e-12,
+  "energy activity × fossil dependency must reconstruct fossil-consumption activity",
+);
 assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).energyActivityIndex2025 - 1) < 1e-12);
 assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).gdpIndex2025 - 1) < 1e-12);
 assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).cleanCapitalProxy - 0.32) < 1e-12);
