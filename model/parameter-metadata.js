@@ -35,8 +35,12 @@ export const PARAMETER_METADATA = Object.freeze({
     status: "scenario input", source: "Prototype policy lever", default: DEFAULT_PARAMETERS.acceleratedRetirementPerYr, active: true,
   },
   expectedFutureDemandIndex: {
-    label: "Expected future fossil demand", unit: "dimensionless index", classification: "behavioral assumption",
-    status: "uncalibrated", source: "Prototype expectation signal", default: DEFAULT_PARAMETERS.expectedFutureDemandIndex, active: true,
+    label: "Expected future fossil demand", unit: "dimensionless multiplier", classification: "behavioral assumption",
+    status: "uncalibrated expectations multiplier around observed/scenario energy activity", source: "Prototype expectation signal; kept distinct from the empirical aggregate energy-activity driver", default: DEFAULT_PARAMETERS.expectedFutureDemandIndex, active: true,
+  },
+  energyActivityIndex: {
+    label: "Aggregate energy activity", unit: "dimensionless index", classification: "exogenous driver / scenario configuration",
+    status: "historical mode can map this to observed total primary energy supply normalized to 2025; forward default = 1", source: "Energy Institute Statistical Review 2026 via OWID for historical mode", default: DEFAULT_PARAMETERS.energyActivityIndex, active: true,
   },
   institutionalResistance: {
     label: "Institutional resistance", unit: "0–1 index", classification: "research hypothesis",
