@@ -35,6 +35,7 @@ jobs:
           cp feedbacks.html _site/feedbacks.html
           cp assessment.html _site/assessment.html
           cp validation.html _site/validation.html
+          cp history.html _site/history.html
           mkdir -p _site/model _site/data _site/education _site/ui
           cp model/*.js _site/model/
           cp data/*.js _site/data/
