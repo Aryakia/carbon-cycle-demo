@@ -11,7 +11,7 @@
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 82% -10%,rgba(73,153,118,.2),transparent 34rem),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--blue)}.wrap{width:min(1320px,calc(100% - 34px));margin:auto}.top{position:sticky;top:0;z-index:50;background:rgba(6,16,13,.89);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.top .wrap{height:62px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brand{color:var(--text);text-decoration:none;font-weight:850}.brand small{display:block;color:var(--muted);font-size:.68rem;font-weight:600}.nav{display:flex;gap:6px;flex-wrap:wrap}.nav a{color:var(--muted);text-decoration:none;font-size:.77rem;padding:7px 8px;border-radius:999px}.nav a:hover{background:var(--panel2);color:var(--text)}
 .hero{padding:62px 0 28px}.kicker{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:850;color:var(--green)}h1{font-size:clamp(2.8rem,6.3vw,5.7rem);line-height:.93;letter-spacing:-.045em;margin:.55rem 0 1rem;max-width:1150px}h2{font-size:clamp(1.65rem,3.8vw,2.65rem);line-height:1.07;margin:.35rem 0 .8rem}h3{margin:.2rem 0 .45rem}.lead{color:var(--muted);max-width:1000px;font-size:1.05rem}.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.badge{border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:var(--muted);font-size:.69rem}.badge.train{border-color:#315d79;color:#bfe9ff}.badge.hold{border-color:#665129;color:var(--amber)}
 .section{padding:28px 0 64px}.shell{border:1px solid var(--line);border-radius:24px;background:rgba(11,25,21,.96);box-shadow:var(--shadow);padding:20px}.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.card{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,var(--panel2),var(--panel));padding:15px}.card small{display:block;color:var(--muted);font-size:.63rem;text-transform:uppercase;letter-spacing:.08em}.card b{display:block;font-size:1.25rem;margin:.35rem 0}.card span{color:var(--muted);font-size:.7rem}
-.charts{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px}.chart{border:1px solid var(--line);border-radius:17px;background:#071410;padding:13px}.chart h3{font-size:.9rem}.chart p{font-size:.69rem;color:var(--muted);margin:.1rem 0 .5rem}.chart svg{display:block;width:100%;height:265px}.grid{stroke:#1d3930;stroke-width:1}.axis{fill:#839f96;font-size:10px}.train-zone{fill:rgba(121,199,255,.05)}.hold-zone{fill:rgba(255,209,138,.07)}.split{stroke:var(--amber);stroke-width:1.3;stroke-dasharray:5 4}.series{fill:none;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}.point{stroke:none}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px}.chart{border:1px solid var(--line);border-radius:17px;background:#071410;padding:13px}.chart h3{font-size:.9rem}.chart p{font-size:.69rem;color:var(--muted);margin:.1rem 0 .5rem}.chart svg{display:block;width:100%;height:265px}.grid{stroke:#1d3930;stroke-width:1}.axis{fill:#839f96;font-size:10px}.train-zone{fill:rgba(121,199,255,.05)}.hold-zone{fill:rgba(255,209,138,.07)}.split{stroke:var(--amber);stroke-width:1.3;stroke-dasharray:5 4}.series{fill:none;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}.point{stroke:#071410;stroke-width:1.2;vector-effect:non-scaling-stroke}.legend-text{fill:#d5e5de;font-size:9.5px;font-weight:700}
 .mapping{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-top:14px}.map-card{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:15px}.map-card p{color:var(--muted);font-size:.78rem}.map-card code{color:#d9f0e5}.status{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 7px;color:var(--muted);font-size:.62rem}.gaps{display:grid;gap:9px}.gap{border-left:4px solid var(--amber);background:#18150e;border-radius:12px;padding:12px 14px}.gap p{color:#d8c9a9;font-size:.77rem;margin:.3rem 0}.source-table{width:100%;border-collapse:collapse;font-size:.73rem;margin-top:12px}.source-table th,.source-table td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.source-table th{color:var(--muted);background:#0d1e19}.source-table td{color:#cbdcd5}.footer{border-top:1px solid var(--line);padding:28px 0 44px;color:#7c978e;font-size:.8rem}
 @media(max-width:1050px){.cards{grid-template-columns:repeat(3,1fr)}.charts,.mapping{grid-template-columns:1fr}}@media(max-width:650px){.wrap{width:min(100% - 22px,1320px)}.nav{display:none}.cards{grid-template-columns:1fr 1fr}.chart svg{height:230px}}@media(max-width:430px){.cards{grid-template-columns:1fr}}
 </style>
@@ -22,19 +22,20 @@
 <section class="hero"><div class="wrap">
 <div class="kicker">Stage 11 · observations before calibration</div>
 <h1>What historical behavior must the model explain?</h1>
-<p class="lead">This page defines the empirical reference layer for the upstream model. The observed series are kept distinct from model stocks: renewable capacity is a proxy for clean capital, fossil-energy consumption is a proxy for demand activity, and GDP is a candidate driver—not a parameter imposed by assumption.</p>
+<p class="lead">This page defines the empirical reference layer for the upstream model. The observed series are kept distinct from model stocks: renewable capacity is a proxy for clean capital, total primary-energy supply provides the preferred historical aggregate activity driver, fossil-energy consumption is decomposed into energy activity and fossil dependency, and GDP remains a secondary macroeconomic diagnostic.</p>
 <div class="badges"><span class="badge train">Calibration window: 2000–2017</span><span class="badge hold">Held-out window: 2018–2025</span><span class="badge">Annual observations</span><span class="badge">No interpolation across missing conceptual variables</span></div>
 </div></section>
 
 <section class="section"><div class="wrap"><div class="shell">
-<div class="kicker">Reference endpoints</div><h2>Five continuous empirical series, 2000–2025.</h2>
+<div class="kicker">Reference endpoints</div><h2>Seven continuous empirical series, 2000–2025.</h2>
 <div class="cards" id="endpointCards"></div>
 <div class="charts">
   <div class="chart"><h3>Fossil CO₂</h3><p>Global Carbon Budget; primary carbon-flow target.</p><svg id="fossilCo2Chart" viewBox="0 0 620 265"></svg></div>
   <div class="chart"><h3>Renewable power capacity</h3><p>IRENA original provider, harmonized by OWID; clean-capital stock proxy.</p><svg id="renewableChart" viewBox="0 0 620 265"></svg></div>
   <div class="chart"><h3>Fossil-energy production</h3><p>Energy Institute original provider, harmonized by OWID; extraction-activity proxy.</p><svg id="fossilProductionChart" viewBox="0 0 620 265"></svg></div>
   <div class="chart"><h3>Fossil-energy consumption</h3><p>Energy Institute original provider, harmonized by OWID; demand-activity proxy.</p><svg id="fossilEnergyChart" viewBox="0 0 620 265"></svg></div>
-  <div class="chart"><h3>World real GDP</h3><p>World Bank constant 2015 US$; candidate demand driver.</p><svg id="gdpChart" viewBox="0 0 620 265"></svg></div>
+  <div class="chart"><h3>Total primary-energy supply</h3><p>Energy Institute original provider, harmonized by OWID; preferred historical aggregate activity driver.</p><svg id="totalEnergyChart" viewBox="0 0 620 265"></svg></div>
+  <div class="chart"><h3>World real GDP</h3><p>World Bank constant 2015 US$; secondary macroeconomic diagnostic.</p><svg id="gdpChart" viewBox="0 0 620 265"></svg></div>
   <div class="chart"><h3>Atmospheric CO₂</h3><p>GCB atmospheric growth anchored to 2024 mean; 2025 preliminary.</p><svg id="ppmChart" viewBox="0 0 620 265"></svg></div>
   <div class="chart"><h3>Normalized measurement proxies</h3><p>2025 reference scaling for model-observation comparison—not direct stock measurements.</p><svg id="proxyChart" viewBox="0 0 620 265"></svg></div>
 </div>
@@ -62,9 +63,10 @@
 <div class="cards">
   <div class="card"><small>Training window</small><b>2000–2017</b><span>18 annual observations</span></div>
   <div class="card"><small>Held-out validation</small><b>2018–2025</b><span>8 annual observations</span></div>
-  <div class="card"><small>Fossil-flow weight</small><b>0.50</b><span>primary directly observed upstream target</span></div>
+  <div class="card"><small>Fossil-flow weight</small><b>0.40</b><span>primary directly observed carbon-flow target</span></div>
+  <div class="card"><small>Extraction proxy weight</small><b>0.15</b><span>fossil-production trajectory shape</span></div>
   <div class="card"><small>Clean proxy weight</small><b>0.25</b><span>renewable-capacity trajectory shape</span></div>
-  <div class="card"><small>Demand proxy weight</small><b>0.25</b><span>fossil-energy activity trajectory</span></div>
+  <div class="card"><small>Dependency proxy weight</small><b>0.20</b><span>fossil share of total energy, normalized to 2025</span></div>
 </div>
 <div class="mapping">
   <div class="map-card"><span class="status">diagnostic only</span><h3>Atmospheric CO₂ weight = 0</h3><p>The carbon-cycle component was already calibrated separately. Giving ppm another fitting weight would allow upstream behavioral errors to be compensated by a component that has already been fitted.</p></div>
@@ -111,6 +113,7 @@ $("endpointCards").innerHTML=[
  ["Renewable capacity",first.renewableCapacityGw.toFixed(0)+" → "+last.renewableCapacityGw.toFixed(0),"GW · IRENA"],
  ["Fossil production",(first.fossilEnergyProductionTWh/1000).toFixed(1)+" → "+(last.fossilEnergyProductionTWh/1000).toFixed(1),"thousand TWh · EI"],
  ["Fossil consumption",(first.fossilEnergyConsumptionTWh/1000).toFixed(1)+" → "+(last.fossilEnergyConsumptionTWh/1000).toFixed(1),"thousand TWh · EI"],
+ ["Total energy supply",(first.totalEnergySupplyTWh/1000).toFixed(1)+" → "+(last.totalEnergySupplyTWh/1000).toFixed(1),"thousand TWh · EI"],
  ["World GDP",(first.worldGdpConstant2015Usd/1e12).toFixed(1)+" → "+(last.worldGdpConstant2015Usd/1e12).toFixed(1),"trillion 2015 USD · World Bank"],
  ["Atmospheric CO₂",first.atmosphericPpm.toFixed(1)+" → "+last.atmosphericPpm.toFixed(1),"ppm · GCB"],
 ].map(([a,b,c])=>'<div class="card"><small>'+a+'</small><b>'+b+'</b><span>'+c+'</span></div>').join("");
@@ -123,13 +126,21 @@ function chart(svg,series,{color="#79c7ff",format=v=>v.toFixed(0),extra=[]}={}){
  let out='<rect class="train-zone" x="'+x(2000)+'" y="'+p.t+'" width="'+(x(2017.5)-x(2000))+'" height="'+(H-p.t-p.b)+'"/><rect class="hold-zone" x="'+x(2017.5)+'" y="'+p.t+'" width="'+(x(2025)-x(2017.5))+'" height="'+(H-p.t-p.b)+'"/><line class="split" x1="'+x(2017.5)+'" x2="'+x(2017.5)+'" y1="'+p.t+'" y2="'+(H-p.b)+'"/>';
  for(let i=0;i<5;i++){const yy=p.t+i*(H-p.t-p.b)/4,val=max-i*(max-min)/4;out+='<line class="grid" x1="'+p.l+'" x2="'+(W-p.r)+'" y1="'+yy+'" y2="'+yy+'"/><text class="axis" x="3" y="'+(yy+4)+'">'+format(val)+'</text>'}
  for(const yr of [2000,2005,2010,2015,2020,2025]){const xx=x(yr);out+='<text class="axis" x="'+(xx-13)+'" y="'+(H-8)+'">'+yr+'</text>'}
- [...series,...extra].forEach((s,idx)=>{const d=s.values.map((v,i)=>(i?"L":"M")+x(HISTORICAL_REFERENCE_ROWS[i].year).toFixed(1)+","+y(v).toFixed(1)).join(" ");out+='<path class="series" d="'+d+'" stroke="'+(s.color||color)+'" '+(s.dash?'stroke-dasharray="'+s.dash+'"':'')+'><title>'+s.label+'</title></path>'});
+ allSeries.forEach((s,idx)=>{
+   const seriesColor=s.color||color;
+   const d=s.values.map((v,i)=>(i?"L":"M")+x(HISTORICAL_REFERENCE_ROWS[i].year).toFixed(1)+","+y(v).toFixed(1)).join(" ");
+   out+='<path class="series" d="'+d+'" stroke="'+seriesColor+'" '+(s.dash?'stroke-dasharray="'+s.dash+'"':'')+'><title>'+s.label+'</title></path>';
+   s.values.forEach((v,i)=>{if(i%5===0||i===s.values.length-1)out+='<circle class="point" cx="'+x(HISTORICAL_REFERENCE_ROWS[i].year).toFixed(1)+'" cy="'+y(v).toFixed(1)+'" r="2.8" fill="'+seriesColor+'"><title>'+s.label+' · '+HISTORICAL_REFERENCE_ROWS[i].year+' · '+format(v)+'</title></circle>'});
+   const ly=28+idx*14;
+   out+='<line x1="'+(W-160)+'" x2="'+(W-135)+'" y1="'+ly+'" y2="'+ly+'" stroke="'+seriesColor+'" stroke-width="3" '+(s.dash?'stroke-dasharray="'+s.dash+'"':'')+'/><text class="legend-text" x="'+(W-130)+'" y="'+(ly+3)+'">'+s.label+'</text>';
+ });
  svg.innerHTML=out;
 }
 chart($("fossilCo2Chart"),[{label:"Fossil CO2",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.fossilCO2GtCPerYr),color:"#f0a35d"}],{format:v=>v.toFixed(1)});
 chart($("renewableChart"),[{label:"Renewable capacity",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.renewableCapacityGw),color:"#7fe0aa"}],{format:v=>v.toFixed(0)});
 chart($("fossilProductionChart"),[{label:"Fossil production",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.fossilEnergyProductionTWh/1000),color:"#f0a35d"}],{format:v=>v.toFixed(0)});
 chart($("fossilEnergyChart"),[{label:"Fossil energy",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.fossilEnergyConsumptionTWh/1000),color:"#ff8d7e"}],{format:v=>v.toFixed(0)});
+chart($("totalEnergyChart"),[{label:"Total energy",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.totalEnergySupplyTWh/1000),color:"#79c7ff"}],{format:v=>v.toFixed(0)});
 chart($("gdpChart"),[{label:"World GDP",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.worldGdpConstant2015Usd/1e12),color:"#c4a3ff"}],{format:v=>v.toFixed(0)});
 chart($("ppmChart"),[{label:"Atmospheric CO2",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.atmosphericPpm),color:"#79c7ff"}],{format:v=>v.toFixed(0)});
 chart($("proxyChart"),[
