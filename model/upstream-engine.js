@@ -19,6 +19,7 @@ export const DEFAULT_PARAMETERS = Object.freeze({
   cleanInvestmentIndexPerYr: 0.01248,
   acceleratedRetirementPerYr: 0,
   expectedFutureDemandIndex: 1,
+  energyActivityIndex: 1,
   institutionalResistance: 0.55,
   cleanLearningRate: 0.08,
   resourceDevelopmentCostIndex: 0.5,
@@ -146,11 +147,14 @@ export function calculateSignals(state, p = DEFAULT_PARAMETERS) {
   // Actual fossil demand follows the installed fossil-dependent capital stock.
   // Clean competitiveness changes the DESIRED stock; turnover creates inertia.
   const fossilDemandSignal =
+    Math.max(0, p.energyActivityIndex) *
     Math.max(0, p.expectedFutureDemandIndex) *
     Math.max(0, state.fossilDemandCapital);
 
   const desiredFossilDemandCapital = clamp(
-    Math.max(0, p.expectedFutureDemandIndex) * relativeFossilServiceShare,
+    Math.max(0, p.energyActivityIndex) *
+      Math.max(0, p.expectedFutureDemandIndex) *
+      relativeFossilServiceShare,
     0,
     1.75,
   );
