@@ -29,6 +29,15 @@ export const HISTORICAL_MODEL_MAPPING = Object.freeze({
     interpretation:
       "Installed renewable power capacity is not identical to all clean capital. It constrains the historical shape of clean infrastructure but omits nuclear, grids, storage, efficiency and electrified end-use capital.",
   },
+  fossilEnergyProductionTWh: {
+    observedField: "fossilEnergyProductionTWh",
+    modelField: "extractionGtCPerYr",
+    role: "fossil extraction-activity proxy",
+    measurementType: "flow proxy",
+    transform: "normalize to 2025 = 1",
+    interpretation:
+      "Energy-unit production does not directly equal carbon extraction because fuel carbon intensities differ and the model aggregates coal, oil and gas. It constrains the historical shape of extraction activity, not the absolute GtC scale.",
+  },
   fossilEnergyConsumptionTWh: {
     observedField: "fossilEnergyConsumptionTWh",
     modelField: "fossilDemandCapital",
@@ -58,6 +67,8 @@ export const HISTORICAL_PROXY_ROWS = Object.freeze(
       cleanCapitalProxy:
         DEFAULT_STATE.cleanCapital *
         (row.renewableCapacityGw / last.renewableCapacityGw),
+      fossilProductionActivityIndex2025:
+        row.fossilEnergyProductionTWh / last.fossilEnergyProductionTWh,
       fossilDemandActivityIndex2025:
         row.fossilEnergyConsumptionTWh / last.fossilEnergyConsumptionTWh,
       gdpIndex2025:

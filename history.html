@@ -32,6 +32,7 @@
 <div class="charts">
   <div class="chart"><h3>Fossil CO₂</h3><p>Global Carbon Budget; primary carbon-flow target.</p><svg id="fossilCo2Chart" viewBox="0 0 620 265"></svg></div>
   <div class="chart"><h3>Renewable power capacity</h3><p>IRENA original provider, harmonized by OWID; clean-capital stock proxy.</p><svg id="renewableChart" viewBox="0 0 620 265"></svg></div>
+  <div class="chart"><h3>Fossil-energy production</h3><p>Energy Institute original provider, harmonized by OWID; extraction-activity proxy.</p><svg id="fossilProductionChart" viewBox="0 0 620 265"></svg></div>
   <div class="chart"><h3>Fossil-energy consumption</h3><p>Energy Institute original provider, harmonized by OWID; demand-activity proxy.</p><svg id="fossilEnergyChart" viewBox="0 0 620 265"></svg></div>
   <div class="chart"><h3>World real GDP</h3><p>World Bank constant 2015 US$; candidate demand driver.</p><svg id="gdpChart" viewBox="0 0 620 265"></svg></div>
   <div class="chart"><h3>Atmospheric CO₂</h3><p>GCB atmospheric growth anchored to 2024 mean; 2025 preliminary.</p><svg id="ppmChart" viewBox="0 0 620 265"></svg></div>
@@ -54,6 +55,23 @@
   <div class="map-card"><span class="status">external priors</span><h3>Constrain before fitting</h3><p id="priorList"></p></div>
 </div>
 <div class="gap" style="margin-top:12px"><strong>Decision:</strong><p>Do not run an unconstrained multi-parameter optimization yet. The current data strongly constrain fossil-flow behavior and provide useful clean/fossil activity proxies, but production-capacity investment and latent institutional/capability feedbacks remain under-observed.</p></div>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
+<div class="kicker">Stage 13 · calibration scaffold</div><h2>The holdout is frozen before optimization begins.</h2>
+<div class="cards">
+  <div class="card"><small>Training window</small><b>2000–2017</b><span>18 annual observations</span></div>
+  <div class="card"><small>Held-out validation</small><b>2018–2025</b><span>8 annual observations</span></div>
+  <div class="card"><small>Fossil-flow weight</small><b>0.50</b><span>primary directly observed upstream target</span></div>
+  <div class="card"><small>Clean proxy weight</small><b>0.25</b><span>renewable-capacity trajectory shape</span></div>
+  <div class="card"><small>Demand proxy weight</small><b>0.25</b><span>fossil-energy activity trajectory</span></div>
+</div>
+<div class="mapping">
+  <div class="map-card"><span class="status">diagnostic only</span><h3>Atmospheric CO₂ weight = 0</h3><p>The carbon-cycle component was already calibrated separately. Giving ppm another fitting weight would allow upstream behavioral errors to be compensated by a component that has already been fitted.</p></div>
+  <div class="map-card"><span class="status">leakage rule</span><h3>2018–2025 stays held out</h3><p>Validation observations cannot be used for parameter fitting, prior selection, or objective-weight tuning. If model structure is changed after inspecting holdout results, the research record must explicitly say the holdout was consumed.</p></div>
+  <div class="map-card"><span class="status">shock metadata</span><h3>2008–09 and 2020 are marked</h3><p>The global financial crisis and COVID-19 are recorded as external disturbance windows. They are not automatically excluded or down-weighted; any treatment must be explicit in a calibration run.</p></div>
+  <div class="map-card"><span class="status">optimizer gate</span><h3>No free multi-parameter fit yet</h3><p>Stage 12 shows substantial local confounding. The next requirement is a historical/backcast engine plus stronger capacity/investment observations—not a larger optimizer.</p></div>
+</div>
 </div></div></section>
 
 <section class="section"><div class="wrap"><div class="shell">
@@ -80,7 +98,8 @@ const first=HISTORICAL_REFERENCE_ROWS[0], last=HISTORICAL_REFERENCE_ROWS.at(-1);
 $("endpointCards").innerHTML=[
  ["Fossil CO₂",first.fossilCO2GtCPerYr.toFixed(2)+" → "+last.fossilCO2GtCPerYr.toFixed(2),"GtC/yr · GCB"],
  ["Renewable capacity",first.renewableCapacityGw.toFixed(0)+" → "+last.renewableCapacityGw.toFixed(0),"GW · IRENA"],
- ["Fossil energy",(first.fossilEnergyConsumptionTWh/1000).toFixed(1)+" → "+(last.fossilEnergyConsumptionTWh/1000).toFixed(1),"thousand TWh · EI"],
+ ["Fossil production",(first.fossilEnergyProductionTWh/1000).toFixed(1)+" → "+(last.fossilEnergyProductionTWh/1000).toFixed(1),"thousand TWh · EI"],
+ ["Fossil consumption",(first.fossilEnergyConsumptionTWh/1000).toFixed(1)+" → "+(last.fossilEnergyConsumptionTWh/1000).toFixed(1),"thousand TWh · EI"],
  ["World GDP",(first.worldGdpConstant2015Usd/1e12).toFixed(1)+" → "+(last.worldGdpConstant2015Usd/1e12).toFixed(1),"trillion 2015 USD · World Bank"],
  ["Atmospheric CO₂",first.atmosphericPpm.toFixed(1)+" → "+last.atmosphericPpm.toFixed(1),"ppm · GCB"],
 ].map(([a,b,c])=>'<div class="card"><small>'+a+'</small><b>'+b+'</b><span>'+c+'</span></div>').join("");
@@ -98,11 +117,13 @@ function chart(svg,series,{color="#79c7ff",format=v=>v.toFixed(0),extra=[]}={}){
 }
 chart($("fossilCo2Chart"),[{label:"Fossil CO2",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.fossilCO2GtCPerYr),color:"#f0a35d"}],{format:v=>v.toFixed(1)});
 chart($("renewableChart"),[{label:"Renewable capacity",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.renewableCapacityGw),color:"#7fe0aa"}],{format:v=>v.toFixed(0)});
+chart($("fossilProductionChart"),[{label:"Fossil production",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.fossilEnergyProductionTWh/1000),color:"#f0a35d"}],{format:v=>v.toFixed(0)});
 chart($("fossilEnergyChart"),[{label:"Fossil energy",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.fossilEnergyConsumptionTWh/1000),color:"#ff8d7e"}],{format:v=>v.toFixed(0)});
 chart($("gdpChart"),[{label:"World GDP",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.worldGdpConstant2015Usd/1e12),color:"#c4a3ff"}],{format:v=>v.toFixed(0)});
 chart($("ppmChart"),[{label:"Atmospheric CO2",values:HISTORICAL_REFERENCE_ROWS.map(r=>r.atmosphericPpm),color:"#79c7ff"}],{format:v=>v.toFixed(0)});
 chart($("proxyChart"),[
  {label:"Clean-capital proxy",values:HISTORICAL_PROXY_ROWS.map(r=>r.cleanCapitalProxy/0.32),color:"#7fe0aa"},
+ {label:"Fossil-production activity",values:HISTORICAL_PROXY_ROWS.map(r=>r.fossilProductionActivityIndex2025),color:"#f0a35d",dash:"12 5"},
  {label:"Fossil-demand activity",values:HISTORICAL_PROXY_ROWS.map(r=>r.fossilDemandActivityIndex2025),color:"#ff8d7e",dash:"9 5"},
  {label:"GDP index",values:HISTORICAL_PROXY_ROWS.map(r=>r.gdpIndex2025),color:"#c4a3ff",dash:"2 4"},
 ],{format:v=>v.toFixed(2)});
@@ -122,7 +143,7 @@ $("collinearList").innerHTML=ident.highCollinearity.slice(0,5).map(p=>'<code>'+p
 $("priorList").innerHTML=Object.entries(CALIBRATION_PRIORS).map(([k,p])=>'<code>'+k+'</code>: '+p.lower.toFixed(3)+'–'+p.upper.toFixed(3)).join("<br>");
 
 $("gapCards").innerHTML=HISTORICAL_MEASUREMENT_GAPS.map(g=>'<div class="gap"><strong>'+g.modelConcept+'</strong><p>'+g.reason+'</p><p><strong>Candidate:</strong> '+g.candidateSource+'</p></div>').join("");
-const uses={fossilCO2:"primary fossil-flow target",atmosphericCO2:"carbon-cycle validation",renewableCapacity:"clean-capital proxy",fossilEnergyConsumption:"demand-activity proxy",worldGdp:"candidate demand driver"};
+const uses={fossilCO2:"primary fossil-flow target",atmosphericCO2:"carbon-cycle validation",renewableCapacity:"clean-capital proxy",fossilEnergyProduction:"extraction-activity proxy",fossilEnergyConsumption:"demand-activity proxy",worldGdp:"candidate demand driver"};
 $("sourceRows").innerHTML=Object.entries(HISTORICAL_SOURCE_METADATA).map(([key,s])=>'<tr><td><strong>'+key+'</strong></td><td>'+s.provider+'</td><td>'+(s.processor||"—")+'</td><td>'+s.period+'</td><td>'+s.unit+'</td><td>'+uses[key]+'</td></tr>').join("");
 </script>
 </body>

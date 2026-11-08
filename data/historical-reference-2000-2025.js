@@ -10,6 +10,35 @@ export const RENEWABLE_CAPACITY_GW = Object.freeze([
   3077.1157,3379.2378,3875.7563,4461.6313,5155.0073,
 ]);
 
+export const FOSSIL_ENERGY_PRODUCTION_TWH = Object.freeze([
+  92680.402,
+  94269.665,
+  94683.838,
+  99480.421,
+  105160.302,
+  108373.036,
+  111443.141,
+  113742.986,
+  116554.595,
+  114461.287,
+  119368.259,
+  123955.662,
+  126586.55,
+  127661.555,
+  129366.291,
+  130453.208,
+  128768.485,
+  131139.045,
+  136138.612,
+  137618.282,
+  130741.152,
+  134822.242,
+  140220.395,
+  142917.12,
+  144654.086,
+  146848.375
+]);
+
 export const FOSSIL_ENERGY_CONSUMPTION_TWH = Object.freeze([
   94434,95580.71,97747.95,101841.664,106811.59,110553.234,113796.75,
   117664.375,118450.55,116115.45,121765.15,124889.73,126688.484,
@@ -59,6 +88,7 @@ export const HISTORICAL_REFERENCE_ROWS = Object.freeze(
       atmosphericPpm,
       atmosphericStatus: year === 2025 ? "preliminary" : "observed/reconstructed from GCB growth",
       renewableCapacityGw: RENEWABLE_CAPACITY_GW[i],
+      fossilEnergyProductionTWh: FOSSIL_ENERGY_PRODUCTION_TWH[i],
       fossilEnergyConsumptionTWh: FOSSIL_ENERGY_CONSUMPTION_TWH[i],
       worldGdpConstant2015Usd: WORLD_GDP_CONSTANT_2015_USD[i],
     });
@@ -100,6 +130,20 @@ export const HISTORICAL_SOURCE_METADATA = Object.freeze({
     processing:
       "World series 'All renewables (total)'; values converted/displayed in GW by OWID from IRENA capacity statistics.",
   },
+  fossilEnergyProduction: {
+    provider: "Energy Institute",
+    processor: "Our World in Data",
+    dataset: "Statistical Review of World Energy 2026",
+    period: "2000-2025",
+    unit: "TWh energy production",
+    licence: "OWID reuse under CC BY; Energy Institute source attribution retained",
+    sourcePage:
+      "https://ourworldindata.org/grapher/fossil-fuel-production",
+    directCsv:
+      "https://ourworldindata.org/grapher/fossil-fuel-production.csv?v=1&csvType=full&useColumnShortNames=false",
+    processing:
+      "World coal + oil + gas production summed in energy units. Used as an extraction-activity proxy, not as a production-capacity stock.",
+  },
   fossilEnergyConsumption: {
     provider: "Energy Institute",
     processor: "Our World in Data",
@@ -130,11 +174,11 @@ export const HISTORICAL_SOURCE_METADATA = Object.freeze({
 export const HISTORICAL_MEASUREMENT_GAPS = Object.freeze([
   {
     modelConcept: "developed fossil production capacity",
-    status: "not yet directly observed in canonical dataset",
+    status: "production flow proxy available; capacity stock still unobserved",
     candidateSource:
-      "Energy Institute Statistical Review 2026 fuel-production series and/or sector-specific capacity datasets",
+      "Energy Institute Statistical Review 2026 production flow plus sector-specific capacity datasets",
     reason:
-      "Production/consumption flow is not equivalent to installed production-capacity stock; a direct capacity proxy should be added before calibrating the capacity stock.",
+      "The canonical dataset now includes global fossil-energy production flow, which constrains extraction trajectory shape. Production flow is still not equivalent to installed production-capacity stock.",
   },
   {
     modelConcept: "fossil and clean investment",
