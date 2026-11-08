@@ -67,6 +67,17 @@
 </div></div></section>
 
 <section class="section"><div class="wrap"><div class="shell">
+  <div class="kicker">Calibration protocol status</div><h2>The empirical split is frozen before fitting.</h2>
+  <div class="cards">
+    <div class="card good"><small>Training</small><b>2000–2017</b><span>18 annual observations</span></div>
+    <div class="card good"><small>Held-out validation</small><b>2018–2025</b><span>8 annual observations</span></div>
+    <div class="card"><small>Upstream objective</small><b>0.50 / 0.25 / 0.25</b><span>fossil flow / clean proxy / fossil-demand activity</span></div>
+    <div class="card warn"><small>Optimizer status</small><b>Not run</b><span>historical engine and stronger capacity/investment observations required first</span></div>
+  </div>
+  <div class="note"><strong>Leakage rule:</strong> 2018–2025 observations cannot be used to tune behavioral parameters, priors, or objective weights. Atmospheric CO₂ has zero upstream fitting weight because the carbon-cycle component has already been separately calibrated.</div>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
   <div class="kicker">Validation ladder</div><h2>Verification is not the same thing as empirical validation.</h2>
   <div class="ladder">
     <div class="rung"><strong>Dimensional & unit checks</strong><p>ppm ↔ GtC ↔ GtCO₂ conversions and parameter units are explicit.</p><span class="tag pass">implemented</span></div>
