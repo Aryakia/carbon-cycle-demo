@@ -67,3 +67,12 @@ Before actual optimization:
 5. at least one additional observation/proxy for fossil production-capacity or investment dynamics.
 
 Until those exist, an optimizer would be technically possible but scientifically premature.
+
+
+## Additional extraction-flow constraint
+
+Stage 13 adds the Energy Institute / OWID global fossil-production series (coal + oil + gas) for 2000–2025.
+
+It is normalized to 2025 = 1 and used only as a **trajectory-shape proxy** for modeled extraction. It is not converted directly from TWh to GtC because the aggregate fuel mix has changing carbon intensity, and it is not treated as production capacity.
+
+This extra target helps distinguish extraction/activity dynamics from fossil CO2 emissions while preserving the fact that developed production capacity remains a latent stock.
