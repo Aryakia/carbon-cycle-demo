@@ -45,6 +45,8 @@ const validationScore = scoreHistoricalFit(perfect, { window: "validation" });
 assert.ok(trainScore.objective < 1e-12);
 assert.ok(validationScore.objective < 1e-12);
 assert.equal(UPSTREAM_CALIBRATION_WEIGHTS.atmosphericPpm, 0);
+assert.equal(UPSTREAM_CALIBRATION_WEIGHTS.extractionActivity, 0.15);
+assert.ok(Math.abs(Object.values(UPSTREAM_CALIBRATION_WEIGHTS).reduce((a,b)=>a+b,0)-1)<1e-12);
 
 const biased = perfect.map(row => ({
   ...row,
