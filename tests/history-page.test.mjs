@@ -25,5 +25,7 @@ assert.ok(html.includes("fossilDependencyIndex2025"));
 assert.ok(html.includes("energyActivityIndex2025"));
 assert.ok(html.includes('class="point"'));
 assert.ok(html.includes("legend-text"));
+assert.ok(html.includes('id="annualDataRows"'));
+assert.ok(html.includes("Show annual empirical data table (2000–2025)"));
 
 console.log("History page methodology and chart-regression checks passed.");
