@@ -45,6 +45,18 @@
 </div></div></section>
 
 <section class="section"><div class="wrap"><div class="shell">
+<div class="kicker">Stage 12 · calibration readiness</div><h2>Which parameters can the current measurements actually constrain?</h2>
+<div class="cards" id="identCards"></div>
+<div class="mapping">
+  <div class="map-card"><span class="status">weakly informed</span><h3>Neutral-reference sensitivity</h3><p id="weakList"></p></div>
+  <div class="map-card"><span class="status">policy-dependent</span><h3>Requires policy excitation/history</h3><p id="policyList"></p></div>
+  <div class="map-card"><span class="status">confounding risk</span><h3>Top near-collinear parameter effects</h3><p id="collinearList"></p></div>
+  <div class="map-card"><span class="status">external priors</span><h3>Constrain before fitting</h3><p id="priorList"></p></div>
+</div>
+<div class="gap" style="margin-top:12px"><strong>Decision:</strong><p>Do not run an unconstrained multi-parameter optimization yet. The current data strongly constrain fossil-flow behavior and provide useful clean/fossil activity proxies, but production-capacity investment and latent institutional/capability feedbacks remain under-observed.</p></div>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
 <div class="kicker">Deliberate gaps</div><h2>Missing is better than fabricated.</h2>
 <div class="gaps" id="gapCards"></div>
 </div></div></section>
@@ -59,8 +71,11 @@
 <script type="module">
 import { HISTORICAL_REFERENCE_ROWS, HISTORICAL_SOURCE_METADATA, HISTORICAL_MEASUREMENT_GAPS } from "./data/historical-reference-2000-2025.js";
 import { HISTORICAL_MODEL_MAPPING, HISTORICAL_PROXY_ROWS } from "./model/historical-mapping.js";
+import { runLocalIdentifiabilityScreen, CALIBRATION_READINESS } from "./model/identifiability-screen.js";
+import { CALIBRATION_PRIORS } from "./model/calibration-priors.js";
 
 const $=id=>document.getElementById(id);
+const ident=runLocalIdentifiabilityScreen();
 const first=HISTORICAL_REFERENCE_ROWS[0], last=HISTORICAL_REFERENCE_ROWS.at(-1);
 $("endpointCards").innerHTML=[
  ["Fossil CO₂",first.fossilCO2GtCPerYr.toFixed(2)+" → "+last.fossilCO2GtCPerYr.toFixed(2),"GtC/yr · GCB"],
@@ -93,6 +108,19 @@ chart($("proxyChart"),[
 ],{format:v=>v.toFixed(2)});
 
 $("mappingCards").innerHTML=Object.entries(HISTORICAL_MODEL_MAPPING).map(([key,m])=>'<div class="map-card"><span class="status">'+m.measurementType+'</span><h3>'+key+' → <code>'+m.modelField+'</code></h3><p><strong>'+m.role+'.</strong> '+m.interpretation+'</p>'+(m.transform?'<p><strong>Transform:</strong> '+m.transform+'.</p>':'')+'</div>').join("");
+const strongest=[...ident.parameters].sort((a,b)=>b.referenceNorm-a.referenceNorm).slice(0,3);
+$("identCards").innerHTML=[
+  ["Weak in neutral reference",ident.weakReference.length+" / "+ident.parameters.length,"parameters with local sensitivity norm < 0.05"],
+  ["Policy-dependent",ident.policyDependent.length,"weak in reference but visible under standardized policy excitation"],
+  ["Near-collinear pairs",ident.highCollinearity.length,"pairs with |cosine similarity| ≥ 0.97"],
+  ["Strongest measured response",strongest[0].parameter,strongest[0].referenceNorm.toFixed(3)+" relative-sensitivity norm"],
+  ["Calibration status","Not ready","for unconstrained behavioral optimization"]
+].map(([a,b,c])=>'<div class="card"><small>'+a+'</small><b>'+b+'</b><span>'+c+'</span></div>').join("");
+$("weakList").textContent=ident.weakReference.join(", ");
+$("policyList").textContent=ident.policyDependent.join(", ");
+$("collinearList").innerHTML=ident.highCollinearity.slice(0,5).map(p=>'<code>'+p.a+'</code> ↔ <code>'+p.b+'</code> ('+Math.max(p.referenceAbsCosine,p.excitationAbsCosine).toFixed(3)+')').join("<br>");
+$("priorList").innerHTML=Object.entries(CALIBRATION_PRIORS).map(([k,p])=>'<code>'+k+'</code>: '+p.lower.toFixed(3)+'–'+p.upper.toFixed(3)).join("<br>");
+
 $("gapCards").innerHTML=HISTORICAL_MEASUREMENT_GAPS.map(g=>'<div class="gap"><strong>'+g.modelConcept+'</strong><p>'+g.reason+'</p><p><strong>Candidate:</strong> '+g.candidateSource+'</p></div>').join("");
 const uses={fossilCO2:"primary fossil-flow target",atmosphericCO2:"carbon-cycle validation",renewableCapacity:"clean-capital proxy",fossilEnergyConsumption:"demand-activity proxy",worldGdp:"candidate demand driver"};
 $("sourceRows").innerHTML=Object.entries(HISTORICAL_SOURCE_METADATA).map(([key,s])=>'<tr><td><strong>'+key+'</strong></td><td>'+s.provider+'</td><td>'+(s.processor||"—")+'</td><td>'+s.period+'</td><td>'+s.unit+'</td><td>'+uses[key]+'</td></tr>').join("");
