@@ -75,6 +75,17 @@
 </div></div></section>
 
 <section class="section"><div class="wrap"><div class="shell">
+<div class="kicker">Stage 13A · backcast initialization gate</div><h2>Observed states are initialized from data; latent states stay explicit.</h2>
+<div class="mapping">
+  <div class="map-card"><span class="status">observed/proxy</span><h3>Clean capital</h3><p>Initialized from the 2000 IRENA renewable-capacity proxy, scaled consistently to the model's 2025 clean-capital reference.</p></div>
+  <div class="map-card"><span class="status">observed/proxy</span><h3>Fossil dependency</h3><p>Initialized from the fossil share of total primary energy, normalized to its 2025 value. Aggregate energy growth is supplied separately.</p></div>
+  <div class="map-card"><span class="status">calibrated component</span><h3>Atmospheric carbon</h3><p>Initialized from the end-1999 state of the separately calibrated reduced carbon-cycle replay.</p></div>
+  <div class="map-card"><span class="status">explicitly latent</span><h3>Capacity, capability, institutions</h3><p>Historical initialization refuses to run unless production capacity, accumulated fossil capability, and institutional support are supplied explicitly. They are not hidden in 2025 defaults.</p></div>
+</div>
+<div class="gap" style="margin-top:12px"><strong>Remaining calibration gate:</strong><p>A historical optimizer still should not be run freely across these latent initial states and all formation/decay coefficients. Stage 12 showed strong confounding. Capacity/investment evidence or a deliberately reduced fossil-side subsystem is still required.</p></div>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
 <div class="kicker">Deliberate gaps</div><h2>Missing is better than fabricated.</h2>
 <div class="gaps" id="gapCards"></div>
 </div></div></section>
@@ -124,7 +135,8 @@ chart($("ppmChart"),[{label:"Atmospheric CO2",values:HISTORICAL_REFERENCE_ROWS.m
 chart($("proxyChart"),[
  {label:"Clean-capital proxy",values:HISTORICAL_PROXY_ROWS.map(r=>r.cleanCapitalProxy/0.32),color:"#7fe0aa"},
  {label:"Fossil-production activity",values:HISTORICAL_PROXY_ROWS.map(r=>r.fossilProductionActivityIndex2025),color:"#f0a35d",dash:"12 5"},
- {label:"Fossil-demand activity",values:HISTORICAL_PROXY_ROWS.map(r=>r.fossilDemandActivityIndex2025),color:"#ff8d7e",dash:"9 5"},
+ {label:"Energy activity",values:HISTORICAL_PROXY_ROWS.map(r=>r.energyActivityIndex2025),color:"#79c7ff",dash:"6 4"},
+ {label:"Fossil-dependency index",values:HISTORICAL_PROXY_ROWS.map(r=>r.fossilDependencyIndex2025),color:"#ff8d7e",dash:"9 5"},
  {label:"GDP index",values:HISTORICAL_PROXY_ROWS.map(r=>r.gdpIndex2025),color:"#c4a3ff",dash:"2 4"},
 ],{format:v=>v.toFixed(2)});
 
@@ -143,7 +155,7 @@ $("collinearList").innerHTML=ident.highCollinearity.slice(0,5).map(p=>'<code>'+p
 $("priorList").innerHTML=Object.entries(CALIBRATION_PRIORS).map(([k,p])=>'<code>'+k+'</code>: '+p.lower.toFixed(3)+'–'+p.upper.toFixed(3)).join("<br>");
 
 $("gapCards").innerHTML=HISTORICAL_MEASUREMENT_GAPS.map(g=>'<div class="gap"><strong>'+g.modelConcept+'</strong><p>'+g.reason+'</p><p><strong>Candidate:</strong> '+g.candidateSource+'</p></div>').join("");
-const uses={fossilCO2:"primary fossil-flow target",atmosphericCO2:"carbon-cycle validation",renewableCapacity:"clean-capital proxy",fossilEnergyProduction:"extraction-activity proxy",fossilEnergyConsumption:"demand-activity proxy",worldGdp:"candidate demand driver"};
+const uses={fossilCO2:"primary fossil-flow target",atmosphericCO2:"carbon-cycle validation",renewableCapacity:"clean-capital proxy",fossilEnergyProduction:"extraction-activity proxy",fossilEnergyConsumption:"fossil-dependency/share proxy",totalEnergySupply:"aggregate energy-activity driver",worldGdp:"secondary macroeconomic diagnostic"};
 $("sourceRows").innerHTML=Object.entries(HISTORICAL_SOURCE_METADATA).map(([key,s])=>'<tr><td><strong>'+key+'</strong></td><td>'+s.provider+'</td><td>'+(s.processor||"—")+'</td><td>'+s.period+'</td><td>'+s.unit+'</td><td>'+uses[key]+'</td></tr>').join("");
 </script>
 </body>

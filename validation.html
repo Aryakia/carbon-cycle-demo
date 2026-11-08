@@ -78,6 +78,16 @@
 </div></div></section>
 
 <section class="section"><div class="wrap"><div class="shell">
+  <div class="kicker">Historical initialization status</div><h2>Backcast initial conditions are separated into observed/proxy and latent states.</h2>
+  <div class="cards">
+    <div class="card good"><small>Observed/proxy initialized</small><b>5 components</b><span>clean capital, fossil dependency, carbon state, material-accounting stocks, energy activity</span></div>
+    <div class="card warn"><small>Explicit latent states</small><b>3</b><span>production capacity, capability, institutional support</span></div>
+    <div class="card good"><small>Growth decomposition</small><b>Separated</b><span>energy activity × fossil dependency</span></div>
+    <div class="card warn"><small>Historical optimizer</small><b>Still gated</b><span>no hidden initial-state tuning permitted</span></div>
+  </div>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="shell">
   <div class="kicker">Validation ladder</div><h2>Verification is not the same thing as empirical validation.</h2>
   <div class="ladder">
     <div class="rung"><strong>Dimensional & unit checks</strong><p>ppm ↔ GtC ↔ GtCO₂ conversions and parameter units are explicit.</p><span class="tag pass">implemented</span></div>

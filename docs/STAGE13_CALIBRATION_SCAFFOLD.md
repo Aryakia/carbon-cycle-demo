@@ -76,3 +76,29 @@ Stage 13 adds the Energy Institute / OWID global fossil-production series (coal 
 It is normalized to 2025 = 1 and used only as a **trajectory-shape proxy** for modeled extraction. It is not converted directly from TWh to GtC because the aggregate fuel mix has changing carbon intensity, and it is not treated as production capacity.
 
 This extra target helps distinguish extraction/activity dynamics from fossil CO2 emissions while preserving the fact that developed production capacity remains a latent stock.
+
+
+## Energy activity versus fossil dependency
+
+Stage 13A separates two effects that were previously bundled in the fossil-consumption index:
+
+```text
+fossil-consumption activity index
+=
+total-energy activity index
+× fossil-dependency/share index
+```
+
+The total-energy activity index uses Energy Institute world total primary-energy supply normalized to 2025.
+
+The fossil-dependency proxy is:
+
+```text
+(fossil consumption / total energy supply)
+/
+(2025 fossil consumption / 2025 total energy supply)
+```
+
+This factorization exactly reconstructs the normalized fossil-consumption series while avoiding double counting when the model multiplies aggregate energy activity by fossil-dependent capital.
+
+The fossil-dependency index remains a proxy for the model stock; it is not a direct observation of installed fossil-dependent capital.

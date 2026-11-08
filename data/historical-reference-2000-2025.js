@@ -46,6 +46,35 @@ export const FOSSIL_ENERGY_CONSUMPTION_TWH = Object.freeze([
   129419.04,136104.56,138189.34,140309.28,142532.38,143805.69,
 ]);
 
+export const TOTAL_ENERGY_SUPPLY_TWH = Object.freeze([
+  105981.39,
+  107306.336,
+  109732.8,
+  113737.06,
+  119386.78,
+  123361.98,
+  126974.52,
+  130948.94,
+  132169.69,
+  129923.805,
+  136245.19,
+  139303.88,
+  140985.67,
+  143116.42,
+  144408.34,
+  145499.62,
+  146893.38,
+  149727.25,
+  153618.12,
+  154620.7,
+  147985.3,
+  155558.44,
+  157938.77,
+  160876.92,
+  164494.1,
+  166753.6
+]);
+
 export const WORLD_GDP_CONSTANT_2015_USD = Object.freeze([
   48550490166230.6,49536038159389.3,50684736953402.6,52242868476707.5,
   54591383204955.8,56807330097271.9,59357487895115.9,61987756942770.2,
@@ -90,6 +119,7 @@ export const HISTORICAL_REFERENCE_ROWS = Object.freeze(
       renewableCapacityGw: RENEWABLE_CAPACITY_GW[i],
       fossilEnergyProductionTWh: FOSSIL_ENERGY_PRODUCTION_TWH[i],
       fossilEnergyConsumptionTWh: FOSSIL_ENERGY_CONSUMPTION_TWH[i],
+      totalEnergySupplyTWh: TOTAL_ENERGY_SUPPLY_TWH[i],
       worldGdpConstant2015Usd: WORLD_GDP_CONSTANT_2015_USD[i],
     });
   }),
@@ -157,6 +187,20 @@ export const HISTORICAL_SOURCE_METADATA = Object.freeze({
       "https://ourworldindata.org/grapher/fossil-fuels.csv?v=1&csvType=full&useColumnShortNames=false&fuel=total&metric=consumption&per_capita=total",
     processing:
       "World total fossil-fuel consumption (coal + oil + gas), 2000-2025.",
+  },
+  totalEnergySupply: {
+    provider: "Energy Institute",
+    processor: "Our World in Data",
+    dataset: "Statistical Review of World Energy 2026",
+    period: "2000-2025",
+    unit: "TWh total energy supply",
+    licence: "OWID reuse under CC BY; Energy Institute source attribution retained",
+    sourcePage:
+      "https://ourworldindata.org/grapher/energy-mix?metric=total&source=total",
+    directCsv:
+      "https://ourworldindata.org/grapher/energy-mix.csv?v=1&csvType=full&useColumnShortNames=false&metric=total&source=total",
+    processing:
+      "World total primary energy supply. Used as an aggregate historical energy-activity driver; traditional biomass is excluded by the source methodology.",
   },
   worldGdp: {
     provider: "World Bank",

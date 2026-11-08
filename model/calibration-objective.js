@@ -30,10 +30,11 @@ export const CALIBRATION_METRIC_METADATA = Object.freeze({
     role: "proxy target; trajectory shape only",
   },
   fossilDemandActivity: {
-    observed: "fossilDemandActivityIndex2025",
+    observed: "fossilDependencyIndex2025",
     modeled: "fossilDemandCapital",
-    normalization: "unitless 2025-normalized index",
-    role: "proxy target; activity is not capital stock",
+    normalization: "unitless fossil-share index normalized to 2025 = 1",
+    role:
+      "proxy target for fossil dependency after aggregate energy activity is supplied separately",
   },
   atmosphericPpm: {
     observed: "atmosphericPpmObserved",
@@ -102,7 +103,7 @@ export function scoreHistoricalFit(
       cleanPairs.push([obs.cleanCapitalProxy, sim.cleanCapital]);
     }
     if (Number.isFinite(sim.fossilDemandCapital)) {
-      demandPairs.push([obs.fossilDemandActivityIndex2025, sim.fossilDemandCapital]);
+      demandPairs.push([obs.fossilDependencyIndex2025, sim.fossilDemandCapital]);
     }
     if (Number.isFinite(sim.ppm)) {
       ppmPairs.push([obs.atmosphericPpmObserved, sim.ppm]);
@@ -146,7 +147,7 @@ export function buildPerfectProxyModelRows() {
     fossilToAtmosphereGtCPerYr: row.fossilFlowObservedGtCPerYr,
     extractionGtCPerYr: row.fossilProductionActivityIndex2025,
     cleanCapital: row.cleanCapitalProxy,
-    fossilDemandCapital: row.fossilDemandActivityIndex2025,
+    fossilDemandCapital: row.fossilDependencyIndex2025,
     ppm: row.atmosphericPpmObserved,
   }));
 }

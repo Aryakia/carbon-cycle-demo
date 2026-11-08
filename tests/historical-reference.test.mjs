@@ -29,6 +29,7 @@ for (const row of HISTORICAL_REFERENCE_ROWS) {
     "renewableCapacityGw",
     "fossilEnergyProductionTWh",
     "fossilEnergyConsumptionTWh",
+    "totalEnergySupplyTWh",
     "worldGdpConstant2015Usd",
   ]) {
     assert.ok(Number.isFinite(row[key]), `${row.year}: missing/non-finite ${key}`);
@@ -42,6 +43,8 @@ assert.ok(Math.abs(rowForYear(2000).fossilEnergyProductionTWh - 92680.402) < 1e-
 assert.ok(Math.abs(rowForYear(2025).fossilEnergyProductionTWh - 146848.375) < 1e-8);
 assert.ok(Math.abs(rowForYear(2000).fossilEnergyConsumptionTWh - 94434) < 1e-8);
 assert.ok(Math.abs(rowForYear(2025).fossilEnergyConsumptionTWh - 143805.69) < 1e-8);
+assert.ok(Math.abs(rowForYear(2000).totalEnergySupplyTWh - 105981.39) < 1e-8);
+assert.ok(Math.abs(rowForYear(2025).totalEnergySupplyTWh - 166753.6) < 1e-8);
 assert.ok(Math.abs(rowForYear(2025).fossilCO2GtCPerYr - 10.4) < 1e-12);
 assert.ok(Math.abs(rowForYear(2025).atmosphericPpm - 425.6) < 1e-12);
 assert.ok(
@@ -51,6 +54,16 @@ assert.ok(
 assert.equal(HISTORICAL_PROXY_ROWS.length, 26);
 assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).fossilProductionActivityIndex2025 - 1) < 1e-12);
 assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).fossilDemandActivityIndex2025 - 1) < 1e-12);
+assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).fossilDependencyIndex2025 - 1) < 1e-12);
+assert.ok(
+  Math.abs(
+    HISTORICAL_PROXY_ROWS[0].energyActivityIndex2025 *
+      HISTORICAL_PROXY_ROWS[0].fossilDependencyIndex2025 -
+      HISTORICAL_PROXY_ROWS[0].fossilDemandActivityIndex2025,
+  ) < 1e-12,
+  "energy activity × fossil dependency must reconstruct fossil-consumption activity",
+);
+assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).energyActivityIndex2025 - 1) < 1e-12);
 assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).gdpIndex2025 - 1) < 1e-12);
 assert.ok(Math.abs(HISTORICAL_PROXY_ROWS.at(-1).cleanCapitalProxy - 0.32) < 1e-12);
 
