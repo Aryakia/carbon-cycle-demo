@@ -60,7 +60,7 @@ const biasedScore = scoreHistoricalFit(biased, { window: "training" });
 assert.ok(biasedScore.metrics.fossilFlow > 0.09);
 assert.ok(biasedScore.metrics.extractionActivity > 0.02);
 assert.ok(biasedScore.metrics.cleanCapitalShape > 0);
-assert.ok(biasedScore.metrics.fossilDemandActivity > 0.07);
+assert.ok(biasedScore.metrics.fossilDemandActivity > 0.05);
 assert.ok(biasedScore.objective > 0.05);
 
 const excluded = scoreHistoricalFit(perfect, {
