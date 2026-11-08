@@ -3,9 +3,10 @@ import { HISTORICAL_SPLIT, splitHistoricalRows } from "./historical-drivers.js";
 import { DEFAULT_STATE } from "./upstream-engine.js";
 
 export const UPSTREAM_CALIBRATION_WEIGHTS = Object.freeze({
-  fossilFlow: 0.50,
+  fossilFlow: 0.40,
+  extractionActivity: 0.15,
   cleanCapitalShape: 0.25,
-  fossilDemandActivity: 0.25,
+  fossilDemandActivity: 0.20,
   atmosphericPpm: 0.00,
 });
 
@@ -15,6 +16,12 @@ export const CALIBRATION_METRIC_METADATA = Object.freeze({
     modeled: "fossilToAtmosphereGtCPerYr",
     normalization: "mean absolute observed value",
     role: "primary upstream calibration target",
+  },
+  extractionActivity: {
+    observed: "fossilProductionActivityIndex2025",
+    modeled: "extractionGtCPerYr",
+    normalization: "each series normalized to its own 2025 reference",
+    role: "production-flow shape proxy for extraction dynamics",
   },
   cleanCapitalShape: {
     observed: "cleanCapitalProxy",
@@ -74,6 +81,7 @@ export function scoreHistoricalFit(
   const targets = targetRowsForWindow(window).filter(r => !excludeYears.includes(r.year));
 
   const fossilPairs = [];
+  const extractionPairs = [];
   const cleanPairs = [];
   const demandPairs = [];
   const ppmPairs = [];
@@ -82,6 +90,13 @@ export function scoreHistoricalFit(
     const sim = nearestModelRow(modelRows, obs.year);
     if (Number.isFinite(sim.fossilToAtmosphereGtCPerYr)) {
       fossilPairs.push([obs.fossilFlowObservedGtCPerYr, sim.fossilToAtmosphereGtCPerYr]);
+    }
+    if (Number.isFinite(sim.extractionGtCPerYr)) {
+      const model2025 = nearestModelRow(modelRows, 2025).extractionGtCPerYr;
+      extractionPairs.push([
+        obs.fossilProductionActivityIndex2025,
+        sim.extractionGtCPerYr / Math.max(1e-12, model2025),
+      ]);
     }
     if (Number.isFinite(sim.cleanCapital)) {
       cleanPairs.push([obs.cleanCapitalProxy, sim.cleanCapital]);
@@ -101,6 +116,7 @@ export function scoreHistoricalFit(
 
   const metrics = {
     fossilFlow: nrmse(fossilPairs, fossilScale),
+    extractionActivity: nrmse(extractionPairs, 1),
     cleanCapitalShape: nrmse(cleanPairs, DEFAULT_STATE.cleanCapital),
     fossilDemandActivity: nrmse(demandPairs, 1),
     atmosphericPpm: nrmse(ppmPairs, ppmScale),
@@ -128,6 +144,7 @@ export function buildPerfectProxyModelRows() {
   return HISTORICAL_PROXY_ROWS.map(row => ({
     year: row.year,
     fossilToAtmosphereGtCPerYr: row.fossilFlowObservedGtCPerYr,
+    extractionGtCPerYr: row.fossilProductionActivityIndex2025,
     cleanCapital: row.cleanCapitalProxy,
     fossilDemandCapital: row.fossilDemandActivityIndex2025,
     ppm: row.atmosphericPpmObserved,
