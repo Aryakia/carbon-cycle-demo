@@ -183,7 +183,16 @@ Stage 17:
 - 52.02% RMSE improvement versus static renewable-capacity intensity;
 - fold-specific beta values are unstable, so no universal elasticity is claimed.
 
-Stage 18 result must be inserted only after the frozen spatial-transfer protocol runs.
+Stage 18 frozen result:
+
+- selected measurement/structure: **static low-carbon electricity share**;
+- pooled out-of-fold RMSE: **0.01492945**;
+- persistence RMSE: **0.02132690**;
+- skill versus persistence: **29.997%**;
+- positive skill in **6 of 8** countries;
+- beta spans **0–0.25**, including both lower- and upper-bound fits.
+
+Interpretation: the observable ranking transfers more clearly than the fitted coefficient. The result supports cross-system usefulness of realized low-carbon electricity share in this reduced relationship, while rejecting a universal elasticity claim.
 
 ## Planned figures
 
@@ -222,12 +231,14 @@ Training fit, holdout performance, diagnostic findings, rolling-origin ranking.
 ### Table 4 — spatial-transfer results
 Country, driver, structural form, pooled RMSE, skill versus persistence, fitted-parameter range.
 
-## Claims that may be supportable if Stage 18 is positive
+## Claims supported by the frozen Stage 18 primary test
 
-- realized low-carbon electricity share is a more robust measurement variable for fossil-dependency change than installed renewable capacity in the tested reduced model;
+- realized low-carbon electricity share is the best-performing pre-declared measurement variable for fossil-dependency change in both the Stage 17 global rolling-origin comparison and the Stage 18 eight-country transfer test;
+- static low-carbon share improves Stage 18 pooled RMSE by about **30%** versus persistence and ranks ahead of all renewable-capacity and renewable-share alternatives;
+- the relationship is heterogeneous: six countries show positive skill, Brazil collapses to persistence, and the United States is approximately neutral/slightly negative;
+- the fitted beta is not transferable as a universal physical parameter;
 - a distinct global multi-year lag is not consistently identified;
-- structural conclusions can change when genuine out-of-sample testing is enforced;
-- staged calibration, holdout validation, residual diagnosis and transfer testing provide stronger evidence than in-sample fit alone.
+- structural conclusions change materially when true holdout testing and post-validation structural diagnosis are enforced.
 
 ## Claims explicitly excluded
 
@@ -253,16 +264,15 @@ Potential fit if the methodological emphasis is on calibration/validation design
 
 The present evidence most naturally supports a **System Dynamics Review / Journal of Simulation** framing.
 
-## Publication decision gate
+## Publication decision after Stage 18
 
-Do not draft a final Results/Discussion claim until Stage 18 is frozen.
+The primary Stage 18 result is frozen and positive at the pooled level, with important country heterogeneity.
 
-If Stage 18 fails:
-- treat the failure as evidence against spatial transfer of the global observable;
-- analyze heterogeneity by energy-system type without retroactively redefining the primary test;
-- frame the paper around the limits of aggregate global calibration.
+Next publication steps:
 
-If Stage 18 succeeds:
-- preserve the frozen result;
-- run robustness checks as secondary analyses clearly separated from the primary protocol;
-- proceed to manuscript-grade figure/table generation.
+1. retain Stage 18 unchanged as the primary transfer result;
+2. run clearly labeled **secondary influence/robustness analyses** without redefining the primary endpoint;
+3. test whether the Stage 18 ranking remains first under leave-one-country-out aggregation and alternative equal-country summaries;
+4. quantify parameter heterogeneity rather than pooling beta into a universal coefficient;
+5. generate manuscript-grade tables and figures directly from frozen result modules;
+6. seek a genuinely independent future/regional/sectoral validation target before claiming external validation.
