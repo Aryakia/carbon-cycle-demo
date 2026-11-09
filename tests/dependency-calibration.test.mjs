@@ -50,12 +50,16 @@ assert.ok(
   cleanCompetitionIndexAt(2000, "renewable-capacity-intensity") > 0,
 );
 assert.equal(
-  cleanCompetitionIndexAt(2025, "absolute-renewable-capacity"),
+  cleanCompetitionIndexAt(2017, "absolute-renewable-capacity"),
   1,
 );
 assert.equal(
-  cleanCompetitionIndexAt(2025, "renewable-capacity-intensity"),
+  cleanCompetitionIndexAt(2017, "renewable-capacity-intensity"),
   1,
+);
+assert.throws(
+  () => cleanCompetitionIndexAt(2018, "absolute-renewable-capacity"),
+  /sealed 2000-2017 training window/,
 );
 assert.equal(desiredFossilDependency(1, 0.04), 1);
 assert.ok(desiredFossilDependency(0.5, 0.04) > 1);
