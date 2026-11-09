@@ -54,7 +54,7 @@ The first partition asks one narrow empirical question:
 
 > How quickly does the global fossil-dependency state adjust as clean infrastructure becomes more prevalent?
 
-The observed target is the fossil share of total primary energy, normalized to 2025:
+The observed target is the fossil share of total primary energy, normalized to the 2017 training endpoint:
 
 ```text
 Observed fossil dependency
@@ -65,6 +65,21 @@ Observed fossil dependency
 ```
 
 The state is initialized to the observed 2000 proxy.
+
+## Leakage-safe normalization
+
+A publication-oriented calibration cannot use the held-out period even indirectly.
+
+Earlier project-wide proxy tables use 2025 as a convenient present-day normalization reference. **Stage 14 does not use those 2025-normalized values for fitting.** Instead, it constructs its calibration variables directly from the raw annual series and normalizes every fitted quantity to **2017**, the last training year.
+
+Thus:
+
+- observed fossil dependency is fossil share relative to its 2017 value;
+- absolute renewable capacity is relative to 2017 capacity;
+- renewable-capacity intensity is relative to its 2017 value;
+- the Stage 14 simulation path refuses requests for 2018–2025.
+
+The holdout is therefore not used for scoring **or normalization**.
 
 ## Competing clean-competition hypotheses
 
@@ -105,7 +120,7 @@ where:
 - `beta` is a dimensionless clean-competition elasticity;
 - `tau_D` is the fossil-dependency adjustment time in years.
 
-The power-law form is normalized so that at the 2025 clean reference:
+The power-law form is normalized so that at the 2017 training-end clean reference:
 
 ```text
 CleanIndex = 1  =>  DesiredDependency = 1
@@ -118,7 +133,9 @@ This makes `beta` interpretable and avoids embedding an arbitrary unnormalized l
 The training grid is deterministic and fully reproducible:
 
 - `beta`: 0.000–0.080 in increments of 0.001;
-- `tau_D`: 15–35 years in increments of 0.5 years.
+- turnover-constrained `tau_D`: 15–35 years in increments of 0.5 years.
+
+If the optimum reaches the lower bound, Stage 14 runs a **training-only structural diagnostic** with an extended 3–35 year range. This does not redefine the external physical-lifetime prior. Instead it tests whether the aggregate dependency proxy behaves like a literal long-lived capital stock or like a faster effective dependency state.
 
 The adjustment-time bounds come from the existing broad external prior for fossil-dependent capital turnover.
 
