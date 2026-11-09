@@ -39,6 +39,7 @@ jobs:
           cp calibration.html _site/calibration.html
           cp holdout.html _site/holdout.html
           cp diagnosis.html _site/diagnosis.html
+          cp comparison.html _site/comparison.html
           mkdir -p _site/model _site/data _site/education _site/ui
           cp model/*.js _site/model/
           cp data/*.js _site/data/
