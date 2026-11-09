@@ -22,6 +22,8 @@
 
 **Held-out validation:** https://aryakia.github.io/carbon-cycle-demo/holdout.html
 
+**Residual diagnosis:** https://aryakia.github.io/carbon-cycle-demo/diagnosis.html
+
 > Research-mode status: the upstream model is a transparent behavioral-hypothesis sandbox. Its carbon accounting and structural-reference initialization are tested, but its behavioral coefficients are not historically calibrated or out-of-sample validated.
 
 [Five-minute demonstration and visual model guide](docs/VISUAL_CASE_STUDY.md)
@@ -419,3 +421,12 @@ The result supports a short aggregate dependency delay but not treating global f
 Stage 14 was merged and frozen before **2018–2025** was opened. With no retuning, the frozen dynamic model achieves RMSE **0.01372994**, an **18.02%** improvement over persistence (**0.01674750**). However, the training-selected static clean-competition model generalizes better (RMSE **0.01074925**). All frozen-model residuals are positive, so the model systematically underpredicts the post-2017 decline in fossil dependency. Excluding 2020 barely changes the result.
 
 The Stage 14 fit is not changed after validation. The 2018–2025 holdout is now consumed and cannot be reused as pristine validation for a revised structure.
+
+
+## Stage 16 residual diagnosis
+
+Stage 16 treats the consumed 2018–2025 validation errors as diagnostic evidence, not new calibration data. All eight residuals are positive and the residual trend is about **+0.00189 per year**.
+
+Among post-validation candidate variables, the strongest first-difference association is with low-carbon electricity share (**r = 0.872**), followed by renewable electricity share (**r = 0.713**), versus **0.583** for the existing renewable-capacity-intensity proxy. These are small-sample descriptive associations, not causal estimates.
+
+The next structural priority is therefore to test **realized renewable/low-carbon electricity generation share rather than installed renewable capacity alone**. The revised model must use a new validation design because 2018–2025 is now consumed.
