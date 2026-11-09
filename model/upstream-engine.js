@@ -151,10 +151,12 @@ export function calculateSignals(state, p = DEFAULT_PARAMETERS) {
     Math.max(0, p.expectedFutureDemandIndex) *
     Math.max(0, state.fossilDemandCapital);
 
+  // The fossil-dependent capital stock represents dependency/share, not the
+  // absolute scale of energy services. Aggregate energy activity therefore
+  // scales actual fossil demand below, but must not also scale the desired
+  // dependency stock or historical growth would be counted twice.
   const desiredFossilDemandCapital = clamp(
-    Math.max(0, p.energyActivityIndex) *
-      Math.max(0, p.expectedFutureDemandIndex) *
-      relativeFossilServiceShare,
+    Math.max(0, p.expectedFutureDemandIndex) * relativeFossilServiceShare,
     0,
     1.75,
   );
