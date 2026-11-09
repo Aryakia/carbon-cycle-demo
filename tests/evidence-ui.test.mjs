@@ -17,6 +17,7 @@ for (const [parameter, inputId] of ADVANCED_SCENARIO_FIELDS) {
 assert.match(html, /id="evidenceDrawer"/);
 assert.match(html, /PARAMETER_METADATA/);
 assert.match(html, /SOFTWARE_VERSION/);
-assert.equal(SOFTWARE_VERSION, "0.3.0");
+const pkg = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
+assert.equal(SOFTWARE_VERSION, pkg.version, "model/version.js must match package.json");
 
 console.log("Parameter evidence UI coverage checks passed.");

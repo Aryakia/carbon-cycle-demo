@@ -1,0 +1,62 @@
+export const STAGE18_FROZEN_SPATIAL_TRANSFER_RESULT = Object.freeze({
+  stage: "18",
+  protocolFrozenBeforeScoring: true,
+  sourceCommit: "a1347acb2ca6071c492a887872b4e0789ab36a75",
+  panel: Object.freeze(["USA","CHN","IND","DEU","BRA","JPN","ZAF","AUS"]),
+  period: Object.freeze([2000,2024]),
+  folds: Object.freeze([
+    Object.freeze({id:"fold-1",train:Object.freeze([2000,2008]),test:Object.freeze([2009,2012])}),
+    Object.freeze({id:"fold-2",train:Object.freeze([2000,2012]),test:Object.freeze([2013,2016])}),
+    Object.freeze({id:"fold-3",train:Object.freeze([2000,2016]),test:Object.freeze([2017,2020])}),
+    Object.freeze({id:"fold-4",train:Object.freeze([2000,2020]),test:Object.freeze([2021,2024])}),
+  ]),
+  selected: Object.freeze({
+    driverId:"low-carbon-electricity-share",
+    structure:"static",
+    pooledRmse:0.014929445428012587,
+    pooledMae:0.008954367687378409,
+    pooledBias:-0.00022413180145815052,
+    meanCountryRmse:0.011574836232939508,
+    medianCountryRmse:0.00684801348520843,
+    skillVsPersistence:0.2999710433912133,
+    betaRange:Object.freeze([0,0.25]),
+    positiveSkillCountries:6,
+    countryCount:8,
+  }),
+  persistence: Object.freeze({
+    pooledRmse:0.02132689696200089,
+    pooledMae:0.012920028075182393,
+    pooledBias:0.006092631024733188,
+  }),
+  ranking: Object.freeze([
+    Object.freeze({rank:1,driverId:"low-carbon-electricity-share",structure:"static",pooledRmse:0.014929445428012587,meanCountryRmse:0.011574836232939508,skillVsPersistence:0.2999710433912133}),
+    Object.freeze({rank:2,driverId:"low-carbon-electricity-share",structure:"dynamic",pooledRmse:0.01837695839546621,meanCountryRmse:0.01478154745606714,skillVsPersistence:0.13832010215976198}),
+    Object.freeze({rank:3,driverId:"renewable-capacity-per-capita",structure:"static",pooledRmse:0.0216508152364585,meanCountryRmse:0.016515993803330086,skillVsPersistence:-0.015188251485190207}),
+    Object.freeze({rank:4,driverId:"renewable-capacity-per-capita",structure:"dynamic",pooledRmse:0.0217982482474545,meanCountryRmse:0.016623805919353515,skillVsPersistence:-0.022101259564081932}),
+    Object.freeze({rank:5,driverId:"renewable-electricity-share",structure:"static",pooledRmse:0.022190532123941054,meanCountryRmse:0.016268875847617558,skillVsPersistence:-0.04049511579105691}),
+    Object.freeze({rank:6,driverId:"renewable-electricity-share",structure:"dynamic",pooledRmse:0.023069668714487592,meanCountryRmse:0.017637347415057708,skillVsPersistence:-0.0817170803418743}),
+  ]),
+  selectedCountryResults: Object.freeze([
+    Object.freeze({code:"USA",rmse:0.008493361997040965,persistenceRmse:0.008434981277852038,skillVsPersistence:-0.006921262450483301,bias:-0.00783075723554675}),
+    Object.freeze({code:"CHN",rmse:0.005202664973375895,persistenceRmse:0.013896661493569013,skillVsPersistence:0.6256176365968515,bias:0.0047250454405095635}),
+    Object.freeze({code:"IND",rmse:0.004437116071418861,persistenceRmse:0.005631208081427239,skillVsPersistence:0.21204899423743784,bias:0.0024543288572167823}),
+    Object.freeze({code:"DEU",rmse:0.017786657516668528,persistenceRmse:0.01990681836966492,skillVsPersistence:0.10650425465413427,bias:-0.00979728016957411}),
+    Object.freeze({code:"BRA",rmse:0.032719462080317625,persistenceRmse:0.032719462080317625,skillVsPersistence:0,bias:0.015326992175437634}),
+    Object.freeze({code:"JPN",rmse:0.015503925945769794,persistenceRmse:0.041779374222685316,skillVsPersistence:0.6289095699918001,bias:-0.007705459047888677}),
+    Object.freeze({code:"ZAF",rmse:0.003464222210597729,persistenceRmse:0.0037839410431781384,skillVsPersistence:0.08449360836549324,bias:-0.002117890814771324}),
+    Object.freeze({code:"AUS",rmse:0.004991279068326675,persistenceRmse:0.010772034220885646,skillVsPersistence:0.5366447073989794,bias:0.0031519663829516764}),
+  ]),
+  parameterBoundaryDiagnostics: Object.freeze({
+    selectedCountryFoldFits:32,
+    betaAtZero:4,
+    betaAtUpperBound:3,
+    betaZeroCases:"Brazil in all four folds",
+    betaUpperBoundCases:"United States folds 1-2 and Germany fold 1",
+    interpretation:
+      "Parameter heterogeneity is substantial. The Stage 18 evidence supports transfer of the low-carbon-share measurement relationship more strongly than transfer of one universal elasticity.",
+  }),
+  interpretation:
+    "Across 128 out-of-fold country-year observations, static low-carbon electricity share is the best of six pre-declared measurement/structure candidates and improves pooled RMSE by about 30% versus persistence. Both low-carbon variants rank above all installed-capacity and renewable-share alternatives. Performance is heterogeneous across countries and beta reaches both grid boundaries, so the result supports observable/structural transfer rather than a universal coefficient.",
+  claimBoundary:
+    "This is spatial/target-domain transfer, not statistically independent external validation, because the countries are components of the global aggregate used in earlier stages. It is not causal identification and does not establish country-invariant parameters.",
+});

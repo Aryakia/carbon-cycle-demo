@@ -2,6 +2,31 @@
 
 All notable public research-software changes are summarized here.
 
+## [0.4.0] — 2026-11-09
+
+### Empirical calibration and validation
+- Added the canonical 2000–2025 historical empirical reference layer and explicit model-observation mappings.
+- Added pre-calibration identifiability screening and literature-constrained parameter priors.
+- Froze the 2000–2017 training / 2018–2025 validation split before reduced-model calibration.
+- Added Stage 14 training-only fossil-dependency calibration and an immutable frozen fit.
+- Added Stage 15 genuine held-out 2018–2025 validation with no post-holdout retuning.
+- Added Stage 16 residual diagnosis after the original holdout was consumed.
+- Added Stage 17 blocked rolling-origin comparison of installed-capacity, renewable-share, and low-carbon-electricity-share hypotheses.
+
+### Spatial transfer and robustness
+- Added a pre-declared eight-country 2000–2024 transfer panel spanning heterogeneous energy-system structures.
+- Added Stage 18 spatial/target-domain transfer testing over 128 out-of-fold country-year observations.
+- Froze the primary Stage 18 result: static low-carbon electricity share ranks first and improves pooled RMSE by about 30% versus persistence.
+- Added Stage 19 leave-one-country-out influence analysis; the Stage 18 ranking remains first under all eight omissions.
+- Explicitly retained parameter heterogeneity and boundary fits rather than reporting a universal elasticity.
+
+### Publication reproducibility
+- Added a manuscript blueprint, primary-results registry, traceability matrix, and reproducibility guide.
+- Added frozen result modules and exact regression tests so historical scientific decisions reproduce from source data and executable code.
+- Recorded claim boundaries distinguishing training fit, genuine holdout validation, post-validation structural development, spatial transfer, robustness analysis, and statistically independent external validation.
+- Kept the full upstream behavioral model's partially calibrated status distinct from the reduced empirical fossil-dependency hypothesis.
+
+
 ## [0.3.0] — 2026-11-07
 
 ### Scientific corrections

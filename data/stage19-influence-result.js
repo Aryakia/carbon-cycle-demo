@@ -1,0 +1,52 @@
+export const STAGE19_FROZEN_INFLUENCE_RESULT = Object.freeze({
+  stage:"19",
+  type:"secondary robustness / influence analysis",
+  primaryStage18Unchanged:true,
+  allLeaveOneOutPreservePrimary:true,
+  selected:Object.freeze({
+    driverId:"low-carbon-electricity-share",
+    structure:"static",
+  }),
+  leaveOneOut:Object.freeze([
+    Object.freeze({omittedCode:"USA",rmse:0.015634072352631735,skillVsPersistence:0.30747332370367364}),
+    Object.freeze({omittedCode:"CHN",rmse:0.015838646242109632,skillVsPersistence:0.286101909111125}),
+    Object.freeze({omittedCode:"IND",rmse:0.015871892169460198,skillVsPersistence:0.3007930269665814}),
+    Object.freeze({omittedCode:"DEU",rmse:0.014475306760572772,skillVsPersistence:0.32742181988746477}),
+    Object.freeze({omittedCode:"BRA",rmse:0.010089198803520421,skillVsPersistence:0.4732588155358388}),
+    Object.freeze({omittedCode:"JPN",rmse:0.014845562139056592,skillVsPersistence:0.09728605073364005}),
+    Object.freeze({omittedCode:"ZAF",rmse:0.015906449234641764,skillVsPersistence:0.3009539969216727}),
+    Object.freeze({omittedCode:"AUS",rmse:0.015848361157122532,skillVsPersistence:0.29352257350794186}),
+  ]),
+  equalCountryRanking:Object.freeze([
+    Object.freeze({rank:1,driverId:"low-carbon-electricity-share",structure:"static",meanCountryRmse:0.011574836232939508,medianCountryRmse:0.00684801348520843}),
+    Object.freeze({rank:2,driverId:"low-carbon-electricity-share",structure:"dynamic",meanCountryRmse:0.01478154745606714,medianCountryRmse:0.011386939954216139}),
+    Object.freeze({rank:3,driverId:"renewable-electricity-share",structure:"static",meanCountryRmse:0.016268875847617558,medianCountryRmse:0.0071583809977476005}),
+    Object.freeze({rank:4,driverId:"renewable-capacity-per-capita",structure:"static",meanCountryRmse:0.016515993803330086,medianCountryRmse:0.008135016824683487}),
+    Object.freeze({rank:5,driverId:"renewable-capacity-per-capita",structure:"dynamic",meanCountryRmse:0.016623805919353515,medianCountryRmse:0.010078911785266547}),
+    Object.freeze({rank:6,driverId:"renewable-electricity-share",structure:"dynamic",meanCountryRmse:0.017637347415057708,medianCountryRmse:0.011029426259563728}),
+  ]),
+  countrySkillSummary:Object.freeze({
+    positiveSkill:6,
+    neutral:1,
+    negative:1,
+    strongestPositive:Object.freeze([
+      Object.freeze({code:"JPN",skillVsPersistence:0.6289095699918001}),
+      Object.freeze({code:"CHN",skillVsPersistence:0.6256176365968515}),
+      Object.freeze({code:"AUS",skillVsPersistence:0.5366447073989794}),
+    ]),
+    neutralCase:Object.freeze({code:"BRA",skillVsPersistence:0}),
+    negativeCase:Object.freeze({code:"USA",skillVsPersistence:-0.006921262450483301}),
+  }),
+  betaSummary:Object.freeze({
+    min:0,
+    max:0.25,
+    mean:0.08346875000000001,
+    uniqueCount:25,
+    atLowerBound:4,
+    atUpperBound:3,
+  }),
+  interpretation:
+    "The Stage 18 static low-carbon-electricity-share ranking is not driven by any single country: it remains rank 1 under all eight leave-one-country-out aggregations and also ranks first by equal-country mean RMSE. Parameter heterogeneity remains substantial, so robustness applies to observable/structure ranking rather than a common beta.",
+  claimBoundary:
+    "Secondary influence analysis using the same Stage 18 fitted predictions. It does not provide independent external validation or causal identification.",
+});
