@@ -52,9 +52,9 @@ export const DEPENDENCY_CALIBRATION_CONFIG = Object.freeze({
     step: TAU_STEP,
   }),
   effectiveAdjustmentDiagnosticGridYears: Object.freeze({
-    min: 3,
+    min: 0.5,
     max: TAU_MAX,
-    step: TAU_STEP,
+    step: 0.5,
   }),
   selectionRule:
     "All observed targets and clean indices are normalized to the 2017 training endpoint. Choose parameters using 2000-2017 RMSE only. No 2018-2025 value is read by the calibration/simulation path.",
@@ -333,6 +333,62 @@ export function runDependencyBoundaryStressTest() {
     .sort((a, b) => a.best.trainingRmse - b.best.trainingRmse);
 }
 
+export function calibrateStaticDependencyHypothesis(hypothesisId) {
+  const elasticities = gridValues(
+    ELASTICITY_MIN,
+    ELASTICITY_MAX,
+    ELASTICITY_STEP,
+  );
+  const rows = HISTORICAL_REFERENCE_ROWS.filter(
+    row =>
+      row.year >= HISTORICAL_SPLIT.trainingStart &&
+      row.year <= HISTORICAL_SPLIT.trainingEnd,
+  );
+  const candidates = elasticities.map(cleanElasticity => {
+    const mse =
+      rows.reduce((sum, row) => {
+        const simulated = desiredFossilDependency(
+          cleanCompetitionIndexAt(row.year, hypothesisId),
+          cleanElasticity,
+        );
+        const observed = observedTrainingDependency(row.year);
+        return sum + (simulated - observed) ** 2;
+      }, 0) / rows.length;
+    return {
+      hypothesisId,
+      cleanElasticity,
+      trainingRmse: Math.sqrt(mse),
+    };
+  });
+  candidates.sort(
+    (a, b) =>
+      a.trainingRmse - b.trainingRmse ||
+      a.cleanElasticity - b.cleanElasticity,
+  );
+  const best = candidates[0];
+  const threshold = best.trainingRmse * 1.05 + 1e-12;
+  const nearOptimal = candidates.filter(c => c.trainingRmse <= threshold);
+  return {
+    hypothesisId,
+    best,
+    nearOptimalDefinition:
+      "Static-model elasticities within 5% of minimum training RMSE; not a confidence interval.",
+    nearOptimalEnvelope: {
+      cleanElasticity: [
+        Math.min(...nearOptimal.map(x => x.cleanElasticity)),
+        Math.max(...nearOptimal.map(x => x.cleanElasticity)),
+      ],
+    },
+    candidateCount: candidates.length,
+  };
+}
+
+export function calibrateStaticDependencyModels() {
+  return Object.values(DEPENDENCY_HYPOTHESES)
+    .map(h => calibrateStaticDependencyHypothesis(h.id))
+    .sort((a, b) => a.best.trainingRmse - b.best.trainingRmse);
+}
+
 export function calibrateDependencyModule() {
   const fits = Object.values(DEPENDENCY_HYPOTHESES).map(h =>
     calibrateDependencyHypothesis(h.id),
@@ -342,6 +398,12 @@ export function calibrateDependencyModule() {
   const turnoverConstrained = fits[0];
   const effectiveAdjustmentFits = runDependencyBoundaryStressTest();
   const effectiveCandidate = effectiveAdjustmentFits[0];
+  const staticFits = calibrateStaticDependencyModels();
+  const staticCandidate = staticFits[0];
+  const inertiaSupported =
+    !effectiveCandidate.bestAtLowerTauBoundary &&
+    effectiveCandidate.best.trainingRmse <
+      staticCandidate.best.trainingRmse * 0.98;
 
   return {
     calibrationWindow: [
@@ -367,7 +429,7 @@ export function calibrateDependencyModule() {
     },
     effectiveAdjustmentCandidate: {
       rationale:
-        "Because the turnover-constrained fit reaches the 15-year lower boundary, this diagnostic treats tau as an effective aggregate dependency-adjustment time rather than a literal asset lifetime.",
+        "Because the turnover-constrained fit reaches the 15-year lower boundary, this diagnostic treats tau as an effective aggregate dependency-adjustment time rather than a literal asset lifetime. The lower diagnostic bound is 0.5 year; a boundary optimum means annual data do not identify a positive multi-year delay.",
       selectedHypothesisId: effectiveCandidate.hypothesisId,
       selectedParameters: {
         cleanElasticity: effectiveCandidate.best.cleanElasticity,
@@ -379,6 +441,25 @@ export function calibrateDependencyModule() {
         effectiveCandidate.best.trainingRmse / Math.max(1e-12, persistenceRmse),
       nearOptimalEnvelope: effectiveCandidate.nearOptimalEnvelope,
       hypotheses: effectiveAdjustmentFits,
+    },
+    staticCleanCompetitionCandidate: {
+      rationale:
+        "Tests the limiting no-inertia hypothesis Dependency(t)=CleanIndex(t)^(-beta) using training data only.",
+      selectedHypothesisId: staticCandidate.hypothesisId,
+      selectedCleanElasticity: staticCandidate.best.cleanElasticity,
+      selectedTrainingRmse: staticCandidate.best.trainingRmse,
+      improvementVsPersistence:
+        1 -
+        staticCandidate.best.trainingRmse / Math.max(1e-12, persistenceRmse),
+      hypotheses: staticFits,
+    },
+    structuralDecision: {
+      inertiaSupported,
+      rule:
+        "Call multi-year inertia supported only if the effective-adjustment optimum is interior and improves training RMSE by at least 2% relative to the best static clean-competition model.",
+      conclusion: inertiaSupported
+        ? "Training data support a distinct multi-year dependency-adjustment delay."
+        : "Training data do not support interpreting the global fossil-share proxy as a separately identifiable long-lived dependency stock. Treat the share as an observable outcome/proxy, not a measured capital stock.",
     },
     interpretation:
       "Stage 14 calibrates only the fossil-dependency partition. It does not estimate supply capacity, capability, institutions, or use any 2018-2025 value, including for normalization.",
