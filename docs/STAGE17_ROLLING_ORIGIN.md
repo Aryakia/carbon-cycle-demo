@@ -52,3 +52,37 @@ A 2017 persistence model is replaced by a fold-specific persistence benchmark: d
 This is internal structural model development. It is not external validation.
 
 Whichever structure wins Stage 17 must still be tested against a separate regional/fuel-sector dataset or future observations not used for structural selection.
+
+
+## Observed rolling-origin result
+
+After expanding the beta grid to resolve boundary optima, the six candidates rank:
+
+| Rank | Measurement | Structure | Pooled test RMSE |
+| ---: | --- | --- | ---: |
+| 1 | **Low-carbon electricity share** | **static** | **0.00282569** |
+| 2 | Low-carbon electricity share | dynamic | 0.00307970 |
+| 3 | Renewable electricity share | static | 0.00588453 |
+| 4 | Renewable-capacity intensity | static | 0.00588956 |
+| 5 | Renewable-capacity intensity | dynamic | 0.00775067 |
+| 6 | Renewable electricity share | dynamic | 0.00789748 |
+| — | Persistence | — | 0.00809215 |
+
+The selected model reduces pooled RMSE by **65.08% versus persistence** and by **52.02% versus the static renewable-capacity-intensity model**.
+
+### Fold performance of the selected structure
+
+- 2010–2013 test RMSE: **0.00241437**, beta = **0.053**
+- 2014–2017: **0.00388372**, beta = **0.079**
+- 2018–2021: **0.00086397**, beta = **0.146**
+- 2022–2025: **0.00320612**, beta = **0.158**
+
+### Structural interpretation
+
+Realized low-carbon electricity share is a materially stronger measurement variable than installed renewable-capacity intensity.
+
+However, beta rises across successive folds. The measurement relationship is therefore useful for prediction but cannot yet be interpreted as a stable universal elasticity.
+
+The low-carbon dynamic model ranks second. Its fitted tau is at the 0.5-year lower bound in the first three folds, providing additional evidence that a separate global lag is not robustly identified.
+
+The Stage 17 result is frozen in `data/stage17-rolling-origin-result.js` and deterministically reproduced by CI.
