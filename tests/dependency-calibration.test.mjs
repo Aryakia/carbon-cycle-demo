@@ -81,16 +81,17 @@ const result = calibrateDependencyModule();
 assert.equal(result.holdoutAccessed, false);
 assert.deepEqual(result.calibrationWindow, [2000, 2017]);
 assert.deepEqual(result.heldOutWindow, [2018, 2025]);
+assert.equal(result.normalizationYear, 2017);
 assert.ok(Number.isFinite(result.persistenceBaselineRmse));
 assert.equal(result.persistenceBaselineRmse, persistenceBaselineRmse());
-assert.ok(result.selectedTrainingRmse >= 0);
-assert.ok(result.hypotheses.length === 2);
+assert.ok(result.turnoverConstrainedResult.selectedTrainingRmse >= 0);
+assert.ok(result.turnoverConstrainedResult.hypotheses.length === 2);
 assert.ok(
   Object.values(DEPENDENCY_HYPOTHESES)
     .map(h => h.id)
-    .includes(result.selectedHypothesisId),
+    .includes(result.turnoverConstrainedResult.selectedHypothesisId),
 );
-for (const fit of result.hypotheses) {
+for (const fit of result.turnoverConstrainedResult.hypotheses) {
   assert.ok(fit.searchGrid.candidateCount > 1000);
   assert.ok(fit.best.cleanElasticity >= 0 && fit.best.cleanElasticity <= 0.08);
   assert.ok(
@@ -106,6 +107,8 @@ for (const fit of result.hypotheses) {
 
 const stress = runDependencyBoundaryStressTest();
 assert.equal(stress.length, 2);
+assert.equal(result.effectiveAdjustmentCandidate.hypotheses.length, 2);
+assert.ok(result.effectiveAdjustmentCandidate.selectedTrainingRmse >= 0);
 for (const fit of stress) {
   assert.equal(fit.searchGrid.adjustmentTimeYears.min, 3);
   assert.equal(fit.searchGrid.adjustmentTimeYears.max, 35);
