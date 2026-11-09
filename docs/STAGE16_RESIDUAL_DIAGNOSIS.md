@@ -67,3 +67,24 @@ Contemporary energy evidence also motivates distinguishing installed capacity fr
 - `data/stage16-diagnostic-variables.js`
 - `model/residual-diagnosis.js`
 - `tests/residual-diagnosis.test.mjs`
+
+
+## Observed diagnostic result
+
+The frozen Stage 15 residual grows at approximately **+0.0018876 normalized dependency units per year**, and all eight validation residuals are positive.
+
+Descriptive associations with the residual are:
+
+| Diagnostic | Level Pearson r | First-difference Pearson r |
+| --- | ---: | ---: |
+| Low-carbon electricity share | **0.961** | **0.872** |
+| Renewable electricity share | **0.939** | **0.713** |
+| Renewable-capacity intensity | **0.926** | **0.583** |
+| Renewable generation TWh | **0.909** | 0.261 |
+| Energy intensity of GDP | -0.881 | 0.234 |
+| Fossil-energy intensity of GDP | -0.910 | -0.354 |
+| Nuclear electricity share | -0.763 | 0.277 |
+
+These values are not causal tests. The stronger first-difference association for realized low-carbon/renewable electricity share than for the existing capacity-intensity proxy makes **measurement-model revision from installed capacity toward realized generation/share** the first candidate for Stage 17.
+
+The energy-intensity relationships are strong in levels but weak in first differences, so efficiency/electrification remains a plausible mechanism requiring direct data rather than an inference from the common trend.
