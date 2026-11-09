@@ -11,6 +11,7 @@ import {
   cleanCompetitionIndexAt,
   desiredFossilDependency,
   persistenceBaselineRmse,
+  runDependencyBoundaryStressTest,
   simulateDependencyModule,
 } from "../model/dependency-calibration.js";
 
@@ -103,4 +104,17 @@ for (const fit of result.hypotheses) {
   assert.ok(fit.nearOptimalCount >= 1);
 }
 
-console.log("Stage 14 dependency calibration checks passed.", result);
+const stress = runDependencyBoundaryStressTest();
+assert.equal(stress.length, 2);
+for (const fit of stress) {
+  assert.equal(fit.searchGrid.adjustmentTimeYears.min, 3);
+  assert.equal(fit.searchGrid.adjustmentTimeYears.max, 35);
+  assert.ok(fit.best.adjustmentTimeYears >= 3);
+  assert.ok(fit.best.adjustmentTimeYears <= 35);
+}
+assert.equal(result.holdoutAccessed, false);
+
+console.log(
+  "Stage 14 dependency calibration checks passed.\n" +
+    JSON.stringify(result, null, 2),
+);
