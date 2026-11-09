@@ -2,7 +2,7 @@ import { HISTORICAL_REFERENCE_ROWS } from "../data/historical-reference-2000-202
 import { STAGE16_DIAGNOSTIC_ELECTRICITY } from "../data/stage16-diagnostic-variables.js";
 import { STAGE16_VALIDATION_PLAN } from "./residual-diagnosis.js";
 
-const BETA_GRID = Object.freeze({ min: 0, max: 0.08, step: 0.001 });
+const BETA_GRID = Object.freeze({ min: 0, max: 0.25, step: 0.001 });
 const TAU_GRID = Object.freeze({ min: 0.5, max: 10, step: 0.5 });
 const DT = 0.25;
 
