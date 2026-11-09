@@ -53,11 +53,14 @@ export const STAGE18_PROTOCOL = Object.freeze({
     "The result can support transfer of an observable/structural relationship across heterogeneous national systems, but not a universal elasticity and not statistically independent external validation because the countries contribute to the global aggregate used earlier.",
 });
 
+const ROW_BY_KEY = new Map(
+  STAGE18_PANEL_ROWS.map(r => [r.code + ":" + r.year, r]),
+);
 function rowsForCountry(code){
   return STAGE18_PANEL_ROWS.filter(r=>r.code===code).sort((a,b)=>a.year-b.year);
 }
 function row(code,year){
-  const r=STAGE18_PANEL_ROWS.find(x=>x.code===code&&x.year===year);
+  const r=ROW_BY_KEY.get(code + ":" + year);
   if(!r) throw new Error("missing Stage 18 panel row "+code+" "+year);
   return r;
 }
