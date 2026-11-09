@@ -20,6 +20,8 @@ This file is the human-readable provenance map from research question to reposit
 | Stage 18 transfer protocol | `model/spatial-transfer-validation.js` | frozen before primary scoring | primary spatial-transfer test |
 | Stage 18 frozen result | `data/stage18-spatial-transfer-result.js` | immutable primary result | supports observable-ranking transfer, not universal beta |
 | Stage 18 methods | `docs/STAGE18_SPATIAL_TRANSFER.md` | written before result | publication methods source |
+| Stage 19 influence analysis | `model/stage19-influence-analysis.js` | secondary analysis after Stage 18 freeze | tests single-country influence only |
+| Stage 19 frozen result | `data/stage19-influence-result.js` | immutable secondary result | confirms ranking survives every one-country omission |
 | Software citation | `CITATION.cff` | existing | software citation |
 | Version history | `CHANGELOG.md` | existing | research software provenance |
 
