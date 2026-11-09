@@ -40,7 +40,7 @@ export const PARAMETER_METADATA = Object.freeze({
   },
   energyActivityIndex: {
     label: "Aggregate energy activity", unit: "dimensionless index", classification: "exogenous driver / scenario configuration",
-    status: "historical mode can map this to observed total primary energy supply normalized to 2025; forward default = 1", source: "Energy Institute Statistical Review 2026 via OWID for historical mode", default: DEFAULT_PARAMETERS.energyActivityIndex, active: true,
+    status: "historical mode maps this to observed total primary energy supply normalized to 2025; it scales realized energy-service demand but not the desired fossil-dependency stock; forward default = 1", source: "Energy Institute Statistical Review 2026 via OWID for historical mode", default: DEFAULT_PARAMETERS.energyActivityIndex, active: true,
   },
   institutionalResistance: {
     label: "Institutional resistance", unit: "0–1 index", classification: "research hypothesis",
