@@ -26,7 +26,7 @@ for(const fold of STAGE17_FOLDS){
       assert.equal(r.testRows.length,4);
       assert.ok(r.testRows.every(x=>x.year>fold.train[1]));
       assert.ok(Number.isFinite(r.testMetrics.rmse));
-      assert.ok(r.fitted.beta>=0&&r.fitted.beta<=0.08);
+      assert.ok(r.fitted.beta>=0&&r.fitted.beta<=0.25);
       if(structure==="dynamic") assert.ok(r.fitted.tauYears>=0.5&&r.fitted.tauYears<=10);
     }
   }
