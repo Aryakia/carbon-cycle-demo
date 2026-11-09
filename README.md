@@ -20,6 +20,8 @@
 
 **Calibration dashboard:** https://aryakia.github.io/carbon-cycle-demo/calibration.html
 
+**Held-out validation:** https://aryakia.github.io/carbon-cycle-demo/holdout.html
+
 > Research-mode status: the upstream model is a transparent behavioral-hypothesis sandbox. Its carbon accounting and structural-reference initialization are tested, but its behavioral coefficients are not historically calibrated or out-of-sample validated.
 
 [Five-minute demonstration and visual model guide](docs/VISUAL_CASE_STUDY.md)
@@ -410,3 +412,10 @@ Frozen training-only candidate:
 - 5%-near-optimal envelope: beta **0.015–0.018**, tau **2.5–4.5 years**.
 
 The result supports a short aggregate dependency delay but not treating global fossil share as a direct observation of a 15–35 year physical capital stock. The fit is frozen before Stage 15 opens the holdout.
+
+
+## Stage 15 held-out validation
+
+Stage 14 was merged and frozen before **2018–2025** was opened. With no retuning, the frozen dynamic model achieves RMSE **0.01372994**, an **18.02%** improvement over persistence (**0.01674750**). However, the training-selected static clean-competition model generalizes better (RMSE **0.01074925**). All frozen-model residuals are positive, so the model systematically underpredicts the post-2017 decline in fossil dependency. Excluding 2020 barely changes the result.
+
+The Stage 14 fit is not changed after validation. The 2018–2025 holdout is now consumed and cannot be reused as pristine validation for a revised structure.
