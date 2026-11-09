@@ -24,6 +24,8 @@
 
 **Residual diagnosis:** https://aryakia.github.io/carbon-cycle-demo/diagnosis.html
 
+**Structural comparison:** https://aryakia.github.io/carbon-cycle-demo/comparison.html
+
 > Research-mode status: the upstream model is a transparent behavioral-hypothesis sandbox. Its carbon accounting and structural-reference initialization are tested, but its behavioral coefficients are not historically calibrated or out-of-sample validated.
 
 [Five-minute demonstration and visual model guide](docs/VISUAL_CASE_STUDY.md)
@@ -430,3 +432,18 @@ Stage 16 treats the consumed 2018–2025 validation errors as diagnostic evidenc
 Among post-validation candidate variables, the strongest first-difference association is with low-carbon electricity share (**r = 0.872**), followed by renewable electricity share (**r = 0.713**), versus **0.583** for the existing renewable-capacity-intensity proxy. These are small-sample descriptive associations, not causal estimates.
 
 The next structural priority is therefore to test **realized renewable/low-carbon electricity generation share rather than installed renewable capacity alone**. The revised model must use a new validation design because 2018–2025 is now consumed.
+
+
+## Stage 17 rolling-origin structural comparison
+
+Six candidate measurement/structure combinations are compared over four blocked rolling-origin folds. This is internal structural development after the original holdout was consumed.
+
+The selected model is **static low-carbon electricity share** (renewables + nuclear generation share):
+
+- pooled test RMSE: **0.00282569**;
+- skill versus persistence: **65.08%**;
+- RMSE improvement versus static renewable-capacity intensity: **52.02%**.
+
+The dynamic low-carbon model ranks second, but its adjustment time collapses to the 0.5-year lower bound in three folds. This supports a static observable relationship over a separately identified global lag.
+
+The fold-specific beta values (0.053, 0.079, 0.146, 0.158) are not stable, so the result supports the **measurement variable**, not one universal elasticity. Separate external validation is still required.
