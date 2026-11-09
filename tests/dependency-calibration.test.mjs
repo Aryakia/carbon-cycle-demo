@@ -100,11 +100,11 @@ for (const fit of result.turnoverConstrainedResult.hypotheses) {
   assert.ok(fit.best.cleanElasticity >= 0 && fit.best.cleanElasticity <= 0.08);
   assert.ok(
     fit.best.adjustmentTimeYears >=
-      DEPENDENCY_CALIBRATION_CONFIG.adjustmentTimeGridYears.min,
+      DEPENDENCY_CALIBRATION_CONFIG.turnoverConstrainedAdjustmentTimeGridYears.min,
   );
   assert.ok(
     fit.best.adjustmentTimeYears <=
-      DEPENDENCY_CALIBRATION_CONFIG.adjustmentTimeGridYears.max,
+      DEPENDENCY_CALIBRATION_CONFIG.turnoverConstrainedAdjustmentTimeGridYears.max,
   );
   assert.ok(fit.nearOptimalCount >= 1);
 }
