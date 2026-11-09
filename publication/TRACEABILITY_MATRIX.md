@@ -17,7 +17,8 @@ This file is the human-readable provenance map from research question to reposit
 | Stage 17 rolling-origin comparison | `model/rolling-origin-comparison.js` | completed | internal post-validation structural comparison |
 | Stage 17 frozen result | `data/stage17-rolling-origin-result.js` | immutable reference result | supports measurement-variable ranking internally |
 | Stage 18 predeclared panel | `data/stage18-spatial-transfer-panel.js` | frozen before scoring | spatial/target-domain transfer data |
-| Stage 18 transfer protocol | `model/spatial-transfer-validation.js` | protocol frozen before result inspection | primary next test |
+| Stage 18 transfer protocol | `model/spatial-transfer-validation.js` | frozen before primary scoring | primary spatial-transfer test |
+| Stage 18 frozen result | `data/stage18-spatial-transfer-result.js` | immutable primary result | supports observable-ranking transfer, not universal beta |
 | Stage 18 methods | `docs/STAGE18_SPATIAL_TRANSFER.md` | written before result | publication methods source |
 | Software citation | `CITATION.cff` | existing | software citation |
 | Version history | `CHANGELOG.md` | existing | research software provenance |
