@@ -26,16 +26,24 @@ for(const c of STAGE18_COUNTRY_PANEL){
     assert.equal(stage18ObservedDependency(c.code,fold.normalizationYear,fold.normalizationYear),1);
     for(const h of Object.values(STAGE18_DRIVER_HYPOTHESES)){
       assert.ok(Math.abs(stage18DriverIndex(c.code,fold.normalizationYear,h.id,fold.normalizationYear)-1)<1e-12);
-      for(const structure of ["static","dynamic"]){
-        const r=fitStage18CountryFold(c.code,fold,h.id,structure);
-        assert.equal(r.testRows.length,4);
-        assert.ok(r.testRows.every(x=>x.year>fold.train[1]));
-        assert.ok(r.fitted.beta>=0&&r.fitted.beta<=0.25);
-        if(structure==="dynamic") assert.ok(r.fitted.tauYears>=0.5&&r.fitted.tauYears<=10);
-        assert.ok(Number.isFinite(r.testMetrics.rmse));
-      }
     }
   }
+}
+
+// Exercise both structural forms directly without duplicating the full
+// exhaustive research search that runStage18SpatialTransfer performs below.
+for(const structure of ["static","dynamic"]){
+  const r=fitStage18CountryFold(
+    "USA",
+    STAGE18_FOLDS[1],
+    STAGE18_DRIVER_HYPOTHESES.lowCarbonElectricityShare.id,
+    structure,
+  );
+  assert.equal(r.testRows.length,4);
+  assert.ok(r.testRows.every(x=>x.year>r.trainingWindow[1]));
+  assert.ok(r.fitted.beta>=0&&r.fitted.beta<=0.25);
+  if(structure==="dynamic") assert.ok(r.fitted.tauYears>=0.5&&r.fitted.tauYears<=10);
+  assert.ok(Number.isFinite(r.testMetrics.rmse));
 }
 
 const result=runStage18SpatialTransfer();
