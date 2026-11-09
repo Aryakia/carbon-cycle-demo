@@ -194,3 +194,17 @@ Core files:
 - `model/upstream-engine.js`
 
 The calibration is deterministic: identical code and historical data produce identical parameter estimates and hypothesis ranking.
+
+
+## Frozen Stage 14 result
+
+Using leakage-safe 2017 normalization:
+
+- persistence RMSE: **0.00481847**;
+- best static clean-competition RMSE: **0.00386437**;
+- best turnover-constrained fit: absolute renewable capacity, beta **0.016**, tau **15 years**, RMSE **0.00313728**, with tau on the lower bound;
+- frozen effective-adjustment candidate: **renewable-capacity intensity**, beta **0.016**, tau **3.0 years**, RMSE **0.00228037**;
+- improvement versus persistence: **52.67%**;
+- 5%-near-optimal envelope: beta **0.015–0.018**, tau **2.5–4.5 years**.
+
+The candidate is frozen in `data/stage14-dependency-fit.js`. CI recomputes the calibration exactly. The dynamic candidate outperforms the best static/no-inertia model, supporting short aggregate inertia but not a literal 15–35 year asset-lifetime interpretation.
