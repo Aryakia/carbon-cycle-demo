@@ -447,3 +447,28 @@ The selected model is **static low-carbon electricity share** (renewables + nucl
 The dynamic low-carbon model ranks second, but its adjustment time collapses to the 0.5-year lower bound in three folds. This supports a static observable relationship over a separately identified global lag.
 
 The fold-specific beta values (0.053, 0.079, 0.146, 0.158) are not stable, so the result supports the **measurement variable**, not one universal elasticity. Separate external validation is still required.
+
+
+## Stage 18 spatial transfer test
+
+Stage 18 tests whether the Stage 17 measurement-variable ranking transfers across a **pre-declared eight-country panel**: United States, China, India, Germany, Brazil, Japan, South Africa and Australia.
+
+Each country uses four blocked rolling-origin folds over 2000–2024. Country-fold parameters are estimated only from their own training periods. Three observables are compared under static and dynamic forms:
+
+- installed renewable capacity per person;
+- renewable electricity share;
+- low-carbon electricity share (renewables + nuclear).
+
+The frozen primary result selects **static low-carbon electricity share**:
+
+- 128 out-of-fold country-year observations;
+- pooled RMSE **0.01492945**;
+- persistence RMSE **0.02132690**;
+- skill versus persistence **29.997%**;
+- positive skill in **6 of 8** countries.
+
+Both low-carbon-electricity formulations rank ahead of all renewable-capacity and renewable-share alternatives. However, country heterogeneity is substantial: Brazil's fitted beta is zero in all folds, the United States is approximately neutral versus persistence, and beta across all selected country-fold fits spans the full **0–0.25** grid.
+
+The defensible transferable conclusion is therefore about the **measurement variable**, not a universal elasticity.
+
+Stage 18 is a spatial/target-domain transfer test, not statistically independent external validation, because the selected countries contribute to the earlier global aggregate. See `docs/STAGE18_SPATIAL_TRANSFER.md` and `data/stage18-spatial-transfer-result.js`.
