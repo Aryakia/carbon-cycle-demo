@@ -472,3 +472,18 @@ Both low-carbon-electricity formulations rank ahead of all renewable-capacity an
 The defensible transferable conclusion is therefore about the **measurement variable**, not a universal elasticity.
 
 Stage 18 is a spatial/target-domain transfer test, not statistically independent external validation, because the selected countries contribute to the earlier global aggregate. See `docs/STAGE18_SPATIAL_TRANSFER.md` and `data/stage18-spatial-transfer-result.js`.
+
+
+## Stage 19 influence robustness
+
+Stage 19 is a **secondary analysis** performed only after the Stage 18 primary result was frozen. It does not refit any country-fold parameters.
+
+The analysis removes one country at a time from the already generated out-of-fold predictions and recomputes the aggregate candidate ranking.
+
+Result: **static low-carbon electricity share remains rank 1 in all eight leave-one-country-out analyses.**
+
+The remaining skill versus persistence ranges from **9.73%** when Japan is omitted to **47.33%** when Brazil is omitted. The model also remains first when candidates are ranked by equal-country mean RMSE rather than pooled RMSE.
+
+This makes the Stage 18 observable-ranking result substantially less sensitive to any one country. It does not remove the strong parameter heterogeneity: beta still spans the full 0–0.25 grid.
+
+See `docs/STAGE19_INFLUENCE_ROBUSTNESS.md` and `data/stage19-influence-result.js`.
