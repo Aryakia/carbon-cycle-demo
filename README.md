@@ -18,6 +18,8 @@
 
 **Historical empirical reference:** https://aryakia.github.io/carbon-cycle-demo/history.html
 
+**Calibration dashboard:** https://aryakia.github.io/carbon-cycle-demo/calibration.html
+
 > Research-mode status: the upstream model is a transparent behavioral-hypothesis sandbox. Its carbon accounting and structural-reference initialization are tested, but its behavioral coefficients are not historically calibrated or out-of-sample validated.
 
 [Five-minute demonstration and visual model guide](docs/VISUAL_CASE_STUDY.md)
@@ -392,3 +394,19 @@ Still explicitly latent and required as inputs:
 - institutional support.
 
 No behavioral optimizer is run by Stage 13A. See `docs/STAGE13A_BACKCAST_READINESS.md`.
+
+
+## Stage 14 modular historical calibration
+
+Stage 14 begins actual parameter estimation using a small model partition. All fitted quantities are normalized to **2017**, so the 2018–2025 holdout is not used even indirectly.
+
+Frozen training-only candidate:
+
+- hypothesis: **renewable-capacity intensity**;
+- clean elasticity: **0.016**;
+- effective dependency-adjustment time: **3.0 years**;
+- training RMSE: **0.00228037**;
+- improvement versus persistence: **52.67%**;
+- 5%-near-optimal envelope: beta **0.015–0.018**, tau **2.5–4.5 years**.
+
+The result supports a short aggregate dependency delay but not treating global fossil share as a direct observation of a 15–35 year physical capital stock. The fit is frozen before Stage 15 opens the holdout.
