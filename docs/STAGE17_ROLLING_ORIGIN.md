@@ -30,7 +30,13 @@ Each measurement hypothesis is tested under:
 
 ## Parameter grids
 
-- beta: 0.000–0.080, step 0.001
+### Numerical boundary check
+
+The first Stage 17 run used the Stage 14 beta ceiling of 0.08. The low-carbon static hypothesis reached that ceiling in later training folds. Because a search-boundary optimum is not interpretable as an estimate, the beta ceiling was expanded to 0.25 **without changing the folds, candidate drivers, target variable, or selection criterion**. This is a numerical-boundary resolution step inside the already-consumed internal development dataset, not a new external validation claim.
+
+
+
+- beta: 0.000–0.250, step 0.001
 - dynamic tau: 0.5–10 years, step 0.5
 
 These are effective aggregate response parameters, not physical asset lifetimes.
