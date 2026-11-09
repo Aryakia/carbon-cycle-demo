@@ -1,0 +1,14 @@
+import assert from "node:assert/strict";
+import { STAGE14_FROZEN_DEPENDENCY_FIT } from "../data/stage14-dependency-fit.js";
+import { evaluateStage15Validation, validationObservedDependency } from "../model/dependency-validation.js";
+assert.equal(STAGE14_FROZEN_DEPENDENCY_FIT.frozenBeforeHoldout,true);
+assert.equal(validationObservedDependency(2017),1);
+const r=evaluateStage15Validation();
+assert.deepEqual(r.validationWindow,[2018,2025]);
+assert.equal(r.parametersRetunedAfterHoldout,false);
+assert.equal(r.primary.rows.length,8);
+assert.ok(Number.isFinite(r.primary.metrics.rmse));
+assert.ok(Number.isFinite(r.primary.metrics.mae));
+assert.ok(Number.isFinite(r.primary.metrics.bias));
+assert.equal(r.shockSensitivity.primary.n,7);
+console.log("Stage 15 held-out validation result.\n"+JSON.stringify(r,null,2));
