@@ -276,3 +276,18 @@ Next publication steps:
 4. quantify parameter heterogeneity rather than pooling beta into a universal coefficient;
 5. generate manuscript-grade tables and figures directly from frozen result modules;
 6. seek a genuinely independent future/regional/sectoral validation target before claiming external validation.
+
+
+## Stage 19 robustness
+
+The frozen Stage 18 ranking survives **all eight leave-one-country-out aggregations** and remains first under equal-country mean RMSE.
+
+This materially reduces the risk that the pooled result is an artifact of Japan's nuclear disruption or another single influential system.
+
+Japan is nevertheless influential: when Japan is omitted, the remaining selected-model skill versus persistence falls to **9.73%**, compared with roughly 29–47% for most other omissions.
+
+The parameter result remains non-transferable as a single constant: beta spans **0–0.25**, with both lower- and upper-bound fits.
+
+Publication implication:
+
+> The strongest result is a transferable **measurement/structure ranking**, not a transferable coefficient.
