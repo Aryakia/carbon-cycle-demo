@@ -5,19 +5,24 @@ type: software
 authors:
   - family-names: Kia
     given-names: Arya
-version: 0.3.0
-date-released: 2026-11-07
+version: 0.4.0
+date-released: 2026-11-09
 url: "https://aryakia.github.io/carbon-cycle-demo/"
 repository-code: "https://github.com/Aryakia/carbon-cycle-demo"
 abstract: >-
   An interactive System Dynamics educational and research-prototype platform
   for atmospheric carbon accumulation, fossil-carbon lock-in, upstream
-  investment dynamics, comparative policy experiments, and a historically
-  calibrated reduced-form atmospheric CO2 response.
+  investment dynamics, comparative policy experiments, a historically
+  calibrated reduced-form atmospheric CO2 response, and a staged empirical
+  fossil-dependency calibration/validation workflow including rolling-origin
+  and multi-country spatial transfer testing.
 keywords:
   - system dynamics
   - carbon cycle
   - carbon lock-in
   - climate policy
   - energy systems
+  - model calibration
+  - model validation
+  - reproducible research
   - educational simulation
