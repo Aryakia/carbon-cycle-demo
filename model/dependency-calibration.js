@@ -208,13 +208,21 @@ function gridValues(min, max, step) {
   );
 }
 
-export function calibrateDependencyHypothesis(hypothesisId) {
+function calibrateDependencyHypothesisOnGrid(
+  hypothesisId,
+  {
+    tauMin = TAU_MIN,
+    tauMax = TAU_MAX,
+    tauStep = TAU_STEP,
+    diagnosticLabel = "turnover-constrained",
+  } = {},
+) {
   const elasticities = gridValues(
     ELASTICITY_MIN,
     ELASTICITY_MAX,
     ELASTICITY_STEP,
   );
-  const taus = gridValues(TAU_MIN, TAU_MAX, TAU_STEP);
+  const taus = gridValues(tauMin, tauMax, tauStep);
   const candidates = [];
 
   for (const cleanElasticity of elasticities) {
@@ -264,12 +272,36 @@ export function calibrateDependencyHypothesis(hypothesisId) {
       adjustmentTimeYears: adjustmentTimeRangeYears,
     },
     searchGrid: {
+      label: diagnosticLabel,
       cleanElasticity: DEPENDENCY_CALIBRATION_CONFIG.cleanElasticityGrid,
-      adjustmentTimeYears:
-        DEPENDENCY_CALIBRATION_CONFIG.adjustmentTimeGridYears,
+      adjustmentTimeYears: {
+        min: tauMin,
+        max: tauMax,
+        step: tauStep,
+      },
       candidateCount: candidates.length,
     },
+    bestAtLowerTauBoundary:
+      Math.abs(best.adjustmentTimeYears - tauMin) < 1e-12,
+    bestAtUpperTauBoundary:
+      Math.abs(best.adjustmentTimeYears - tauMax) < 1e-12,
   };
+}
+
+export function calibrateDependencyHypothesis(hypothesisId) {
+  return calibrateDependencyHypothesisOnGrid(hypothesisId);
+}
+
+export function runDependencyBoundaryStressTest() {
+  const extendedTauGrid = {
+    tauMin: 3,
+    tauMax: TAU_MAX,
+    tauStep: 0.5,
+    diagnosticLabel: "extended-adjustment-time-diagnostic",
+  };
+  return Object.values(DEPENDENCY_HYPOTHESES)
+    .map(h => calibrateDependencyHypothesisOnGrid(h.id, extendedTauGrid))
+    .sort((a, b) => a.best.trainingRmse - b.best.trainingRmse);
 }
 
 export function calibrateDependencyModule() {
@@ -279,6 +311,7 @@ export function calibrateDependencyModule() {
   fits.sort((a, b) => a.best.trainingRmse - b.best.trainingRmse);
   const persistenceRmse = persistenceBaselineRmse();
   const selected = fits[0];
+  const boundaryStressTest = runDependencyBoundaryStressTest();
 
   return {
     calibrationWindow: [
@@ -300,6 +333,11 @@ export function calibrateDependencyModule() {
     selectedTrainingRmse: selected.best.trainingRmse,
     improvementVsPersistence:
       1 - selected.best.trainingRmse / Math.max(1e-12, persistenceRmse),
+    boundaryStressTest: {
+      purpose:
+        "Diagnostic only: expands adjustment-time search to 3-35 years because the turnover-constrained optimum may sit on the 15-year lower bound. It does not use held-out observations and does not redefine the literature prior.",
+      fits: boundaryStressTest,
+    },
     interpretation:
       "This calibrates only the fossil-dependency submodel. It does not estimate supply capacity, capability, institutions, or use held-out 2018-2025 observations.",
   };
