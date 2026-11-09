@@ -113,10 +113,13 @@ const stress = runDependencyBoundaryStressTest();
 assert.equal(stress.length, 2);
 assert.equal(result.effectiveAdjustmentCandidate.hypotheses.length, 2);
 assert.ok(result.effectiveAdjustmentCandidate.selectedTrainingRmse >= 0);
+assert.ok(result.staticCleanCompetitionCandidate.selectedTrainingRmse >= 0);
+assert.equal(typeof result.structuralDecision.inertiaSupported, "boolean");
+assert.ok(result.structuralDecision.conclusion.length > 20);
 for (const fit of stress) {
-  assert.equal(fit.searchGrid.adjustmentTimeYears.min, 3);
+  assert.equal(fit.searchGrid.adjustmentTimeYears.min, 0.5);
   assert.equal(fit.searchGrid.adjustmentTimeYears.max, 35);
-  assert.ok(fit.best.adjustmentTimeYears >= 3);
+  assert.ok(fit.best.adjustmentTimeYears >= 0.5);
   assert.ok(fit.best.adjustmentTimeYears <= 35);
 }
 assert.equal(result.holdoutAccessed, false);
